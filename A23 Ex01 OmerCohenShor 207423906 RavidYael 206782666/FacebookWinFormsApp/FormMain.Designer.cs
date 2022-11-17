@@ -28,16 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pictureBoxPtofilePic = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPtofilePic)).BeginInit();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -68,38 +65,27 @@
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // splitContainer1
+            // splitContainerMain
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMain.Name = "splitContainerMain";
             // 
-            // splitContainer1.Panel1
+            // splitContainerMain.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Violet;
-            this.splitContainer1.Panel1.Controls.Add(this.pictureBoxPtofilePic);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonLogout);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonLogin);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.splitContainer1.Panel1MinSize = 100;
+            this.splitContainerMain.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainerMain.Panel1.Controls.Add(this.buttonLogout);
+            this.splitContainerMain.Panel1.Controls.Add(this.buttonLogin);
+            this.splitContainerMain.Panel1.Padding = new System.Windows.Forms.Padding(5);
+            this.splitContainerMain.Panel1MinSize = 100;
             // 
-            // splitContainer1.Panel2
+            // splitContainerMain.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.SkyBlue;
-            this.splitContainer1.Panel2MinSize = 600;
-            this.splitContainer1.Size = new System.Drawing.Size(842, 657);
-            this.splitContainer1.SplitterDistance = 120;
-            this.splitContainer1.TabIndex = 53;
-            // 
-            // pictureBoxPtofilePic
-            // 
-            this.pictureBoxPtofilePic.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxPtofilePic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxPtofilePic.Location = new System.Drawing.Point(12, 12);
-            this.pictureBoxPtofilePic.Name = "pictureBoxPtofilePic";
-            this.pictureBoxPtofilePic.Size = new System.Drawing.Size(96, 91);
-            this.pictureBoxPtofilePic.TabIndex = 53;
-            this.pictureBoxPtofilePic.TabStop = false;
+            this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.splitContainerMain.Panel2MinSize = 600;
+            this.splitContainerMain.Size = new System.Drawing.Size(842, 657);
+            this.splitContainerMain.SplitterDistance = 120;
+            this.splitContainerMain.TabIndex = 53;
             // 
             // FormMain
             // 
@@ -107,15 +93,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(842, 657);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainerMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facebook +";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPtofilePic)).EndInit();
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
+            this.splitContainerMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -124,8 +109,7 @@
 
 		private System.Windows.Forms.Button buttonLogin;
 		private System.Windows.Forms.Button buttonLogout;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.PictureBox pictureBoxPtofilePic;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
     }
 }
 
