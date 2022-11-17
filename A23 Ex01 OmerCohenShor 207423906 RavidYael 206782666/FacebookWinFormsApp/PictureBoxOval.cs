@@ -16,7 +16,6 @@ namespace BasicFacebookFeatures
             this.Size = new Size(i_width, i_height);
             this.BackColor = Color.White;
             this.Visible = true;
-            this.BorderStyle = BorderStyle.Fixed3D;
         }
         protected override void OnResize(EventArgs e)
         {

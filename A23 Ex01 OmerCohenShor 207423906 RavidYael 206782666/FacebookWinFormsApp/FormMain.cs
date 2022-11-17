@@ -13,15 +13,37 @@ namespace BasicFacebookFeatures
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
-            splitContainerMain.Panel1.BackColor = Color.FromArgb(66, 103, 178);
-            PictureBoxOval pictureBoxProfile = new PictureBoxOval(100,100);
-            pictureBoxProfile.Parent = splitContainerMain.Panel1;
-            pictureBoxProfile.Left = (splitContainerMain.Panel1.Width - 100) / 2;
-            pictureBoxProfile.Top = 5;
-            splitContainerMain.Panel2.BackColor = Color.FromArgb(247, 247, 247);
+            setPanelsColors();
+            initializeProfilePictureBox();
+
         }
 
-            private void buttonLogin_Click(object sender, EventArgs e)
+        private void initializeProfilePictureBox()
+        {
+            PictureBoxOval pictureBoxProfileBorder = new PictureBoxOval(panelSideBar.Width - 20, panelSideBar.Width - 20);
+            PictureBoxOval pictureBoxProfilePicture = new PictureBoxOval(pictureBoxProfileBorder.Width - 10, pictureBoxProfileBorder.Height - 10);
+            pictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
+            pictureBoxProfilePicture.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBoxProfileBorder.Controls.Add(pictureBoxProfilePicture);
+            pictureBoxProfileBorder.Top = 10;
+            pictureBoxProfileBorder.Left = (panelSideBar.Width - pictureBoxProfileBorder.Width) / 2;
+            pictureBoxProfilePicture.Left = (pictureBoxProfileBorder.Width - pictureBoxProfilePicture.Width) / 2;
+            pictureBoxProfilePicture.Top = (pictureBoxProfileBorder.Height - pictureBoxProfilePicture.Height) / 2;
+            panelSideBar.Controls.Add(pictureBoxProfileBorder);
+
+
+//            pictureBoxProfileBorder.Visible = false;
+//            pictureBoxProfilePicture.Visible = false;
+        }
+
+        private void setPanelsColors()
+        {
+            panelSideBar.BackColor = ColorsUtils.r_SideBarColor;
+            panelMain.BackColor = ColorsUtils.r_MainColor;
+            panelTopBar.BackColor = ColorsUtils.r_TopBarColor;
+        }
+
+        private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns20cc");
             LoginResult loginResult = FacebookService.Login(
@@ -40,6 +62,5 @@ namespace BasicFacebookFeatures
 			FacebookService.LogoutWithUI();
 			buttonLogin.Text = "Login";
 		}
-
     }
 }
