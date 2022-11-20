@@ -6,7 +6,6 @@ namespace BasicFacebookFeatures.SubForms
     {
         public FormProfile()
         {
-            this.BackColor = this.Parent.BackColor;
             InitializeComponent();
         }
     }
