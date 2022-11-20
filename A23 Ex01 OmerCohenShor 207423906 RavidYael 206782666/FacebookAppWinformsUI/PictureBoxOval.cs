@@ -14,7 +14,6 @@ namespace BasicFacebookFeatures
         public PictureBoxOval(int i_width, int i_height)
         {
             this.Size = new Size(i_width, i_height);
-            this.BackColor = Color.White;
             this.Visible = true;
         }
         protected override void OnResize(EventArgs e)
