@@ -4,6 +4,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using BasicFacebookFeatures.sub_forms;
 using CefSharp.DevTools.Profiler;
 
 namespace BasicFacebookFeatures
@@ -12,6 +13,7 @@ namespace BasicFacebookFeatures
     {
         private PictureBoxOval m_PictureBoxProfilePicture;
         private Button m_ChosenButton = null;
+        private Form m_SubForm = null;
 
         public FormMain()
         {
@@ -65,6 +67,7 @@ namespace BasicFacebookFeatures
 
         private void setMainMenuToLoggedOutUser()
         {
+            m_SubForm?.Close();
             panelMain.Controls.Clear();
             LabelName.Text = "Please log in";
             m_PictureBoxProfilePicture.Cursor = Cursors.Default;
@@ -86,6 +89,7 @@ namespace BasicFacebookFeatures
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
             panelProfile.Enabled = true;
             setChosenButtonAsClicked(buttonProfile);
+            setSubForm(new FormProfile());
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = true;
@@ -96,10 +100,38 @@ namespace BasicFacebookFeatures
 
         private void setPanelsColors()
         {
-            panelSideBar.BackColor = ColorsUtils.r_SideBarColor;
-            panelMain.BackColor = ColorsUtils.r_MainColor;
-            panelTopBar.BackColor = ColorsUtils.r_TopBarColor;
-            panelProfile.BackColor = ColorsUtils.r_ProfileInfoColor;
+            panelSideBar.BackColor = ColorsUtils.sr_SideBarColor;
+            panelMain.BackColor = ColorsUtils.sr_MainColor;
+            panelTopBar.BackColor = ColorsUtils.sr_TopBarColor;
+            panelProfile.BackColor = ColorsUtils.sr_ProfileInfoColor;
+        }
+
+        private void setChosenButtonAsClicked(Button i_ChosenButton)
+        {
+            if (m_ChosenButton != null)
+            {
+                m_ChosenButton.BackColor = ColorsUtils.sr_ButtonsDefaultColor;
+            }
+
+            m_ChosenButton = i_ChosenButton;
+            if (m_ChosenButton != null)
+            {
+                m_ChosenButton.BackColor = ColorsUtils.sr_ButtonsChosenColor;
+            }
+        }
+
+        private void setSubForm(Form i_ChosenSubForm)
+        {
+            m_SubForm?.Close();
+            panelMain.Controls.Clear();
+            m_SubForm = i_ChosenSubForm;
+            i_ChosenSubForm.TopLevel = false;
+            i_ChosenSubForm.Dock = DockStyle.Fill;
+            i_ChosenSubForm.FormBorderStyle = FormBorderStyle.None;
+            panelMain.Controls.Add(i_ChosenSubForm);
+            i_ChosenSubForm.BringToFront();
+            i_ChosenSubForm.Visible = true;
+            i_ChosenSubForm.Show();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -123,23 +155,10 @@ namespace BasicFacebookFeatures
             setMainMenuToLoggedOutUser();
         }
 
-        private void setChosenButtonAsClicked(Button i_ChosenButton)
-        {
-            if (m_ChosenButton != null)
-            {
-                m_ChosenButton.BackColor = ColorsUtils.r_buttonsDefaultColor;
-            }
-
-            m_ChosenButton = i_ChosenButton;
-            if (m_ChosenButton != null)
-            {
-                m_ChosenButton.BackColor = ColorsUtils.r_buttonsChosenColor;
-            }
-        }
-
         private void buttonProfile_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonProfile);
+            setSubForm(new FormProfile());
         }
 
         private void buttonGroups_Click(object sender, EventArgs e)
