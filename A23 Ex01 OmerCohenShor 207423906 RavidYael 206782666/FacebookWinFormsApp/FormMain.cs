@@ -4,12 +4,14 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using CefSharp.DevTools.Profiler;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         private PictureBoxOval m_PictureBoxProfilePicture;
+        private Button m_ChosenButton = null;
 
         public FormMain()
         {
@@ -49,7 +51,6 @@ namespace BasicFacebookFeatures
         {
             PictureBoxOval pictureBoxProfileBorder = new PictureBoxOval(panelSideBar.Width - 40, panelSideBar.Width - 40);
             m_PictureBoxProfilePicture = new PictureBoxOval(pictureBoxProfileBorder.Width - 10, pictureBoxProfileBorder.Height - 10);
-            m_PictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
             m_PictureBoxProfilePicture.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBoxProfileBorder.Controls.Add(m_PictureBoxProfilePicture);
             pictureBoxProfileBorder.Top = 10;
@@ -64,8 +65,10 @@ namespace BasicFacebookFeatures
 
         private void setMainMenuToLoggedOutUser()
         {
+            panelMain.Controls.Clear();
             LabelName.Text = "Please log in";
             m_PictureBoxProfilePicture.Cursor = Cursors.Default;
+            m_PictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             panelProfile.Enabled = false;
             foreach (Control control in panelMenu.Controls)
@@ -82,6 +85,7 @@ namespace BasicFacebookFeatures
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
             panelProfile.Enabled = true;
+            setChosenButtonAsClicked(buttonProfile);
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = true;
@@ -114,8 +118,48 @@ namespace BasicFacebookFeatures
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-			FacebookService.LogoutWithUI();
-			buttonLogin.Text = "Login";
-		}
+            FacebookService.Logout();
+            setChosenButtonAsClicked(null);
+            setMainMenuToLoggedOutUser();
+        }
+
+        private void setChosenButtonAsClicked(Button i_ChosenButton)
+        {
+            if (m_ChosenButton != null)
+            {
+                m_ChosenButton.BackColor = ColorsUtils.r_buttonsDefaultColor;
+            }
+
+            m_ChosenButton = i_ChosenButton;
+            if (m_ChosenButton != null)
+            {
+                m_ChosenButton.BackColor = ColorsUtils.r_buttonsChosenColor;
+            }
+        }
+
+        private void buttonProfile_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonProfile);
+        }
+
+        private void buttonGroups_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonGroups);
+        }
+
+        private void buttonAlbums_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonAlbums);
+        }
+
+        private void buttonLikedPages_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonLikedPages);
+        }
+
+        private void buttonPosts_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonPosts);
+        }
     }
 }

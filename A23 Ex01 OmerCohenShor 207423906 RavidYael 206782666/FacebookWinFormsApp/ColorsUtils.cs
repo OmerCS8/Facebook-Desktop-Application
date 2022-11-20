@@ -13,5 +13,7 @@ namespace BasicFacebookFeatures
         public static readonly Color r_SideBarColor = Color.FromArgb(139, 157, 195);
         public static readonly Color r_TopBarColor = Color.FromArgb(59, 89, 152);
         public static readonly Color r_ProfileInfoColor = Color.LightSteelBlue;
+        public static readonly Color r_buttonsDefaultColor = Color.Transparent;
+        public static readonly Color r_buttonsChosenColor = Color.Cyan;
     }
 }
