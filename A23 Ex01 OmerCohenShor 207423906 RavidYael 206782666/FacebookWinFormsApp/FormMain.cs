@@ -4,7 +4,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using BasicFacebookFeatures.sub_forms;
+using BasicFacebookFeatures.SubForms;
 using CefSharp.DevTools.Profiler;
 
 namespace BasicFacebookFeatures
@@ -130,6 +130,7 @@ namespace BasicFacebookFeatures
             i_ChosenSubForm.FormBorderStyle = FormBorderStyle.None;
             panelMain.Controls.Add(i_ChosenSubForm);
             i_ChosenSubForm.BringToFront();
+            i_ChosenSubForm.BackColor = ColorsUtils.sr_MainColor;
             i_ChosenSubForm.Visible = true;
             i_ChosenSubForm.Show();
         }

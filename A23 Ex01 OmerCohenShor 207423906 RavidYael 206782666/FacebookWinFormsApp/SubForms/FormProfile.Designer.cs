@@ -1,5 +1,5 @@
 ﻿
-namespace BasicFacebookFeatures.sub_forms
+namespace BasicFacebookFeatures.SubForms
 {
     partial class FormProfile
     {
