@@ -134,6 +134,27 @@
   <ItemGroup>
     <None Include="Resources\guest.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\albums-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-facebook-like-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-google-groups-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

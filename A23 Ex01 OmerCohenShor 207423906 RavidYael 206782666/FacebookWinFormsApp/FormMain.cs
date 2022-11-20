@@ -9,32 +9,85 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        private PictureBoxOval m_PictureBoxProfilePicture;
+
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
             setPanelsColors();
             initializeProfilePanel();
+            initializeMenuPanel();
+            setHeadlineLocation();
+            setMainMenuToLoggedOutUser();
+        }
+
+        private void initializeMenuPanel()
+        {
+            foreach (Control control in panelMenu.Controls)
+            {
+                control.Height = 40;
+                control.Width = panelMenu.Width;
+            }
+
+            buttonLogin.Top = 0;
+            buttonProfile.Top = buttonLogin.Bottom;
+            buttonGroups.Top = buttonProfile.Bottom;
+            buttonAlbums.Top = buttonGroups.Bottom;
+            buttonLikedPages.Top = buttonAlbums.Bottom;
+            buttonPosts.Top = buttonLikedPages.Bottom;
+            buttonLogout.Top = buttonPosts.Bottom;
+        }
+
+        private void setHeadlineLocation()
+        {
             labelHeadline.Top = (panelTopBar.Height - labelHeadline.Height) / 2;
             labelHeadline.Left = (panelTopBar.Width - labelHeadline.Width) / 2;
-
         }
 
         private void initializeProfilePanel()
         {
             PictureBoxOval pictureBoxProfileBorder = new PictureBoxOval(panelSideBar.Width - 40, panelSideBar.Width - 40);
-            PictureBoxOval pictureBoxProfilePicture = new PictureBoxOval(pictureBoxProfileBorder.Width - 10, pictureBoxProfileBorder.Height - 10);
-            pictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
-            pictureBoxProfilePicture.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBoxProfileBorder.Controls.Add(pictureBoxProfilePicture);
+            m_PictureBoxProfilePicture = new PictureBoxOval(pictureBoxProfileBorder.Width - 10, pictureBoxProfileBorder.Height - 10);
+            m_PictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
+            m_PictureBoxProfilePicture.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBoxProfileBorder.Controls.Add(m_PictureBoxProfilePicture);
             pictureBoxProfileBorder.Top = 10;
             pictureBoxProfileBorder.Left = (panelSideBar.Width - pictureBoxProfileBorder.Width) / 2;
-            pictureBoxProfilePicture.Left = (pictureBoxProfileBorder.Width - pictureBoxProfilePicture.Width) / 2;
-            pictureBoxProfilePicture.Top = (pictureBoxProfileBorder.Height - pictureBoxProfilePicture.Height) / 2;
+            m_PictureBoxProfilePicture.Left = (pictureBoxProfileBorder.Width - m_PictureBoxProfilePicture.Width) / 2;
+            m_PictureBoxProfilePicture.Top = (pictureBoxProfileBorder.Height - m_PictureBoxProfilePicture.Height) / 2;
             panelProfile.Controls.Add(pictureBoxProfileBorder);
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             LabelName.Top = pictureBoxProfileBorder.Bottom + 5;
             panelProfile.Height = LabelName.Bottom + 5;
+        }
+
+        private void setMainMenuToLoggedOutUser()
+        {
+            LabelName.Text = "Please log in";
+            m_PictureBoxProfilePicture.Cursor = Cursors.Default;
+            LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
+            panelProfile.Enabled = false;
+            foreach (Control control in panelMenu.Controls)
+            {
+                control.Enabled = false;
+            }
+
+            buttonLogin.Enabled = true;
+        }
+
+        private void setMainMenuToLoggedInUser(LoginResult i_LoginResult)
+        {
+            LabelName.Text = i_LoginResult.LoggedInUser.Name;
+            LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
+            m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
+            panelProfile.Enabled = true;
+            foreach (Control control in panelMenu.Controls)
+            {
+                control.Enabled = true;
+            }
+
+            buttonLogin.Enabled = false;
         }
 
         private void setPanelsColors()
@@ -42,6 +95,7 @@ namespace BasicFacebookFeatures
             panelSideBar.BackColor = ColorsUtils.r_SideBarColor;
             panelMain.BackColor = ColorsUtils.r_MainColor;
             panelTopBar.BackColor = ColorsUtils.r_TopBarColor;
+            panelProfile.BackColor = ColorsUtils.r_ProfileInfoColor;
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -54,7 +108,7 @@ namespace BasicFacebookFeatures
             );
             if(loginResult.LoggedInUser != null)
             {
-                buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
+                setMainMenuToLoggedInUser(loginResult);
             }
         }
 
