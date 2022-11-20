@@ -6,11 +6,13 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using BasicFacebookFeatures.SubForms;
 using CefSharp.DevTools.Profiler;
+using FacebookAppEngine;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        private FaceBookUserManager m_UserManager = new FaceBookUserManager(); 
         private PictureBoxOval m_PictureBoxProfilePicture;
         private Button m_ChosenButton = null;
         private Form m_SubForm = null;
@@ -70,7 +72,7 @@ namespace BasicFacebookFeatures
         {
             m_SubForm?.Close();
             panelMain.Controls.Clear();
-            LabelName.Text = "Please log in";
+            LabelName.Text = @"Please log in";
             m_PictureBoxProfilePicture.Cursor = Cursors.Default;
             m_PictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
@@ -83,11 +85,12 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = true;
         }
 
-        private void setMainMenuToLoggedInUser(LoginResult i_LoginResult)
+        private void setMainMenuToLoggedInUser(User i_LoggedInUser)
         {
-            LabelName.Text = i_LoginResult.LoggedInUser.Name;
+            LabelName.Text = i_LoggedInUser.Name;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
+            m_PictureBoxProfilePicture.BackgroundImage = i_LoggedInUser.ImageLarge;
             panelProfile.Enabled = true;
             setChosenButtonAsClicked(buttonProfile);
             setSubForm(new FormProfile());
@@ -138,21 +141,16 @@ namespace BasicFacebookFeatures
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText("design.patterns20cc");
-            LoginResult loginResult = FacebookService.Login(
-                "522656449734305",
-                "email",
-                "public_profile"
-            );
-            if(loginResult.LoggedInUser != null)
+
+            if(m_UserManager.UserLogInAndReturnIfSucceeded())
             {
-                setMainMenuToLoggedInUser(loginResult);
+                setMainMenuToLoggedInUser(m_UserManager.LoggedInUser);
             }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            FacebookService.Logout();
+            m_UserManager.UserLogOut();
             setChosenButtonAsClicked(null);
             setMainMenuToLoggedOutUser();
         }
