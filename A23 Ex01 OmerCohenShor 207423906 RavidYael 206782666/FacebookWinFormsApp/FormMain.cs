@@ -14,13 +14,15 @@ namespace BasicFacebookFeatures
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 100;
             setPanelsColors();
-            initializeProfilePictureBox();
+            initializeProfilePanel();
+            labelHeadline.Top = (panelTopBar.Height - labelHeadline.Height) / 2;
+            labelHeadline.Left = (panelTopBar.Width - labelHeadline.Width) / 2;
 
         }
 
-        private void initializeProfilePictureBox()
+        private void initializeProfilePanel()
         {
-            PictureBoxOval pictureBoxProfileBorder = new PictureBoxOval(panelSideBar.Width - 20, panelSideBar.Width - 20);
+            PictureBoxOval pictureBoxProfileBorder = new PictureBoxOval(panelSideBar.Width - 40, panelSideBar.Width - 40);
             PictureBoxOval pictureBoxProfilePicture = new PictureBoxOval(pictureBoxProfileBorder.Width - 10, pictureBoxProfileBorder.Height - 10);
             pictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
             pictureBoxProfilePicture.BackgroundImageLayout = ImageLayout.Stretch;
@@ -29,11 +31,10 @@ namespace BasicFacebookFeatures
             pictureBoxProfileBorder.Left = (panelSideBar.Width - pictureBoxProfileBorder.Width) / 2;
             pictureBoxProfilePicture.Left = (pictureBoxProfileBorder.Width - pictureBoxProfilePicture.Width) / 2;
             pictureBoxProfilePicture.Top = (pictureBoxProfileBorder.Height - pictureBoxProfilePicture.Height) / 2;
-            panelSideBar.Controls.Add(pictureBoxProfileBorder);
-
-
-//            pictureBoxProfileBorder.Visible = false;
-//            pictureBoxProfilePicture.Visible = false;
+            panelProfile.Controls.Add(pictureBoxProfileBorder);
+            LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
+            LabelName.Top = pictureBoxProfileBorder.Bottom + 5;
+            panelProfile.Height = LabelName.Bottom + 5;
         }
 
         private void setPanelsColors()
