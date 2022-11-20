@@ -12,7 +12,7 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private FaceBookUserManager m_UserManager = new FaceBookUserManager(); 
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance(); 
         private PictureBoxOval m_PictureBoxProfilePicture;
         private Button m_ChosenButton = null;
         private Form m_SubForm = null;
@@ -142,15 +142,15 @@ namespace BasicFacebookFeatures
         private void buttonLogin_Click(object sender, EventArgs e)
         {
 
-            if(m_UserManager.UserLogInAndReturnIfSucceeded())
+            if(r_UserManager.UserLogInAndReturnIfSucceeded())
             {
-                setMainMenuToLoggedInUser(m_UserManager.LoggedInUser);
+                setMainMenuToLoggedInUser(r_UserManager.LoggedInUser);
             }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            m_UserManager.UserLogOut();
+            r_UserManager.UserLogOut();
             setChosenButtonAsClicked(null);
             setMainMenuToLoggedOutUser();
         }

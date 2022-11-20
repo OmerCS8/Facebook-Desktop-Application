@@ -8,12 +8,19 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookAppEngine
 {
-    public class FaceBookUserManager
+    public sealed class FaceBookUserManager
     {
-        public User LoggedInUser { get; private set; }
-        public FaceBookUserManager()
+        private static readonly FaceBookUserManager sr_FaceBookUserManagerInstance = new FaceBookUserManager();
+
+        private FaceBookUserManager()
         {
         }
+
+        public static FaceBookUserManager GetFaceBookUserManagerInstance()
+        {
+            return sr_FaceBookUserManagerInstance;
+        }
+        public User LoggedInUser { get; private set; }
 
         public bool UserLogInAndReturnIfSucceeded()
         {
