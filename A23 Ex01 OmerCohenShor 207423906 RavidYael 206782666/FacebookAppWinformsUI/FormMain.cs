@@ -66,6 +66,7 @@ namespace BasicFacebookFeatures
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             LabelName.Top = pictureBoxProfileBorder.Bottom + 5;
             panelProfile.Height = LabelName.Bottom + 5;
+            m_PictureBoxProfilePicture.Click += new System.EventHandler(buttonProfile_Click);
         }
 
         private void setMainMenuToLoggedOutUser()

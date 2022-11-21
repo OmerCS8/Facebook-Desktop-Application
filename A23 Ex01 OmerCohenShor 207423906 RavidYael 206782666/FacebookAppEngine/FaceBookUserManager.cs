@@ -29,6 +29,58 @@ namespace FacebookAppEngine
         private string m_LoggedInUserName = null;
         private Image m_ProfilePicLarge = null;
         private Image m_CoverImage = null;
+        private int? m_LoggedInUserAge = null;
+        private User.eGender? m_LoggedInUserGender = null;
+        private string m_LoggedInUserBirthday = null;
+
+
+        public int? LoggedInUserAge
+        {
+            get
+            {
+                if (m_LoggedInUserAge == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserAge = DateTime.Now.Year - DateTime.Parse(LoggedInUserBirthday).Year;
+                }
+
+                return m_LoggedInUserAge;
+            }
+        }
+
+        public string LoggedInUserBirthday
+        {
+            get
+            {
+                if (m_LoggedInUserBirthday == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserBirthday = LoggedInUser.Birthday;
+                }
+
+                return m_LoggedInUserBirthday;
+            }
+            private set
+            {
+                m_LoggedInUserBirthday = value;
+            }
+        }
+
+        public User.eGender? LoggedInUserGender
+        {
+            get
+            {
+                if (m_LoggedInUserGender == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserGender = LoggedInUser.Gender;
+                }
+
+                return m_LoggedInUserGender;
+            }
+            private set
+            {
+                m_LoggedInUserGender = value;
+            }
+        }
+
         public string LoggedInUserName
         {
             get
@@ -45,6 +97,7 @@ namespace FacebookAppEngine
                 m_LoggedInUserName = value;
             }
         }
+
         public Image ProfilePicLarge
         {
             get
@@ -61,6 +114,7 @@ namespace FacebookAppEngine
                 m_ProfilePicLarge = value;
             }
         }
+
         public Image CoverImage
         {
             get
@@ -98,6 +152,7 @@ namespace FacebookAppEngine
                 m_UserPosts = value;
             }
         }
+
         public FacebookObjectCollection<Album> UserAlbums
         {
             get
@@ -114,6 +169,7 @@ namespace FacebookAppEngine
                 m_UserAlbums = value;
             }
         }
+
         public FacebookObjectCollection<Page> UserPages
         {
             get
@@ -130,6 +186,7 @@ namespace FacebookAppEngine
                 m_UserPages = value;
             }
         }
+
         public FacebookObjectCollection<Group> UserGroups
         {
             get
