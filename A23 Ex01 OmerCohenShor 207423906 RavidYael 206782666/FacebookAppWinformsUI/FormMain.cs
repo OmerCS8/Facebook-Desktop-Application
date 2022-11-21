@@ -91,7 +91,7 @@ namespace BasicFacebookFeatures
             LabelName.Text = r_UserManager.LoggedInUserName;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
-            m_PictureBoxProfilePicture.BackgroundImage = r_UserManager.ProfilePicLarge;
+            m_PictureBoxProfilePicture.BackgroundImage = r_UserManager.LoggedInUserProfilePictureLarge;
             panelProfile.Enabled = true;
             foreach (Control control in panelMenu.Controls)
             {

@@ -19,7 +19,13 @@ namespace BasicFacebookFeatures.SubForms
         public FormAlbums()
         {
             InitializeComponent();
+            setSplitterToScreenMiddle();
             setAlbums();
+        }
+
+        private void setSplitterToScreenMiddle()
+        {
+            splitContainerAlbumsPhotos.SplitterDistance = splitContainerAlbumsPhotos.Width / 2;
         }
 
         private void setAlbums()

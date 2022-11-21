@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.SubForms
             InitializeComponent();
             setCoverPicture();
             setProfilePicture();
-            setDataLables();
+            setDataLabels();
             setScrollMinSize();
         }
 
@@ -24,7 +24,7 @@ namespace BasicFacebookFeatures.SubForms
             panelMain.AutoScrollMinSize = new Size((labelName.Width + r_MarginAmount) * 2 + pictureBoxProfilePic.Width ,labelGroups.Bottom + r_MarginAmount);
         }
 
-        private void setDataLables()
+        private void setDataLabels()
         {
             labelName.Text = $"Name: {r_UserManager.LoggedInUserName}";
             labelName.Location = new Point(r_MarginAmount, pictureBoxCoverPhoto.Bottom + r_MarginAmount);
@@ -46,14 +46,14 @@ namespace BasicFacebookFeatures.SubForms
 
         private void setProfilePicture()
         {
-            pictureBoxProfilePic.BackgroundImage = r_UserManager.ProfilePicLarge;
+            pictureBoxProfilePic.BackgroundImage = r_UserManager.LoggedInUserProfilePictureLarge;
             pictureBoxProfilePic.Left = (panelMain.Width - pictureBoxProfilePic.Width) / 2;
             pictureBoxProfilePic.Top = pictureBoxCoverPhoto.Bottom - pictureBoxProfilePic.Height / 2;
         }
 
         private void setCoverPicture()
         {
-            pictureBoxCoverPhoto.BackgroundImage = r_UserManager.CoverImage;
+            pictureBoxCoverPhoto.BackgroundImage = r_UserManager.LoggedInUserCoverImage;
             pictureBoxCoverPhoto.Width = panelMain.Width;
         }
     }

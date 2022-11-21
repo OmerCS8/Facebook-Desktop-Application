@@ -28,8 +28,8 @@ namespace FacebookAppEngine
         private FacebookObjectCollection<Group> m_LoggedInUserGroups = null;
         private FacebookObjectCollection<User> m_LoggedInUserFriends = null;
         private string m_LoggedInUserName = null;
-        private Image m_ProfilePicLarge = null;
-        private Image m_CoverImage = null;
+        private Image m_LoggedInUserProfilePictureLarge = null;
+        private Image m_LoggedInUserCoverImage = null;
         private int? m_LoggedInUserAge = null;
         private User.eGender? m_LoggedInUserGender = null;
         private string m_LoggedInUserBirthday = null;
@@ -102,109 +102,41 @@ namespace FacebookAppEngine
             }
         }
 
-        public Image ProfilePicLarge
+        public Image LoggedInUserProfilePictureLarge
         {
             get
             {
-                if (m_ProfilePicLarge == null && LoggedInUser != null)
+                if (m_LoggedInUserProfilePictureLarge == null && LoggedInUser != null)
                 {
-                    m_ProfilePicLarge = LoggedInUser.ImageLarge;
+                    m_LoggedInUserProfilePictureLarge = LoggedInUser.ImageLarge;
                 }
 
-                return m_ProfilePicLarge;
+                return m_LoggedInUserProfilePictureLarge;
             }
             private set
             {
-                m_ProfilePicLarge = value;
+                m_LoggedInUserProfilePictureLarge = value;
             }
         }
 
-        public Image CoverImage
+        public Image LoggedInUserCoverImage
         {
             get
             {
-                if (m_CoverImage == null && LoggedInUser != null)
+                if (m_LoggedInUserCoverImage == null && LoggedInUser != null)
                 {
-                    Album coversAlbum = UserAlbums.Find(i_Album => i_Album.Name == "Cover photos");
+                    Album coversAlbum = LoggedInUserAlbums.Find(i_Album => i_Album.Name == "Cover photos");
                     if(coversAlbum != null && coversAlbum.Photos.Count > 0)
                     {
-                        m_CoverImage = coversAlbum.Photos[0].ImageNormal;
+                        m_LoggedInUserCoverImage = coversAlbum.Photos[0].ImageNormal;
                     }
                 }
 
-                return m_CoverImage;
+                return m_LoggedInUserCoverImage;
             }
             private set
             {
-                m_CoverImage = value;
-            }
-        }
-
-        public FacebookObjectCollection<Post> UserPosts
-        {
-            get
-            {
-                if(m_LoggedInUserAlbums == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserPosts = LoggedInUser.Posts;
-                }
-
-                return m_LoggedInUserPosts;
-            }
-            private set
-            {
-                m_LoggedInUserPosts = value;
-            }
-        }
-
-        public FacebookObjectCollection<Album> UserAlbums
-        {
-            get
-            {
-                if (m_LoggedInUserAlbums == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserAlbums = LoggedInUser.Albums;
-                }
-
-                return m_LoggedInUserAlbums;
-            }
-            private set
-            {
-                m_LoggedInUserAlbums = value;
-            }
-        }
-
-        public FacebookObjectCollection<Page> UserPages
-        {
-            get
-            {
-                if (m_LoggedInUserLikedPages == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserLikedPages = LoggedInUser.LikedPages;
-                }
-
-                return m_LoggedInUserLikedPages;
-            }
-            private set
-            {
-                m_LoggedInUserLikedPages = value;
-            }
-        }
-
-        public FacebookObjectCollection<Group> UserGroups
-        {
-            get
-            {
-                if (m_LoggedInUserGroups == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserGroups = LoggedInUser.Groups;
-                }
-
-                return m_LoggedInUserGroups;
-            }
-            private set
-            {
-                m_LoggedInUserGroups = value;
+                m_LoggedInUserCoverImage = value;
             }
         }
 
