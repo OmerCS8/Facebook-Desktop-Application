@@ -147,6 +147,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SubForms\FormAlbums.resx">
+      <DependentUpon>FormAlbums.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms\FormProfile.resx">
       <DependentUpon>FormProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cover-deafult.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\default Album Image.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
