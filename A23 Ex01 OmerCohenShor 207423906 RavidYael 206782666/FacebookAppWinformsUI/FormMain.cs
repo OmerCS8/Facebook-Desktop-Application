@@ -93,7 +93,7 @@ namespace BasicFacebookFeatures
             m_PictureBoxProfilePicture.BackgroundImage = i_LoggedInUser.ImageLarge;
             panelProfile.Enabled = true;
             setChosenButtonAsClicked(buttonProfile);
-            setSubForm(new FormProfile());
+            setSubForm(new FormProfile(r_UserManager.LoggedInUser));
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = true;
