@@ -11,16 +11,18 @@ namespace BasicFacebookFeatures.FormsUtils
 {
     class AlbumPictureBox : PictureBox
     {
-        private readonly int r_BorderSize = 10;
-        private readonly int r_BorderTextHeight = 10;
+        private readonly int r_BorderSize;
+        private readonly int r_BorderTextHeight;
         private readonly PictureBox r_PhotoPictureBox;
         private readonly Label r_NameLabel;
         public AlbumPictureBox(int i_Size, bool i_DoesHaveBorder)
         {
-            setBorder(i_Size, i_DoesHaveBorder);
+            r_BorderSize = i_DoesHaveBorder ? 10 : 1;
+            r_BorderTextHeight = i_DoesHaveBorder ? 10 : 20;
+            setBorder(i_Size);
             r_PhotoPictureBox = createPhotoPictureBox(i_Size);
             r_NameLabel = createNameLabel();
-            setBorderAsParent(r_PhotoPictureBox, r_NameLabel, i_DoesHaveBorder);
+            setBorderAsParent(r_PhotoPictureBox, r_NameLabel);
             addVisualEffects();
         }
 
@@ -65,13 +67,12 @@ namespace BasicFacebookFeatures.FormsUtils
             }
         }
 
-        private void setBorderAsParent(PictureBox i_PhotoPictureBox, Label i_NameLabel, bool i_DoesHaveBorder)
+        private void setBorderAsParent(PictureBox i_PhotoPictureBox, Label i_NameLabel)
         {
             this.Controls.Add(i_NameLabel);
             this.Controls.Add(i_PhotoPictureBox);
             i_NameLabel.Location = new Point(0, 0);
-            Point photoLocation = i_DoesHaveBorder ? new Point(r_BorderSize, r_BorderSize + r_BorderTextHeight) 
-                                      : new Point(0, r_BorderTextHeight);
+            Point photoLocation = new Point(r_BorderSize, r_BorderSize + r_BorderTextHeight);
             i_PhotoPictureBox.Location = photoLocation;
             i_NameLabel.BringToFront();
             i_PhotoPictureBox.BringToFront();
@@ -111,9 +112,9 @@ namespace BasicFacebookFeatures.FormsUtils
             return photoPictureBox;
         }
 
-        private void setBorder(int i_Size, bool i_DoesHaveBorder)
+        private void setBorder(int i_Size)
         {
-            int borderSize = i_DoesHaveBorder ? i_Size + (r_BorderSize * 2) : i_Size;
+            int borderSize = i_Size + (r_BorderSize * 2);
             this.Size = new Size(borderSize, borderSize + r_BorderTextHeight);
             this.BackColor = ColorsUtils.sr_PictureBoxBorderDefault;
             this.Visible = true;

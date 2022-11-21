@@ -89,6 +89,7 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // labelChosenAlbumName
             // 
+            this.labelChosenAlbumName.AutoEllipsis = true;
             this.labelChosenAlbumName.AutoSize = true;
             this.labelChosenAlbumName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.labelChosenAlbumName.Location = new System.Drawing.Point(16, 36);
@@ -121,6 +122,7 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // labelChosenPhotoName
             // 
+            this.labelChosenPhotoName.AutoEllipsis = true;
             this.labelChosenPhotoName.AutoSize = true;
             this.labelChosenPhotoName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.labelChosenPhotoName.Location = new System.Drawing.Point(21, 36);
