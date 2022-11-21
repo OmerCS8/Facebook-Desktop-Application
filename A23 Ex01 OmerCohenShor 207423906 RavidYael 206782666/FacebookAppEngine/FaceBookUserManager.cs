@@ -22,17 +22,21 @@ namespace FacebookAppEngine
         }
 
         private static readonly FaceBookUserManager sr_FaceBookUserManagerInstance = new FaceBookUserManager();
-        private FacebookObjectCollection<Post> m_UserPosts = null;
-        private FacebookObjectCollection<Album> m_UserAlbums = null;
-        private FacebookObjectCollection<Page> m_UserPages = null;
-        private FacebookObjectCollection<Group> m_UserGroups = null;
+        private FacebookObjectCollection<Post> m_LoggedInUserPosts = null;
+        private FacebookObjectCollection<Album> m_LoggedInUserAlbums = null;
+        private FacebookObjectCollection<Page> m_LoggedInUserLikedPages = null;
+        private FacebookObjectCollection<Group> m_LoggedInUserGroups = null;
+        private FacebookObjectCollection<User> m_LoggedInUserFriends = null;
         private string m_LoggedInUserName = null;
         private Image m_ProfilePicLarge = null;
         private Image m_CoverImage = null;
         private int? m_LoggedInUserAge = null;
         private User.eGender? m_LoggedInUserGender = null;
         private string m_LoggedInUserBirthday = null;
+        private string m_LoggedInUserEmail = null;
+        private City m_LoggedInUserLocation = null;
 
+        public User LoggedInUser { get; private set; }
 
         public int? LoggedInUserAge
         {
@@ -140,16 +144,16 @@ namespace FacebookAppEngine
         {
             get
             {
-                if(m_UserAlbums == null && LoggedInUser != null)
+                if(m_LoggedInUserAlbums == null && LoggedInUser != null)
                 {
-                    m_UserPosts = LoggedInUser.Posts;
+                    m_LoggedInUserPosts = LoggedInUser.Posts;
                 }
 
-                return m_UserPosts;
+                return m_LoggedInUserPosts;
             }
             private set
             {
-                m_UserPosts = value;
+                m_LoggedInUserPosts = value;
             }
         }
 
@@ -157,16 +161,16 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_UserAlbums == null && LoggedInUser != null)
+                if (m_LoggedInUserAlbums == null && LoggedInUser != null)
                 {
-                    m_UserAlbums = LoggedInUser.Albums;
+                    m_LoggedInUserAlbums = LoggedInUser.Albums;
                 }
 
-                return m_UserAlbums;
+                return m_LoggedInUserAlbums;
             }
             private set
             {
-                m_UserAlbums = value;
+                m_LoggedInUserAlbums = value;
             }
         }
 
@@ -174,16 +178,16 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_UserPages == null && LoggedInUser != null)
+                if (m_LoggedInUserLikedPages == null && LoggedInUser != null)
                 {
-                    m_UserPages = LoggedInUser.LikedPages;
+                    m_LoggedInUserLikedPages = LoggedInUser.LikedPages;
                 }
 
-                return m_UserPages;
+                return m_LoggedInUserLikedPages;
             }
             private set
             {
-                m_UserPages = value;
+                m_LoggedInUserLikedPages = value;
             }
         }
 
@@ -191,20 +195,137 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_UserGroups == null && LoggedInUser != null)
+                if (m_LoggedInUserGroups == null && LoggedInUser != null)
                 {
-                    m_UserGroups = LoggedInUser.Groups;
+                    m_LoggedInUserGroups = LoggedInUser.Groups;
                 }
 
-                return m_UserGroups;
+                return m_LoggedInUserGroups;
             }
             private set
             {
-                m_UserGroups = value;
+                m_LoggedInUserGroups = value;
             }
         }
 
-        public User LoggedInUser { get; private set; }
+        public string LoggedInUserEmail
+        {
+            get
+            {
+                if (m_LoggedInUserEmail == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserEmail = LoggedInUser.Email;
+                }
+
+                return m_LoggedInUserEmail;
+            }
+            private set
+            {
+                m_LoggedInUserEmail = value;
+            }
+        }
+
+        public City LoggedInUserLocation
+        {
+            get
+            {
+                if (m_LoggedInUserLocation == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserLocation = LoggedInUser.Location;
+                }
+
+                return m_LoggedInUserLocation;
+            }
+            private set
+            {
+                m_LoggedInUserLocation = value;
+            }
+        }
+
+        public FacebookObjectCollection<User> LoggedInUserFriends
+        {
+            get
+            {
+                if (m_LoggedInUserFriends == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserFriends = LoggedInUser.Friends;
+                }
+
+                return m_LoggedInUserFriends;
+            }
+            private set
+            {
+                m_LoggedInUserFriends = value;
+            }
+        }
+
+        public FacebookObjectCollection<Post> LoggedInUserPosts
+        {
+            get
+            {
+                if (m_LoggedInUserPosts == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserPosts = LoggedInUser.Posts;
+                }
+
+                return m_LoggedInUserPosts;
+            }
+            private set
+            {
+                m_LoggedInUserPosts = value;
+            }
+        }
+
+        public FacebookObjectCollection<Album> LoggedInUserAlbums
+        {
+            get
+            {
+                if (m_LoggedInUserAlbums == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserAlbums = LoggedInUser.Albums;
+                }
+
+                return m_LoggedInUserAlbums;
+            }
+            private set
+            {
+                m_LoggedInUserAlbums = value;
+            }
+        }
+
+        public FacebookObjectCollection<Page> LoggedInUserLikedPages
+        {
+            get
+            {
+                if (m_LoggedInUserLikedPages == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserLikedPages = LoggedInUser.LikedPages;
+                }
+
+                return m_LoggedInUserLikedPages;
+            }
+            private set
+            {
+                m_LoggedInUserLikedPages = value;
+            }
+        }
+
+        public FacebookObjectCollection<Group> LoggedInUserGroups
+        {
+            get
+            {
+                if (m_LoggedInUserGroups == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserGroups = LoggedInUser.Groups;
+                }
+
+                return m_LoggedInUserGroups;
+            }
+            private set
+            {
+                m_LoggedInUserGroups = value;
+            }
+        }
 
         public bool UserLogInAndReturnIfSucceeded()
         {
