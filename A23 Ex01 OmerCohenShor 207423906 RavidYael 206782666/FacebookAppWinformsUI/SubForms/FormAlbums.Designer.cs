@@ -30,9 +30,9 @@ namespace BasicFacebookFeatures.SubForms
         private void InitializeComponent()
         {
             this.splitContainerAlbumsPhotos = new System.Windows.Forms.SplitContainer();
+            this.flowLayoutPanelAlbums = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAlbumName = new System.Windows.Forms.Panel();
             this.labelChosenAlbumName = new System.Windows.Forms.Label();
-            this.flowLayoutPanelAlbums = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanelPhotos = new System.Windows.Forms.FlowLayoutPanel();
             this.panelPhotoName = new System.Windows.Forms.Panel();
             this.labelChosenPhotoName = new System.Windows.Forms.Label();
@@ -66,6 +66,17 @@ namespace BasicFacebookFeatures.SubForms
             this.splitContainerAlbumsPhotos.SplitterDistance = 500;
             this.splitContainerAlbumsPhotos.TabIndex = 0;
             // 
+            // flowLayoutPanelAlbums
+            // 
+            this.flowLayoutPanelAlbums.AutoScroll = true;
+            this.flowLayoutPanelAlbums.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelAlbums.Location = new System.Drawing.Point(0, 91);
+            this.flowLayoutPanelAlbums.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanelAlbums.Name = "flowLayoutPanelAlbums";
+            this.flowLayoutPanelAlbums.Padding = new System.Windows.Forms.Padding(10);
+            this.flowLayoutPanelAlbums.Size = new System.Drawing.Size(500, 463);
+            this.flowLayoutPanelAlbums.TabIndex = 5;
+            // 
             // panelAlbumName
             // 
             this.panelAlbumName.Controls.Add(this.labelChosenAlbumName);
@@ -83,20 +94,9 @@ namespace BasicFacebookFeatures.SubForms
             this.labelChosenAlbumName.Location = new System.Drawing.Point(16, 36);
             this.labelChosenAlbumName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelChosenAlbumName.Name = "labelChosenAlbumName";
-            this.labelChosenAlbumName.Size = new System.Drawing.Size(167, 25);
+            this.labelChosenAlbumName.Size = new System.Drawing.Size(174, 25);
             this.labelChosenAlbumName.TabIndex = 0;
-            this.labelChosenAlbumName.Text = "Chosen Album: ";
-            // 
-            // flowLayoutPanelAlbums
-            // 
-            this.flowLayoutPanelAlbums.AutoScroll = true;
-            this.flowLayoutPanelAlbums.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelAlbums.Location = new System.Drawing.Point(0, 91);
-            this.flowLayoutPanelAlbums.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanelAlbums.Name = "flowLayoutPanelAlbums";
-            this.flowLayoutPanelAlbums.Padding = new System.Windows.Forms.Padding(10);
-            this.flowLayoutPanelAlbums.Size = new System.Drawing.Size(500, 463);
-            this.flowLayoutPanelAlbums.TabIndex = 5;
+            this.labelChosenAlbumName.Text = "Selected album: ";
             // 
             // flowLayoutPanelPhotos
             // 
@@ -126,9 +126,9 @@ namespace BasicFacebookFeatures.SubForms
             this.labelChosenPhotoName.Location = new System.Drawing.Point(21, 36);
             this.labelChosenPhotoName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelChosenPhotoName.Name = "labelChosenPhotoName";
-            this.labelChosenPhotoName.Size = new System.Drawing.Size(154, 25);
+            this.labelChosenPhotoName.Size = new System.Drawing.Size(164, 25);
             this.labelChosenPhotoName.TabIndex = 0;
-            this.labelChosenPhotoName.Text = "Chosen photo:";
+            this.labelChosenPhotoName.Text = "Selected photo:";
             // 
             // FormAlbums
             // 

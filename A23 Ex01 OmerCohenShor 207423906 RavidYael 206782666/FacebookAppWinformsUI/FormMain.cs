@@ -4,6 +4,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using BasicFacebookFeatures.FormsUtils;
 using BasicFacebookFeatures.SubForms;
 using CefSharp.DevTools.Profiler;
 using FacebookAppEngine;

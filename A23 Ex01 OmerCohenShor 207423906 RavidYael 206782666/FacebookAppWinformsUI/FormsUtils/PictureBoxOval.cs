@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures
+namespace BasicFacebookFeatures.FormsUtils
 {
     public class PictureBoxOval : PictureBox
     {
-        public PictureBoxOval(int i_width, int i_height)
+        public PictureBoxOval(int i_Width, int i_Height)
         {
-            this.Size = new Size(i_width, i_height);
+            this.Size = new Size(i_Width, i_Height);
             this.Visible = true;
         }
         protected override void OnResize(EventArgs e)

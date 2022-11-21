@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
-namespace BasicFacebookFeatures
+namespace BasicFacebookFeatures.FormsUtils
 {
     class ColorsUtils
     {
@@ -15,5 +10,9 @@ namespace BasicFacebookFeatures
         public static readonly Color sr_ProfileInfoColor = Color.LightSteelBlue;
         public static readonly Color sr_ButtonsDefaultColor = Color.Transparent;
         public static readonly Color sr_ButtonsChosenColor = Color.Cyan;
+        public static readonly Color sr_PictureBoxBorderDefault = Color.White;
+        public static readonly Color sr_PictureBoxBorderHover = Color.LightSteelBlue;
+        public static readonly Color sr_PictureBoxBorderChosen = Color.FromArgb(59, 89, 152);
+
     }
 }

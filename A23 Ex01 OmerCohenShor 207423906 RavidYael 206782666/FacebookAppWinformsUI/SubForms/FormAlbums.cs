@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BasicFacebookFeatures.FormsUtils;
 using FacebookAppEngine;
 using FacebookWrapper.ObjectModel;
 
@@ -19,12 +20,15 @@ namespace BasicFacebookFeatures.SubForms
         public FormAlbums()
         {
             InitializeComponent();
-            setSplitterToScreenMiddle();
+            setSplitterToScreenMiddleAndAddColor();
             setAlbums();
         }
 
-        private void setSplitterToScreenMiddle()
+        private void setSplitterToScreenMiddleAndAddColor()
         {
+            splitContainerAlbumsPhotos.Panel1.BackColor = ColorsUtils.sr_MainColor;
+            splitContainerAlbumsPhotos.Panel2.BackColor = ColorsUtils.sr_MainColor;
+            splitContainerAlbumsPhotos.BackColor = ColorsUtils.sr_TopBarColor;
             splitContainerAlbumsPhotos.SplitterDistance = splitContainerAlbumsPhotos.Width / 2;
         }
 
@@ -33,21 +37,41 @@ namespace BasicFacebookFeatures.SubForms
             FacebookObjectCollection<Album> userAlbums = r_UserManager.LoggedInUserAlbums;
             foreach(Album currentAlbum in userAlbums)
             {
-                PictureBox albumCoverPictureBox = new PictureBox();
-                albumCoverPictureBox.Size = new Size(r_AlbumCoverSize, r_AlbumCoverSize);
+                AlbumPictureBox albumCoverPictureBox = new AlbumPictureBox(r_AlbumCoverSize, true);
                 try
                 {
-                    albumCoverPictureBox.BackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
+                    albumCoverPictureBox.PictureBackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
                 }
                 catch (Exception)
                 {
-                    albumCoverPictureBox.BackgroundImage = Properties.Resources.default_Album_Image;
+                    albumCoverPictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
                 }
 
-                albumCoverPictureBox.Visible = true;
-                albumCoverPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
+                albumCoverPictureBox.PictureName = currentAlbum.Name;
+                albumCoverPictureBox.AddOnClickAction(this.albumCoverPictureBox_Clicked);
                 flowLayoutPanelAlbums.Controls.Add(albumCoverPictureBox);
+            }
+        }
 
+        private void albumCoverPictureBox_Clicked(object i_Sender, EventArgs i_E)
+        {
+            AlbumPictureBox clickedAlbumPictureBox = null;
+            if (i_Sender.GetType() == typeof(AlbumPictureBox))
+            {
+                clickedAlbumPictureBox = i_Sender as AlbumPictureBox;
+            }
+            else if(i_Sender.GetType() == typeof(PictureBox))
+            {
+                clickedAlbumPictureBox = (i_Sender as PictureBox)?.Parent as AlbumPictureBox;                
+            }
+            else if(i_Sender.GetType() == typeof(Label))
+            {
+                clickedAlbumPictureBox = (i_Sender as Label)?.Parent as AlbumPictureBox;                 
+            }
+
+            if(clickedAlbumPictureBox != null)
+            {
+                labelChosenAlbumName.Text = $"Selected album: {clickedAlbumPictureBox.PictureName}";
             }
         }
     }
