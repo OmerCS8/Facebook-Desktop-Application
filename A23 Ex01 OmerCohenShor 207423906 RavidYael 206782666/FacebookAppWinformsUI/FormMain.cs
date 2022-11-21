@@ -158,27 +158,31 @@ namespace BasicFacebookFeatures
         private void buttonProfile_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonProfile);
-            setSubForm(new FormProfile());
+            setSubForm(new FormProfile(r_UserManager.LoggedInUser));
         }
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonGroups);
+            setSubForm(new FormGroups(r_UserManager.LoggedInUser));
         }
 
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonAlbums);
+            setSubForm(new FormAlbums(r_UserManager.LoggedInUser));
         }
 
         private void buttonLikedPages_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonLikedPages);
+            setSubForm(new FormLikedPages(r_UserManager.LoggedInUser));
         }
 
         private void buttonPosts_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonPosts);
+            setSubForm(new FormPosts(r_UserManager.LoggedInUser));
         }
     }
 }

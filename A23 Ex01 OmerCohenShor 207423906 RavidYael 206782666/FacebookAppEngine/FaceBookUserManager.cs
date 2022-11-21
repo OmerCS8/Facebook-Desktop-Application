@@ -10,8 +10,6 @@ namespace FacebookAppEngine
 {
     public sealed class FaceBookUserManager
     {
-        private static readonly FaceBookUserManager sr_FaceBookUserManagerInstance = new FaceBookUserManager();
-
         private FaceBookUserManager()
         {
         }
@@ -20,6 +18,77 @@ namespace FacebookAppEngine
         {
             return sr_FaceBookUserManagerInstance;
         }
+
+        private static readonly FaceBookUserManager sr_FaceBookUserManagerInstance = new FaceBookUserManager();
+        private FacebookObjectCollection<Post> m_UserPosts = null;
+        private FacebookObjectCollection<Album> m_UserAlbums = null;
+        private FacebookObjectCollection<Page> m_UserPages = null;
+        private FacebookObjectCollection<Group> m_UserGroups = null;
+        public FacebookObjectCollection<Post> UserPosts
+        {
+            get
+            {
+                if(m_UserAlbums == null && LoggedInUser != null)
+                {
+                    m_UserPosts = LoggedInUser.Posts;
+                }
+
+                return m_UserPosts;
+            }
+            private set
+            {
+                m_UserPosts = value;
+            }
+        }
+        public FacebookObjectCollection<Album> UserAlbums
+        {
+            get
+            {
+                if (m_UserAlbums == null && LoggedInUser != null)
+                {
+                    m_UserAlbums = LoggedInUser.Albums;
+                }
+
+                return m_UserAlbums;
+            }
+            private set
+            {
+                m_UserAlbums = value;
+            }
+        }
+        public FacebookObjectCollection<Page> UserPages
+        {
+            get
+            {
+                if (m_UserPages == null && LoggedInUser != null)
+                {
+                    m_UserPages = LoggedInUser.LikedPages;
+                }
+
+                return m_UserPages;
+            }
+            private set
+            {
+                m_UserPages = value;
+            }
+        }
+        public FacebookObjectCollection<Group> UserGroups
+        {
+            get
+            {
+                if (m_UserGroups == null && LoggedInUser != null)
+                {
+                    m_UserGroups = LoggedInUser.Groups;
+                }
+
+                return m_UserGroups;
+            }
+            private set
+            {
+                m_UserGroups = value;
+            }
+        }
+
         public User LoggedInUser { get; private set; }
 
         public bool UserLogInAndReturnIfSucceeded()
