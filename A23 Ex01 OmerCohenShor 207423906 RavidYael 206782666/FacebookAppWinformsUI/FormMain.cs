@@ -85,15 +85,13 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = true;
         }
 
-        private void setMainMenuToLoggedInUser(User i_LoggedInUser)
+        private void setMainMenuToLoggedInUser()
         {
-            LabelName.Text = i_LoggedInUser.Name;
+            LabelName.Text = r_UserManager.LoggedInUserName;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
-            m_PictureBoxProfilePicture.BackgroundImage = i_LoggedInUser.ImageLarge;
+            m_PictureBoxProfilePicture.BackgroundImage = r_UserManager.ProfilePicLarge;
             panelProfile.Enabled = true;
-            setChosenButtonAsClicked(buttonProfile);
-            setSubForm(new FormProfile(r_UserManager.LoggedInUser));
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = true;
@@ -141,10 +139,9 @@ namespace BasicFacebookFeatures
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-
             if(r_UserManager.UserLogInAndReturnIfSucceeded())
             {
-                setMainMenuToLoggedInUser(r_UserManager.LoggedInUser);
+                setMainMenuToLoggedInUser();
             }
         }
 
@@ -158,31 +155,31 @@ namespace BasicFacebookFeatures
         private void buttonProfile_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonProfile);
-            setSubForm(new FormProfile(r_UserManager.LoggedInUser));
+            setSubForm(new FormProfile());
         }
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonGroups);
-            setSubForm(new FormGroups(r_UserManager.LoggedInUser));
+            setSubForm(new FormGroups());
         }
 
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonAlbums);
-            setSubForm(new FormAlbums(r_UserManager.LoggedInUser));
+            setSubForm(new FormAlbums());
         }
 
         private void buttonLikedPages_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonLikedPages);
-            setSubForm(new FormLikedPages(r_UserManager.LoggedInUser));
+            setSubForm(new FormLikedPages());
         }
 
         private void buttonPosts_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonPosts);
-            setSubForm(new FormPosts(r_UserManager.LoggedInUser));
+            setSubForm(new FormPosts());
         }
     }
 }

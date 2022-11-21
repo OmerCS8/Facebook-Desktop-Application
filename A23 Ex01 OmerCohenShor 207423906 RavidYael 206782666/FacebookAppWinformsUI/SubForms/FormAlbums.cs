@@ -13,7 +13,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormAlbums : Form
     {
-        public FormAlbums(User i_LoggedInUser)
+        public FormAlbums()
         {
             InitializeComponent();
         }

@@ -13,7 +13,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormPosts : Form
     {
-        public FormPosts(User i_LoggedInUser)
+        public FormPosts()
         {
             InitializeComponent();
         }

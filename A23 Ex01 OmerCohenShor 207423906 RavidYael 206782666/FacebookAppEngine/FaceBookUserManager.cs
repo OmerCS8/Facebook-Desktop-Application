@@ -1,7 +1,9 @@
 ﻿using FacebookWrapper;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using FacebookWrapper.ObjectModel;
@@ -24,6 +26,62 @@ namespace FacebookAppEngine
         private FacebookObjectCollection<Album> m_UserAlbums = null;
         private FacebookObjectCollection<Page> m_UserPages = null;
         private FacebookObjectCollection<Group> m_UserGroups = null;
+        private string m_LoggedInUserName = null;
+        private Image m_ProfilePicLarge = null;
+        private Image m_CoverImage = null;
+        public string LoggedInUserName
+        {
+            get
+            {
+                if (m_LoggedInUserName == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserName = LoggedInUser.Name;
+                }
+
+                return m_LoggedInUserName;
+            }
+            private set
+            {
+                m_LoggedInUserName = value;
+            }
+        }
+        public Image ProfilePicLarge
+        {
+            get
+            {
+                if (m_ProfilePicLarge == null && LoggedInUser != null)
+                {
+                    m_ProfilePicLarge = LoggedInUser.ImageLarge;
+                }
+
+                return m_ProfilePicLarge;
+            }
+            private set
+            {
+                m_ProfilePicLarge = value;
+            }
+        }
+        public Image CoverImage
+        {
+            get
+            {
+                if (m_CoverImage == null && LoggedInUser != null)
+                {
+                    Album coversAlbum = UserAlbums.Find(i_Album => i_Album.Name == "Cover photos");
+                    if(coversAlbum != null && coversAlbum.Photos.Count > 0)
+                    {
+                        m_CoverImage = coversAlbum.Photos[0].ImageNormal;
+                    }
+                }
+
+                return m_CoverImage;
+            }
+            private set
+            {
+                m_CoverImage = value;
+            }
+        }
+
         public FacebookObjectCollection<Post> UserPosts
         {
             get
@@ -129,6 +187,5 @@ namespace FacebookAppEngine
             FacebookService.Logout();
             LoggedInUser = null;
         }
-
     }
 }

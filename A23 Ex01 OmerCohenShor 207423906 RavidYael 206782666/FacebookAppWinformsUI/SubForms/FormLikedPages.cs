@@ -13,7 +13,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormLikedPages : Form
     {
-        public FormLikedPages(User i_LoggedInUser)
+        public FormLikedPages()
         {
             InitializeComponent();
         }

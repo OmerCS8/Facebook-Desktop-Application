@@ -73,6 +73,16 @@ namespace BasicFacebookFeatures.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cover_deafult {
+            get {
+                object obj = ResourceManager.GetObject("cover-deafult", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap groups_icon {
             get {
                 object obj = ResourceManager.GetObject("groups icon", resourceCulture);
