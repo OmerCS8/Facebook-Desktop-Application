@@ -23,7 +23,7 @@ namespace BasicFacebookFeatures.SubForms
         public FormGroups()
         {
             InitializeComponent();
-            buttonPostInGroup.BackColor = ColorsUtils.sr_ButtonsDefaultColor;
+            buttonPostInGroup.BackColor = ColorsUtils.sr_ButtonsChosenColor;
             setGroups();
         }
 
