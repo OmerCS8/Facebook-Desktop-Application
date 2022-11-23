@@ -92,7 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormsUtils\AlbumPictureBox.cs">
+    <Compile Include="FormsUtils\PictureBoxBorderedAndNamed.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormsUtils\ColorsUtils.cs" />
@@ -152,6 +152,9 @@
     </Compile>
     <EmbeddedResource Include="SubForms\FormAlbums.resx">
       <DependentUpon>FormAlbums.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\FormGroups.resx">
+      <DependentUpon>FormGroups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms\FormProfile.resx">
       <DependentUpon>FormProfile.cs</DependentUpon>

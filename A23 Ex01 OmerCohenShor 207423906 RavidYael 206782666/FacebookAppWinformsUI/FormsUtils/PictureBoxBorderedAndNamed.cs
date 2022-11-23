@@ -9,13 +9,13 @@ using CefSharp.DevTools.Debugger;
 
 namespace BasicFacebookFeatures.FormsUtils
 {
-    class AlbumPictureBox : PictureBox
+    class PictureBoxBorderedAndNamed : PictureBox
     {
         private readonly int r_BorderSize;
         private readonly int r_BorderTextHeight;
         private readonly PictureBox r_PhotoPictureBox;
         private readonly Label r_NameLabel;
-        public AlbumPictureBox(int i_Size, bool i_DoesHaveBorder)
+        public PictureBoxBorderedAndNamed(int i_Size, bool i_DoesHaveBorder)
         {
             r_BorderSize = i_DoesHaveBorder ? 10 : 1;
             r_BorderTextHeight = i_DoesHaveBorder ? 10 : 20;
@@ -29,18 +29,18 @@ namespace BasicFacebookFeatures.FormsUtils
         private void addVisualEffects()
         {
             this.Cursor = Cursors.Hand;
-            this.MouseDown += new MouseEventHandler(this.albumPictureBox_MouseDown);
-            r_NameLabel.MouseDown += new MouseEventHandler(this.albumPictureBox_MouseDown);
-            r_PhotoPictureBox.MouseDown += new MouseEventHandler(this.albumPictureBox_MouseDown);
-            this.MouseUp += new MouseEventHandler(this.albumPictureBox_MouseEnterAndUp);
-            r_NameLabel.MouseUp += new MouseEventHandler(this.albumPictureBox_MouseEnterAndUp);
-            r_PhotoPictureBox.MouseUp += new MouseEventHandler(this.albumPictureBox_MouseEnterAndUp);
-            this.MouseEnter += new EventHandler(this.albumPictureBox_MouseEnterAndUp);
-            r_NameLabel.MouseEnter += new EventHandler(this.albumPictureBox_MouseEnterAndUp);
-            r_PhotoPictureBox.MouseEnter += new EventHandler(this.albumPictureBox_MouseEnterAndUp);
-            this.MouseLeave += new EventHandler(this.albumPictureBox_MouseLeave);
-            r_NameLabel.MouseLeave += new EventHandler(this.albumPictureBox_MouseLeave);
-            r_PhotoPictureBox.MouseLeave += new EventHandler(this.albumPictureBox_MouseLeave);
+            this.MouseDown += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseDown);
+            r_NameLabel.MouseDown += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseDown);
+            r_PhotoPictureBox.MouseDown += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseDown);
+            this.MouseUp += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
+            r_NameLabel.MouseUp += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
+            r_PhotoPictureBox.MouseUp += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
+            this.MouseEnter += new EventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
+            r_NameLabel.MouseEnter += new EventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
+            r_PhotoPictureBox.MouseEnter += new EventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
+            this.MouseLeave += new EventHandler(this.pictureBoxBorderedAndNamed_MouseLeave);
+            r_NameLabel.MouseLeave += new EventHandler(this.pictureBoxBorderedAndNamed_MouseLeave);
+            r_PhotoPictureBox.MouseLeave += new EventHandler(this.pictureBoxBorderedAndNamed_MouseLeave);
         }
 
         public string PictureName
@@ -78,19 +78,19 @@ namespace BasicFacebookFeatures.FormsUtils
             i_PhotoPictureBox.BringToFront();
         }
 
-        private void albumPictureBox_MouseLeave(object i_Sender, EventArgs i_E)
+        private void pictureBoxBorderedAndNamed_MouseLeave(object i_Sender, EventArgs i_E)
         {
             this.BackColor = ColorsUtils.sr_PictureBoxBorderDefault;
             r_NameLabel.Font = new Font(r_NameLabel.Font, FontStyle.Regular);
         }
 
-        private void albumPictureBox_MouseEnterAndUp(object i_Sender, EventArgs i_E)
+        private void pictureBoxBorderedAndNamed_MouseEnterAndUp(object i_Sender, EventArgs i_E)
         {
             this.BackColor = ColorsUtils.sr_PictureBoxBorderHover;
             r_NameLabel.Font = new Font(r_NameLabel.Font, FontStyle.Bold);
         }
 
-        private void albumPictureBox_MouseDown(object i_Sender, EventArgs i_E)
+        private void pictureBoxBorderedAndNamed_MouseDown(object i_Sender, EventArgs i_E)
         {
             this.BackColor = ColorsUtils.sr_PictureBoxBorderChosen;
         }
@@ -123,8 +123,13 @@ namespace BasicFacebookFeatures.FormsUtils
         public void AddOnClickAction(EventHandler i_EventHandler)
         {
             this.Click += i_EventHandler;
-            r_NameLabel.Click += i_EventHandler;
-            r_PhotoPictureBox.Click += i_EventHandler;
+            r_NameLabel.Click += triggerPictureBoxClick;
+            r_PhotoPictureBox.Click += triggerPictureBoxClick;
+        }
+
+        private void triggerPictureBoxClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            this.OnClick(i_EventArgs);
         }
     }
 }

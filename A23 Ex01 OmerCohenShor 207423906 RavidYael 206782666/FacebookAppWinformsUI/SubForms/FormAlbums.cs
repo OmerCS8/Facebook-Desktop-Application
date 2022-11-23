@@ -38,7 +38,7 @@ namespace BasicFacebookFeatures.SubForms
             FacebookObjectCollection<Album> userAlbums = r_UserManager.LoggedInUserAlbums;
             foreach(Album currentAlbum in userAlbums)
             {
-                AlbumPictureBox albumCoverPictureBox = new AlbumPictureBox(r_AlbumCoverSize, true);
+                PictureBoxBorderedAndNamed albumCoverPictureBox = new PictureBoxBorderedAndNamed(r_AlbumCoverSize, true);
                 try
                 {
                     albumCoverPictureBox.PictureBackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
@@ -57,10 +57,10 @@ namespace BasicFacebookFeatures.SubForms
         private void setAlbumPhotos(Album i_SelectedAlbum)
         {
             flowLayoutPanelPhotos.Controls.Clear();
-            foreach(Photo currentPhoto in i_SelectedAlbum.Photos)
+            foreach (Photo currentPhoto in i_SelectedAlbum.Photos)
             {
                 labelChosenPhotoName.Text = "Selected photo:";
-                AlbumPictureBox albumPhotoPictureBox = new AlbumPictureBox(r_PhotoSize, false);
+                PictureBoxBorderedAndNamed albumPhotoPictureBox = new PictureBoxBorderedAndNamed(r_PhotoSize, false);
                 try
                 {
                     albumPhotoPictureBox.PictureBackgroundImage = currentPhoto.ImageNormal;
@@ -78,8 +78,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void albumPhotoPictureBox_Clicked(object i_Sender, EventArgs i_E)
         {
-            AlbumPictureBox clickedPhotoPictureBox = getClickedAlbumPictureBoxFromSender(i_Sender);
-            if(clickedPhotoPictureBox != null)
+            if(i_Sender is PictureBoxBorderedAndNamed clickedPhotoPictureBox)
             {
                 labelChosenPhotoName.Text = $"Selected photo: {clickedPhotoPictureBox.PictureName}";
             }
@@ -87,39 +86,19 @@ namespace BasicFacebookFeatures.SubForms
 
         private void albumCoverPictureBox_Clicked(object i_Sender, EventArgs i_E)
         {
-            AlbumPictureBox clickedAlbumPictureBox = getClickedAlbumPictureBoxFromSender(i_Sender);
             string albumName;
             Album selectedAlbum;
 
-            if(clickedAlbumPictureBox != null)
+            if(i_Sender is PictureBoxBorderedAndNamed clickedAlbumPictureBox)
             {
                 albumName = clickedAlbumPictureBox.PictureName;
                 labelChosenAlbumName.Text = $"Selected album: {albumName}";
                 selectedAlbum = r_UserManager.LoggedInUserAlbums.Find(i_Album => i_Album.Name == albumName);
-                if(selectedAlbum != null && selectedAlbum.Photos.Count > 0)
+                if(selectedAlbum != null)
                 {
                     setAlbumPhotos(selectedAlbum);
                 }
             }
-        }
-
-        private static AlbumPictureBox getClickedAlbumPictureBoxFromSender(object i_Sender)
-        {
-            AlbumPictureBox clickedAlbumPictureBox = null;
-            if(i_Sender.GetType() == typeof(AlbumPictureBox))
-            {
-                clickedAlbumPictureBox = i_Sender as AlbumPictureBox;
-            }
-            else if(i_Sender.GetType() == typeof(PictureBox))
-            {
-                clickedAlbumPictureBox = (i_Sender as PictureBox)?.Parent as AlbumPictureBox;
-            }
-            else if(i_Sender.GetType() == typeof(Label))
-            {
-                clickedAlbumPictureBox = (i_Sender as Label)?.Parent as AlbumPictureBox;
-            }
-
-            return clickedAlbumPictureBox;
         }
     }
 }
