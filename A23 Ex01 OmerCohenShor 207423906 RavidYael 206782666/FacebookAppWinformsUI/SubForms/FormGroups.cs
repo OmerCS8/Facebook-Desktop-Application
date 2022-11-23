@@ -17,10 +17,13 @@ namespace BasicFacebookFeatures.SubForms
     {
         private readonly int r_GroupPhotoSize = 100;
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
+        private readonly string r_AccessDeniedMSG = "Access Denied!";
+        private readonly string r_EmptyFieldMSG = "None";
         private Group m_SelectedGroup = null;
         public FormGroups()
         {
             InitializeComponent();
+            buttonPostInGroup.BackColor = ColorsUtils.sr_ButtonsDefaultColor;
             setGroups();
         }
 
@@ -54,13 +57,97 @@ namespace BasicFacebookFeatures.SubForms
                 if (m_SelectedGroup != null)
                 {
                     setGroupDetails(m_SelectedGroup);
+                    buttonPostInGroup.Enabled = true;
+                    richTextBoxPost.Enabled = true;
                 }
             }
         }
 
         private void setGroupDetails(Group i_SelectedGroup)
         {
-            labelName.Text = $"Group name: {i_SelectedGroup.Name}";
+            string groupName;
+            string groupMembers;
+            string groupPosts;
+            string groupDescription;
+            string groupOwner;
+
+            try
+            {
+                groupName = i_SelectedGroup.Name ?? r_EmptyFieldMSG;
+            }
+            catch(Exception)
+            {
+                groupName = r_AccessDeniedMSG;
+            }
+
+            try
+            {
+                groupMembers = i_SelectedGroup.Members != null ? i_SelectedGroup.Members.Count.ToString() :
+                                   r_EmptyFieldMSG;
+            }
+            catch(Exception)
+            {
+                groupMembers = r_AccessDeniedMSG;
+            }
+
+            try
+            {
+                groupPosts = i_SelectedGroup.WallPosts != null ? i_SelectedGroup.WallPosts.Count.ToString() :
+                                 r_EmptyFieldMSG;
+            }
+            catch(Exception)
+            {
+                groupPosts = r_AccessDeniedMSG;
+            }
+
+            try
+            {
+                groupDescription = i_SelectedGroup.Description ?? r_EmptyFieldMSG;
+            }
+            catch(Exception)
+            {
+                groupDescription = r_AccessDeniedMSG;
+            }
+
+            try
+            {
+                groupOwner = i_SelectedGroup.Owner != null? i_SelectedGroup.Owner.Name : r_EmptyFieldMSG;
+            }
+            catch(Exception)
+            {
+                groupOwner = r_AccessDeniedMSG;
+            }
+
+            labelGroupName.Text = $"Group name: {groupName}";
+            labelGroupMembers.Text = $"Group members: {groupMembers}";
+            labelGroupPosts.Text = $"Group posts: {groupPosts}";
+            labelGroupDescription.Text = $"Group Description: {groupDescription}";
+            labelOwner.Text = $"Group Owner: {groupOwner}";
+        }
+
+        private void buttonPostInGroup_Click(object sender, EventArgs e)
+        {
+            if(richTextBoxPost.TextLength > 0)
+            {
+                try
+                {
+                    m_SelectedGroup?.PostToWall(richTextBoxPost.Text);
+                    richTextBoxPost.Clear();
+                    MessageBox.Show("Post was created", "post succeeded", 
+                        MessageBoxButtons.OK, MessageBoxIcon.None);
+                }
+                catch(Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error accured", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Can not post an empty post!", "Empty post",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -56,7 +56,7 @@
             this.panelTopBar.Location = new System.Drawing.Point(0, 0);
             this.panelTopBar.Margin = new System.Windows.Forms.Padding(4);
             this.panelTopBar.Name = "panelTopBar";
-            this.panelTopBar.Size = new System.Drawing.Size(1182, 95);
+            this.panelTopBar.Size = new System.Drawing.Size(1282, 95);
             this.panelTopBar.TabIndex = 0;
             // 
             // labelHeadline
@@ -65,7 +65,7 @@
             this.labelHeadline.AutoSize = true;
             this.labelHeadline.Font = new System.Drawing.Font("Arial", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.labelHeadline.ForeColor = System.Drawing.Color.White;
-            this.labelHeadline.Location = new System.Drawing.Point(348, 1);
+            this.labelHeadline.Location = new System.Drawing.Point(398, 1);
             this.labelHeadline.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelHeadline.Name = "labelHeadline";
             this.labelHeadline.Size = new System.Drawing.Size(481, 93);
@@ -288,7 +288,7 @@
             this.panelMain.Location = new System.Drawing.Point(239, 95);
             this.panelMain.Margin = new System.Windows.Forms.Padding(4);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(943, 608);
+            this.panelMain.Size = new System.Drawing.Size(1043, 608);
             this.panelMain.TabIndex = 2;
             // 
             // FormMain
@@ -296,7 +296,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1182, 703);
+            this.ClientSize = new System.Drawing.Size(1282, 703);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSideBar);
             this.Controls.Add(this.panelTopBar);

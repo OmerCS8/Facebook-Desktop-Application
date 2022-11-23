@@ -35,6 +35,7 @@ namespace BasicFacebookFeatures.SubForms
             this.labelChosenAlbumName = new System.Windows.Forms.Label();
             this.flowLayoutPanelPhotos = new System.Windows.Forms.FlowLayoutPanel();
             this.panelPhotoName = new System.Windows.Forms.Panel();
+            this.linkLabelPhotoLink = new System.Windows.Forms.LinkLabel();
             this.labelChosenPhotoName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerAlbumsPhotos)).BeginInit();
             this.splitContainerAlbumsPhotos.Panel1.SuspendLayout();
@@ -71,14 +72,14 @@ namespace BasicFacebookFeatures.SubForms
             this.flowLayoutPanelAlbums.AutoScroll = true;
             this.flowLayoutPanelAlbums.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelAlbums.Location = new System.Drawing.Point(0, 91);
-            this.flowLayoutPanelAlbums.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelAlbums.Name = "flowLayoutPanelAlbums";
-            this.flowLayoutPanelAlbums.Padding = new System.Windows.Forms.Padding(10);
+            this.flowLayoutPanelAlbums.Padding = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanelAlbums.Size = new System.Drawing.Size(500, 463);
             this.flowLayoutPanelAlbums.TabIndex = 5;
             // 
             // panelAlbumName
             // 
+            this.panelAlbumName.AutoScroll = true;
             this.panelAlbumName.Controls.Add(this.labelChosenAlbumName);
             this.panelAlbumName.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAlbumName.Location = new System.Drawing.Point(0, 0);
@@ -92,7 +93,7 @@ namespace BasicFacebookFeatures.SubForms
             this.labelChosenAlbumName.AutoEllipsis = true;
             this.labelChosenAlbumName.AutoSize = true;
             this.labelChosenAlbumName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelChosenAlbumName.Location = new System.Drawing.Point(16, 36);
+            this.labelChosenAlbumName.Location = new System.Drawing.Point(4, 36);
             this.labelChosenAlbumName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelChosenAlbumName.Name = "labelChosenAlbumName";
             this.labelChosenAlbumName.Size = new System.Drawing.Size(174, 25);
@@ -104,14 +105,15 @@ namespace BasicFacebookFeatures.SubForms
             this.flowLayoutPanelPhotos.AutoScroll = true;
             this.flowLayoutPanelPhotos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelPhotos.Location = new System.Drawing.Point(0, 91);
-            this.flowLayoutPanelPhotos.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelPhotos.Name = "flowLayoutPanelPhotos";
-            this.flowLayoutPanelPhotos.Padding = new System.Windows.Forms.Padding(10);
+            this.flowLayoutPanelPhotos.Padding = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanelPhotos.Size = new System.Drawing.Size(563, 463);
             this.flowLayoutPanelPhotos.TabIndex = 3;
             // 
             // panelPhotoName
             // 
+            this.panelPhotoName.AutoScroll = true;
+            this.panelPhotoName.Controls.Add(this.linkLabelPhotoLink);
             this.panelPhotoName.Controls.Add(this.labelChosenPhotoName);
             this.panelPhotoName.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelPhotoName.Location = new System.Drawing.Point(0, 0);
@@ -120,12 +122,25 @@ namespace BasicFacebookFeatures.SubForms
             this.panelPhotoName.Size = new System.Drawing.Size(563, 91);
             this.panelPhotoName.TabIndex = 2;
             // 
+            // linkLabelPhotoLink
+            // 
+            this.linkLabelPhotoLink.AutoSize = true;
+            this.linkLabelPhotoLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabelPhotoLink.Location = new System.Drawing.Point(184, 41);
+            this.linkLabelPhotoLink.Name = "linkLabelPhotoLink";
+            this.linkLabelPhotoLink.Size = new System.Drawing.Size(78, 17);
+            this.linkLabelPhotoLink.TabIndex = 0;
+            this.linkLabelPhotoLink.TabStop = true;
+            this.linkLabelPhotoLink.Text = "Pohoto link";
+            this.linkLabelPhotoLink.Visible = false;
+            this.linkLabelPhotoLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPhotoLink_LinkClicked);
+            // 
             // labelChosenPhotoName
             // 
             this.labelChosenPhotoName.AutoEllipsis = true;
             this.labelChosenPhotoName.AutoSize = true;
             this.labelChosenPhotoName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelChosenPhotoName.Location = new System.Drawing.Point(21, 36);
+            this.labelChosenPhotoName.Location = new System.Drawing.Point(4, 36);
             this.labelChosenPhotoName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelChosenPhotoName.Name = "labelChosenPhotoName";
             this.labelChosenPhotoName.Size = new System.Drawing.Size(164, 25);
@@ -162,5 +177,6 @@ namespace BasicFacebookFeatures.SubForms
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPhotos;
         private System.Windows.Forms.Panel panelPhotoName;
         private System.Windows.Forms.Label labelChosenPhotoName;
+        private System.Windows.Forms.LinkLabel linkLabelPhotoLink;
     }
 }

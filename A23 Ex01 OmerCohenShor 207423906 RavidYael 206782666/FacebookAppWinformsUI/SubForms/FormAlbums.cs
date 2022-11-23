@@ -17,15 +17,17 @@ namespace BasicFacebookFeatures.SubForms
     {
         private readonly int r_AlbumCoverSize = 90;
         private readonly int r_PhotoSize = 150;
+        private readonly int r_ShownPhotoHeight = 400;
+        private Image m_ChosenPhoto;
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
         public FormAlbums()
         {
             InitializeComponent();
-            setSplitterToScreenMiddleAndAddColor();
+            setSplitterLocationAndAddColor();
             setAlbums();
         }
 
-        private void setSplitterToScreenMiddleAndAddColor()
+        private void setSplitterLocationAndAddColor()
         {
             splitContainerAlbumsPhotos.Panel1.BackColor = ColorsUtils.sr_MainColor;
             splitContainerAlbumsPhotos.Panel2.BackColor = ColorsUtils.sr_MainColor;
@@ -57,6 +59,7 @@ namespace BasicFacebookFeatures.SubForms
         private void setAlbumPhotos(Album i_SelectedAlbum)
         {
             flowLayoutPanelPhotos.Controls.Clear();
+            linkLabelPhotoLink.Visible = false;
             foreach (Photo currentPhoto in i_SelectedAlbum.Photos)
             {
                 labelChosenPhotoName.Text = "Selected photo:";
@@ -80,7 +83,9 @@ namespace BasicFacebookFeatures.SubForms
         {
             if(i_Sender is PictureBoxBorderedAndNamed clickedPhotoPictureBox)
             {
-                labelChosenPhotoName.Text = $"Selected photo: {clickedPhotoPictureBox.PictureName}";
+                linkLabelPhotoLink.Text = clickedPhotoPictureBox.PictureName;
+                linkLabelPhotoLink.Visible = true;
+                m_ChosenPhoto = clickedPhotoPictureBox.PictureBackgroundImage;
             }
         }
 
@@ -99,6 +104,18 @@ namespace BasicFacebookFeatures.SubForms
                     setAlbumPhotos(selectedAlbum);
                 }
             }
+        }
+
+        private void linkLabelPhotoLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form photoForm = new Form();
+            int photoWidthWitImageProportion = (r_ShownPhotoHeight * m_ChosenPhoto.Width) / m_ChosenPhoto.Height;
+            photoForm.Size = new Size(photoWidthWitImageProportion, r_ShownPhotoHeight);
+            photoForm.BackgroundImage = m_ChosenPhoto;
+            photoForm.BackgroundImageLayout = ImageLayout.Stretch;
+            photoForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            photoForm.StartPosition = FormStartPosition.CenterScreen;
+            photoForm.Show();
         }
     }
 }
