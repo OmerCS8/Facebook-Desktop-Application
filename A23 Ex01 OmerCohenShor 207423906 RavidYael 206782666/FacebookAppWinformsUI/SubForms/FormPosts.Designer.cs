@@ -141,19 +141,18 @@ namespace BasicFacebookFeatures.SubForms
             this.richTextBoxNewStatus.Enabled = false;
             this.richTextBoxNewStatus.Location = new System.Drawing.Point(7, 38);
             this.richTextBoxNewStatus.Name = "richTextBoxNewStatus";
-            this.richTextBoxNewStatus.Size = new System.Drawing.Size(299, 161);
+            this.richTextBoxNewStatus.Size = new System.Drawing.Size(287, 161);
             this.richTextBoxNewStatus.TabIndex = 8;
             this.richTextBoxNewStatus.Text = "";
             // 
             // buttonNewStatus
             // 
-            this.buttonNewStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNewStatus.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonNewStatus.Enabled = false;
             this.buttonNewStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.buttonNewStatus.Location = new System.Drawing.Point(312, 38);
+            this.buttonNewStatus.Location = new System.Drawing.Point(300, 38);
             this.buttonNewStatus.Name = "buttonNewStatus";
-            this.buttonNewStatus.Size = new System.Drawing.Size(64, 161);
+            this.buttonNewStatus.Size = new System.Drawing.Size(76, 161);
             this.buttonNewStatus.TabIndex = 7;
             this.buttonNewStatus.Text = "Post new status";
             this.buttonNewStatus.UseVisualStyleBackColor = true;
@@ -182,6 +181,9 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // listViewPosts
             // 
+            this.listViewPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewPosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ID,
             this.postContent,
