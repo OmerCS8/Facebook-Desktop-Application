@@ -99,6 +99,7 @@ namespace BasicFacebookFeatures
                 control.Enabled = true;
             }
 
+            buttonMemoryGame.Enabled = true;
             buttonLogin.Enabled = false;
         }
 
@@ -182,6 +183,12 @@ namespace BasicFacebookFeatures
         {
             setChosenButtonAsClicked(buttonPosts);
             setSubForm(new FormPosts());
+        }
+
+        private void buttonMemoryGame_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonMemoryGame);
+            setSubForm(new FormMemoryGame());
         }
     }
 }

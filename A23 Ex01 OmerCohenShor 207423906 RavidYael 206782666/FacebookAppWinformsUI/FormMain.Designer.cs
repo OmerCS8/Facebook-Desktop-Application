@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panelTopBar = new System.Windows.Forms.Panel();
+            this.buttonMemoryGame = new System.Windows.Forms.Button();
             this.labelHeadline = new System.Windows.Forms.Label();
             this.panelSideBar = new System.Windows.Forms.Panel();
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -51,6 +52,7 @@
             // 
             // panelTopBar
             // 
+            this.panelTopBar.Controls.Add(this.buttonMemoryGame);
             this.panelTopBar.Controls.Add(this.labelHeadline);
             this.panelTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTopBar.Location = new System.Drawing.Point(0, 0);
@@ -58,6 +60,29 @@
             this.panelTopBar.Name = "panelTopBar";
             this.panelTopBar.Size = new System.Drawing.Size(1282, 95);
             this.panelTopBar.TabIndex = 0;
+            // 
+            // buttonMemoryGame
+            // 
+            this.buttonMemoryGame.BackColor = System.Drawing.Color.Transparent;
+            this.buttonMemoryGame.BackgroundImage = global::BasicFacebookFeatures.Properties.Resources.memory_game_icon;
+            this.buttonMemoryGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonMemoryGame.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.buttonMemoryGame.Enabled = false;
+            this.buttonMemoryGame.FlatAppearance.BorderSize = 0;
+            this.buttonMemoryGame.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.buttonMemoryGame.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.buttonMemoryGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMemoryGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonMemoryGame.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonMemoryGame.Location = new System.Drawing.Point(13, 12);
+            this.buttonMemoryGame.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonMemoryGame.Name = "buttonMemoryGame";
+            this.buttonMemoryGame.Size = new System.Drawing.Size(70, 70);
+            this.buttonMemoryGame.TabIndex = 56;
+            this.buttonMemoryGame.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonMemoryGame.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonMemoryGame.UseVisualStyleBackColor = false;
+            this.buttonMemoryGame.Click += new System.EventHandler(this.buttonMemoryGame_Click);
             // 
             // labelHeadline
             // 
@@ -332,6 +357,7 @@
         private System.Windows.Forms.Button buttonLikedPages;
         private System.Windows.Forms.Button buttonAlbums;
         private System.Windows.Forms.Button buttonProfile;
+        private System.Windows.Forms.Button buttonMemoryGame;
     }
 }
 

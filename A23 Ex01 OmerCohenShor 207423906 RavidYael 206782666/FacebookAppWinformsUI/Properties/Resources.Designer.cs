@@ -143,6 +143,16 @@ namespace BasicFacebookFeatures.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap memory_game_icon {
+            get {
+                object obj = ResourceManager.GetObject("memory game icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap posts_icon {
             get {
                 object obj = ResourceManager.GetObject("posts icon", resourceCulture);

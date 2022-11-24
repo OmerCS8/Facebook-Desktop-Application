@@ -125,6 +125,12 @@
     <Compile Include="SubForms\FormLikedPages.Designer.cs">
       <DependentUpon>FormLikedPages.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms\FormMemoryGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\FormMemoryGame.Designer.cs">
+      <DependentUpon>FormMemoryGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms\FormPosts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms\FormLikedPages.resx">
       <DependentUpon>FormLikedPages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\FormMemoryGame.resx">
+      <DependentUpon>FormMemoryGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms\FormPosts.resx">
       <DependentUpon>FormPosts.cs</DependentUpon>
@@ -215,7 +224,9 @@
   <ItemGroup>
     <None Include="Resources\default Album Image.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\6168860.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
