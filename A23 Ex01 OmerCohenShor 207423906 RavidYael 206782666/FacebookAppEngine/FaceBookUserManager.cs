@@ -38,6 +38,18 @@ namespace FacebookAppEngine
 
         public User LoggedInUser { get; private set; }
 
+        public bool CreateNewStatusAndReturnIfSucceeded(string i_StatusText)
+        {
+            bool didStatusCreationSucceed = false;
+            if (LoggedInUser != null && i_StatusText != string.Empty)
+            {
+                LoggedInUser.PostStatus(i_StatusText);
+                didStatusCreationSucceed = true;
+            }
+
+            return didStatusCreationSucceed;
+        }
+
         public int? LoggedInUserAge
         {
             get

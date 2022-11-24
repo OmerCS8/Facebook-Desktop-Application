@@ -16,6 +16,8 @@ namespace BasicFacebookFeatures.SubForms
     public partial class FormPosts : Form
     {
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
+        private const string k_EmptyFieldMSG = "-None-";
+        private Post m_SelectedPost = null;
         public FormPosts()
         {
             InitializeComponent();
@@ -29,32 +31,85 @@ namespace BasicFacebookFeatures.SubForms
             FacebookObjectCollection<Post> userPosts = r_UserManager.LoggedInUserPosts;
             foreach(Post currentPost in userPosts)
             {
-                ListViewItem listViewItem = new ListViewItem(currentPost.Id);
-                listViewItem.SubItems.Add(currentPost.Message ?? "---");
-                listViewItem.SubItems.Add(currentPost.Caption ?? "---");
-                listViewItem.SubItems.Add(currentPost.Description ?? "---");
-                listViewItem.SubItems.Add(currentPost.CreatedTime.ToString());
+                ListViewItem listViewItem = new ListViewItem(currentPost.CreatedTime.ToString());
+                listViewItem.SubItems.Add(currentPost.Message ?? k_EmptyFieldMSG);
+                listViewItem.SubItems.Add(currentPost.Caption ?? k_EmptyFieldMSG);
+                listViewItem.SubItems.Add(currentPost.Description ?? k_EmptyFieldMSG);
+                listViewItem.SubItems.Add(currentPost.Id);
                 listViewPosts.Items.Add(listViewItem);
             }
+            listViewPosts.Sort();
         }
 
         private void listViewPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listViewPosts.SelectedIndices.Count == 1)
+            if(listViewPosts.SelectedItems.Count == 1)
             {
-                Post selected = r_UserManager.LoggedInUserPosts[listViewPosts.SelectedIndices[0]];
-                listBoxComments.DisplayMember = "Message";
-                listBoxComments.DataSource = selected.Comments;
-                buttonAddComment.Enabled = true;
-                listBoxComments.Enabled = true;
+                m_SelectedPost = r_UserManager.LoggedInUserPosts.Find(post => post.Id == listViewPosts.SelectedItems[0].SubItems[4].Text);
+                if (m_SelectedPost != null)
+                {
+                    listBoxComments.DataSource = m_SelectedPost.Comments;
+                    buttonAddComment.Enabled = true;
+                    richTextBoxNewComment.Enabled = true;
+                }
             }
             else
             {
                 buttonAddComment.Enabled = false;
-                listBoxComments.Enabled = false;
-                listBoxComments.Items.Clear();
+                richTextBoxNewComment.Enabled = false;
+                listBoxComments.DataSource = null;
+                m_SelectedPost = null;
             }
 
+        }
+
+        private void buttonAddComment_Click(object sender, EventArgs e)
+        {
+            if (richTextBoxNewComment.TextLength > 0)
+            {
+                try
+                {
+                    m_SelectedPost?.Comment(richTextBoxNewComment.Text);
+                    richTextBoxNewComment.Clear();
+                    MessageBox.Show("Comment was Added", "succeed",
+                        MessageBoxButtons.OK, MessageBoxIcon.None);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error accured",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Can not post an empty comment!", "Empty comment",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonNewStatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (r_UserManager.CreateNewStatusAndReturnIfSucceeded(richTextBoxNewStatus.Text))
+                {
+                    richTextBoxNewComment.Clear();
+                    MessageBox.Show("Comment was Added", "succeed",
+                        MessageBoxButtons.OK, MessageBoxIcon.None);
+
+                }
+                else
+                {
+                    MessageBox.Show("Can not post an empty status!", "Empty status",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error accured - do not have permission",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
