@@ -37,9 +37,9 @@ namespace BasicFacebookFeatures.SubForms
             this.labelGroupDescription = new System.Windows.Forms.Label();
             this.labelOwner = new System.Windows.Forms.Label();
             this.panelActions = new System.Windows.Forms.Panel();
-            this.flowLayoutPanelGroups = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonPostInGroup = new System.Windows.Forms.Button();
             this.richTextBoxPost = new System.Windows.Forms.RichTextBox();
+            this.buttonPostInGroup = new System.Windows.Forms.Button();
+            this.flowLayoutPanelGroups = new System.Windows.Forms.FlowLayoutPanel();
             this.panelGroupDetails.SuspendLayout();
             this.flowLayoutPanelGroupDetails.SuspendLayout();
             this.panelActions.SuspendLayout();
@@ -70,8 +70,7 @@ namespace BasicFacebookFeatures.SubForms
             this.flowLayoutPanelGroupDetails.Name = "flowLayoutPanelGroupDetails";
             this.flowLayoutPanelGroupDetails.Padding = new System.Windows.Forms.Padding(2, 5, 5, 5);
             this.flowLayoutPanelGroupDetails.Size = new System.Drawing.Size(388, 205);
-            this.flowLayoutPanelGroupDetails.TabIndex = 3;
-            // 
+            this.flowLayoutPanelGroupDetails.TabIndex = 3; // 
             // labelGroupName
             // 
             this.labelGroupName.AutoSize = true;
@@ -137,15 +136,14 @@ namespace BasicFacebookFeatures.SubForms
             this.panelActions.Size = new System.Drawing.Size(388, 245);
             this.panelActions.TabIndex = 2;
             // 
-            // flowLayoutPanelGroups
+            // richTextBoxPost
             // 
-            this.flowLayoutPanelGroups.AutoScroll = true;
-            this.flowLayoutPanelGroups.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanelGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelGroups.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanelGroups.Name = "flowLayoutPanelGroups";
-            this.flowLayoutPanelGroups.Size = new System.Drawing.Size(412, 450);
-            this.flowLayoutPanelGroups.TabIndex = 1;
+            this.richTextBoxPost.Enabled = false;
+            this.richTextBoxPost.Location = new System.Drawing.Point(17, 63);
+            this.richTextBoxPost.Name = "richTextBoxPost";
+            this.richTextBoxPost.Size = new System.Drawing.Size(348, 170);
+            this.richTextBoxPost.TabIndex = 6;
+            this.richTextBoxPost.Text = "";
             // 
             // buttonPostInGroup
             // 
@@ -159,14 +157,15 @@ namespace BasicFacebookFeatures.SubForms
             this.buttonPostInGroup.UseVisualStyleBackColor = true;
             this.buttonPostInGroup.Click += new System.EventHandler(this.buttonPostInGroup_Click);
             // 
-            // richTextBoxPost
+            // flowLayoutPanelGroups
             // 
-            this.richTextBoxPost.Enabled = false;
-            this.richTextBoxPost.Location = new System.Drawing.Point(17, 63);
-            this.richTextBoxPost.Name = "richTextBoxPost";
-            this.richTextBoxPost.Size = new System.Drawing.Size(348, 170);
-            this.richTextBoxPost.TabIndex = 6;
-            this.richTextBoxPost.Text = "";
+            this.flowLayoutPanelGroups.AutoScroll = true;
+            this.flowLayoutPanelGroups.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanelGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelGroups.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelGroups.Name = "flowLayoutPanelGroups";
+            this.flowLayoutPanelGroups.Size = new System.Drawing.Size(412, 450);
+            this.flowLayoutPanelGroups.TabIndex = 1;
             // 
             // FormGroups
             // 

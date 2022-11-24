@@ -156,6 +156,9 @@
     <EmbeddedResource Include="SubForms\FormGroups.resx">
       <DependentUpon>FormGroups.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\FormLikedPages.resx">
+      <DependentUpon>FormLikedPages.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms\FormPosts.resx">
       <DependentUpon>FormPosts.cs</DependentUpon>
     </EmbeddedResource>

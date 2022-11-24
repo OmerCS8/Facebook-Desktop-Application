@@ -17,8 +17,8 @@ namespace BasicFacebookFeatures.SubForms
     {
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
         private const int k_GroupPhotoSize = 100;
-        private const string k_AccessDeniedMSG = "Access Denied!";
-        private const string k_EmptyFieldMSG = "None";
+        private const string k_AccessDeniedMsg = "Access Denied!";
+        private const string k_EmptyFieldMsg = "None";
         private Group m_SelectedGroup = null;
         public FormGroups()
         {
@@ -73,49 +73,49 @@ namespace BasicFacebookFeatures.SubForms
 
             try
             {
-                groupName = i_SelectedGroup.Name ?? k_EmptyFieldMSG;
+                groupName = i_SelectedGroup.Name ?? k_EmptyFieldMsg;
             }
             catch(Exception)
             {
-                groupName = k_AccessDeniedMSG;
+                groupName = k_AccessDeniedMsg;
             }
 
             try
             {
                 groupMembers = i_SelectedGroup.Members != null ? i_SelectedGroup.Members.Count.ToString() :
-                                   k_EmptyFieldMSG;
+                                   k_EmptyFieldMsg;
             }
             catch(Exception)
             {
-                groupMembers = k_AccessDeniedMSG;
+                groupMembers = k_AccessDeniedMsg;
             }
 
             try
             {
                 groupPosts = i_SelectedGroup.WallPosts != null ? i_SelectedGroup.WallPosts.Count.ToString() :
-                                 k_EmptyFieldMSG;
+                                 k_EmptyFieldMsg;
             }
             catch(Exception)
             {
-                groupPosts = k_AccessDeniedMSG;
+                groupPosts = k_AccessDeniedMsg;
             }
 
             try
             {
-                groupDescription = i_SelectedGroup.Description ?? k_EmptyFieldMSG;
+                groupDescription = i_SelectedGroup.Description ?? k_EmptyFieldMsg;
             }
             catch(Exception)
             {
-                groupDescription = k_AccessDeniedMSG;
+                groupDescription = k_AccessDeniedMsg;
             }
 
             try
             {
-                groupOwner = i_SelectedGroup.Owner != null? i_SelectedGroup.Owner.Name : k_EmptyFieldMSG;
+                groupOwner = i_SelectedGroup.Owner != null? i_SelectedGroup.Owner.Name : k_EmptyFieldMsg;
             }
             catch(Exception)
             {
-                groupOwner = k_AccessDeniedMSG;
+                groupOwner = k_AccessDeniedMsg;
             }
 
             labelGroupName.Text = $"Group name: {groupName}";
@@ -138,7 +138,7 @@ namespace BasicFacebookFeatures.SubForms
                 }
                 catch(Exception exception)
                 {
-                    MessageBox.Show(exception.Message, "Error accured", 
+                    MessageBox.Show(exception.Message, k_AccessDeniedMsg, 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 

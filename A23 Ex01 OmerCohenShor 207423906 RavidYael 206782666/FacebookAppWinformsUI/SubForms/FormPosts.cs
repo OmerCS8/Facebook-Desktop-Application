@@ -17,6 +17,7 @@ namespace BasicFacebookFeatures.SubForms
     {
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
         private const string k_EmptyFieldMSG = "-None-";
+        private const string k_AccessDeniedMsg = "Access Denied!";
         private Post m_SelectedPost = null;
         public FormPosts()
         {
@@ -76,7 +77,7 @@ namespace BasicFacebookFeatures.SubForms
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(exception.Message, "Error accured",
+                    MessageBox.Show(exception.Message, k_AccessDeniedMsg,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
@@ -107,7 +108,7 @@ namespace BasicFacebookFeatures.SubForms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Error accured - do not have permission",
+                MessageBox.Show(exception.Message, k_AccessDeniedMsg,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
