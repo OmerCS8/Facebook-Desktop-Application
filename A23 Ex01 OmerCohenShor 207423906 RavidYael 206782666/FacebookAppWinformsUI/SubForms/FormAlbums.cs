@@ -15,9 +15,9 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormAlbums : Form
     {
-        private readonly int r_AlbumCoverSize = 90;
-        private readonly int r_PhotoSize = 150;
-        private readonly int r_ShownPhotoHeight = 400;
+        private const int k_AlbumCoverSize = 90;
+        private const int k_PhotoSize = 150;
+        private const int k_ShownPhotoHeight = 400;
         private Image m_ChosenPhoto;
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
         public FormAlbums()
@@ -40,7 +40,7 @@ namespace BasicFacebookFeatures.SubForms
             FacebookObjectCollection<Album> userAlbums = r_UserManager.LoggedInUserAlbums;
             foreach(Album currentAlbum in userAlbums)
             {
-                PictureBoxBorderedAndNamed albumCoverPictureBox = new PictureBoxBorderedAndNamed(r_AlbumCoverSize, true);
+                PictureBoxBorderedAndNamed albumCoverPictureBox = new PictureBoxBorderedAndNamed(k_AlbumCoverSize, true);
                 try
                 {
                     albumCoverPictureBox.PictureBackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
@@ -63,7 +63,7 @@ namespace BasicFacebookFeatures.SubForms
             foreach (Photo currentPhoto in i_SelectedAlbum.Photos)
             {
                 labelChosenPhotoName.Text = "Selected photo:";
-                PictureBoxBorderedAndNamed albumPhotoPictureBox = new PictureBoxBorderedAndNamed(r_PhotoSize, false);
+                PictureBoxBorderedAndNamed albumPhotoPictureBox = new PictureBoxBorderedAndNamed(k_PhotoSize, false);
                 try
                 {
                     albumPhotoPictureBox.PictureBackgroundImage = currentPhoto.ImageNormal;
@@ -109,8 +109,8 @@ namespace BasicFacebookFeatures.SubForms
         private void linkLabelPhotoLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Form photoForm = new Form();
-            int photoWidthWitImageProportion = (r_ShownPhotoHeight * m_ChosenPhoto.Width) / m_ChosenPhoto.Height;
-            photoForm.Size = new Size(photoWidthWitImageProportion, r_ShownPhotoHeight);
+            int photoWidthWitImageProportion = (k_ShownPhotoHeight * m_ChosenPhoto.Width) / m_ChosenPhoto.Height;
+            photoForm.Size = new Size(photoWidthWitImageProportion, k_ShownPhotoHeight);
             photoForm.BackgroundImage = m_ChosenPhoto;
             photoForm.BackgroundImageLayout = ImageLayout.Stretch;
             photoForm.FormBorderStyle = FormBorderStyle.FixedSingle;
