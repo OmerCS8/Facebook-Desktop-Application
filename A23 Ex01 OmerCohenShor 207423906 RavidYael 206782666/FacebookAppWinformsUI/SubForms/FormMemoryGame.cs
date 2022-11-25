@@ -9,14 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BasicFacebookFeatures.FormsUtils;
 
 namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormMemoryGame : Form
     {
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
-        private TimeSpan m_timeLeft;
-        private readonly Random m_RandomMaker = new Random();
+        private TimeSpan m_TimeLeft;
+        private int m_PairsLeft;
+        private PictureBoxCard m_prevSelectedCard = null;
+        private PictureBoxCard m_SelectedCard = null;
         private const string k_LostMsg = "You lost. Try again...?";
         private const string k_WonMsg = "You won! play again?";
         private const int k_EasyCardSize = 100;
@@ -26,23 +29,28 @@ namespace BasicFacebookFeatures.SubForms
         public FormMemoryGame()
         {
             InitializeComponent();
+            panelLevelButtons.Left = (panelGame.Width - panelLevelButtons.Width) / 2;
+            panelLevelButtons.Top = (panelGame.Height - panelLevelButtons.Height) / 2;
         }
 
         private void buttonEasy_Click(object sender, EventArgs e)
         {
-            m_timeLeft = new TimeSpan(0, 2, 0);
+            m_TimeLeft = new TimeSpan(0, 2, 0);
+            m_PairsLeft = 6;
             startGame(3, 4 , k_EasyCardSize);
         }
 
         private void buttonMedium_Click(object sender, EventArgs e)
         {
-            m_timeLeft = new TimeSpan(0, 1, 30);
+            m_TimeLeft = new TimeSpan(0, 1, 30);
+            m_PairsLeft = 10;
             startGame(4, 5, k_MediumCardSize);
         }
 
         private void buttonHard_Click(object sender, EventArgs e)
         {
-            m_timeLeft = new TimeSpan(0, 1, 0);
+            m_TimeLeft = new TimeSpan(0, 1, 0);
+            m_PairsLeft = 15;
             startGame(5, 6, k_HardCardSize);
         }
         private void startGame(int i_Rows, int i_Cols, int i_CardSize)
@@ -57,58 +65,53 @@ namespace BasicFacebookFeatures.SubForms
 
         private void generateCards(int i_Rows, int i_Cols, int i_CardSize)
         {
-            List<Image> randomImages = getRandomImagesFromUserAlbums((i_Cols * i_Rows) / 2);
+            List<Image> randomImages = r_UserManager.GetRandomImagesFromUserAlbums((i_Cols * i_Rows) / 2);
+            PictureBoxCard cardPictureBox;
 
             for(int i = 0; i < i_Rows; i++)
             {
                 for(int j = 0; j < i_Cols; j++)
                 {
-                    PictureBox pictureBox = new PictureBox();
-                    pictureBox.Size = new Size(i_CardSize, i_CardSize);
-                    pictureBox.BackgroundImage = randomImages[i * i_Cols + j];
-                    pictureBox.BackgroundImageLayout = ImageLayout.Stretch;
-                    panelGame.Controls.Add(pictureBox);
-                    pictureBox.Location = new Point(j * (i_CardSize + 10) + 20, i * (i_CardSize + 10));
-                } 
+                    cardPictureBox = new PictureBoxCard(i_CardSize, i_CardSize, randomImages[i * i_Cols + j]);
+                    cardPictureBox.Click += card_Clicked;
+                    panelGame.Controls.Add(cardPictureBox);
+                    cardPictureBox.Location = new Point(j * (i_CardSize + 10) + 20, i * (i_CardSize + 10));
+                }
             }
         }
 
-        private List<Image> getRandomImagesFromUserAlbums(int i_ImageNumber)
+        private void card_Clicked(object i_Sender, EventArgs i_E)
         {
-            FacebookObjectCollection<Album> userAlbums = r_UserManager.LoggedInUserAlbums;
-            List<Image> randomImages = new List<Image>();
-            Album chosenAlbum;
-            Image chosenPhotoImage;
-
-
-            for (int i = 0; i < i_ImageNumber; i++)
+            if (i_Sender is PictureBoxCard selectedCard)
             {
-                chosenAlbum = userAlbums[m_RandomMaker.Next(userAlbums.Count)];
-                if (chosenAlbum.Photos.Count == 0)
+                m_SelectedCard = selectedCard;
+                selectedCard.FlipToFront();
+                if(m_prevSelectedCard == null)
                 {
-                    i--;
-                    continue;
-                }
-                chosenPhotoImage = (chosenAlbum.Photos[m_RandomMaker.Next(chosenAlbum.Photos.Count)].ImageNormal);
-                if (randomImages.Contains(chosenPhotoImage))
-                {
-                    i--;
+                    m_prevSelectedCard = selectedCard;
+                    m_prevSelectedCard.Click -= card_Clicked;
                 }
                 else
                 {
-                    randomImages.Add(chosenPhotoImage);
-                    randomImages.Add(chosenPhotoImage);
+                    if(m_prevSelectedCard.FrontImage == selectedCard.FrontImage)
+                    {
+                        setAllCardsUnClickable();
+                        timerGoodPair.Start();
+                    }
+                    else
+                    {
+                        setAllCardsUnClickable();
+                        timerWrongPair.Start();
+                    }
                 }
             }
-
-            return randomImages.OrderBy(i_Image => m_RandomMaker.Next()).ToList();
         }
 
         private void timerTimeLeft_Tick(object sender, EventArgs e)
         {
-            m_timeLeft = m_timeLeft.Subtract(TimeSpan.FromMilliseconds(timerTimeLeft.Interval));
+            m_TimeLeft = m_TimeLeft.Subtract(TimeSpan.FromMilliseconds(timerTimeLeft.Interval));
             updateTimerLabel();
-            if (m_timeLeft <= TimeSpan.Zero)
+            if (m_TimeLeft <= TimeSpan.Zero)
             {
                 setGameOver("You lost. Try again...?");
             }
@@ -117,6 +120,7 @@ namespace BasicFacebookFeatures.SubForms
         private void setGameOver(string i_ResultMsg)
         {
             timerTimeLeft.Stop();
+            removeAllCards();
             labelResult.Text = i_ResultMsg;
             labelResult.Visible = true;
             panelLevelButtons.Visible = true;
@@ -124,7 +128,67 @@ namespace BasicFacebookFeatures.SubForms
 
         private void updateTimerLabel()
         {
-            labelTimer.Text = $"{m_timeLeft.Minutes}:{m_timeLeft.Seconds}";
+            labelTimer.Text = $"{m_TimeLeft.Minutes}:{m_TimeLeft.Seconds}";
+        }
+
+        private void timerWrongPair_Tick(object sender, EventArgs e)
+        {
+            timerWrongPair.Stop();
+            m_prevSelectedCard = null;
+            m_SelectedCard = null;
+            setAllCardsToBackAndClickable();
+        }
+
+        private void setAllCardsUnClickable()
+        {
+            foreach (Control panelGameControl in panelGame.Controls)
+            {
+                if (panelGameControl is PictureBoxCard card)
+                {
+                    card.Click -= card_Clicked;
+                }
+            }
+        }
+
+        private void setAllCardsToBackAndClickable()
+        {
+            foreach (Control panelGameControl in panelGame.Controls)
+            {
+                if (panelGameControl is PictureBoxCard card)
+                {
+                    card.FlipToBack();
+                    card.Click += card_Clicked;
+                }
+            }
+        }
+
+        private void removeAllCards()
+        {
+            foreach (Control panelGameControl in panelGame.Controls)
+            {
+                if (panelGameControl is PictureBoxCard)
+                {
+                    panelGame.Controls.Remove(panelGameControl);
+                }
+            }
+        }
+
+        private void timerGoodPair_Tick(object sender, EventArgs e)
+        {
+            timerGoodPair.Stop();
+            m_PairsLeft--;
+            panelGame.Controls.Remove(m_prevSelectedCard);
+            panelGame.Controls.Remove(m_SelectedCard);
+            m_prevSelectedCard = null;
+            m_SelectedCard = null;
+            if (m_PairsLeft == 0)
+            {
+                setGameOver(k_WonMsg);
+            }
+            else
+            {
+                setAllCardsToBackAndClickable();
+            }
         }
     }
 }

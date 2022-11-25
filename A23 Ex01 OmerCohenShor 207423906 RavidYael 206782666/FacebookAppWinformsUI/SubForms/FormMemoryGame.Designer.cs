@@ -40,6 +40,8 @@ namespace BasicFacebookFeatures.SubForms
             this.buttonHard = new System.Windows.Forms.Button();
             this.buttonMedium = new System.Windows.Forms.Button();
             this.buttonEasy = new System.Windows.Forms.Button();
+            this.timerWrongPair = new System.Windows.Forms.Timer(this.components);
+            this.timerGoodPair = new System.Windows.Forms.Timer(this.components);
             this.panelTimer.SuspendLayout();
             this.panelGame.SuspendLayout();
             this.panelLevelButtons.SuspendLayout();
@@ -114,9 +116,7 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // panelLevelButtons
             // 
-            this.panelLevelButtons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelLevelButtons.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelLevelButtons.Controls.Add(this.buttonHard);
             this.panelLevelButtons.Controls.Add(this.buttonMedium);
             this.panelLevelButtons.Controls.Add(this.buttonEasy);
@@ -158,6 +158,16 @@ namespace BasicFacebookFeatures.SubForms
             this.buttonEasy.UseVisualStyleBackColor = true;
             this.buttonEasy.Click += new System.EventHandler(this.buttonEasy_Click);
             // 
+            // timerWrongPair
+            // 
+            this.timerWrongPair.Interval = 500;
+            this.timerWrongPair.Tick += new System.EventHandler(this.timerWrongPair_Tick);
+            // 
+            // timerGoodPair
+            // 
+            this.timerGoodPair.Interval = 500;
+            this.timerGoodPair.Tick += new System.EventHandler(this.timerGoodPair_Tick);
+            // 
             // FormMemoryGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -188,5 +198,7 @@ namespace BasicFacebookFeatures.SubForms
         private System.Windows.Forms.Button buttonHard;
         private System.Windows.Forms.Button buttonMedium;
         private System.Windows.Forms.Button buttonEasy;
+        private System.Windows.Forms.Timer timerWrongPair;
+        private System.Windows.Forms.Timer timerGoodPair;
     }
 }

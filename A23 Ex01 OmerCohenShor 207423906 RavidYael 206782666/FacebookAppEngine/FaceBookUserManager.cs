@@ -309,5 +309,36 @@ namespace FacebookAppEngine
             FacebookService.Logout();
             LoggedInUser = null;
         }
+
+        public List<Image> GetRandomImagesFromUserAlbums(int i_NumberOfImages)
+        {
+            FacebookObjectCollection<Album> userAlbums = LoggedInUserAlbums;
+            List<Image> randomImages = new List<Image>();
+            Album chosenAlbum;
+            Image chosenPhotoImage;
+            Random randomMaker = new Random();
+
+            for (int i = 0; i < i_NumberOfImages; i++)
+            {
+                chosenAlbum = userAlbums[randomMaker.Next(userAlbums.Count)];
+                if (chosenAlbum.Photos.Count == 0)
+                {
+                    i--;
+                    continue;
+                }
+                chosenPhotoImage = (chosenAlbum.Photos[randomMaker.Next(chosenAlbum.Photos.Count)].ImageNormal);
+                if (randomImages.Contains(chosenPhotoImage))
+                {
+                    i--;
+                }
+                else
+                {
+                    randomImages.Add(chosenPhotoImage);
+                    randomImages.Add(chosenPhotoImage);
+                }
+            }
+
+            return randomImages.OrderBy(i_Image => randomMaker.Next()).ToList();
+        }
     }
 }

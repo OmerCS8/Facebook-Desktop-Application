@@ -102,6 +102,9 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormsUtils\PictureBoxCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormsUtils\PictureBoxOval.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -226,6 +229,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\6168860.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Card-back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
