@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures.SubForms
         private const string k_AccessDeniedMsg = "Access Denied!";
         private const string k_EmptyFieldMsg = "None";
         private Page m_SelectedPage = null;
+
         public FormLikedPages()
         {
             InitializeComponent();
@@ -30,9 +31,11 @@ namespace BasicFacebookFeatures.SubForms
         private void setPages()
         {
             FacebookObjectCollection<Page> userPages = r_UserManager.LoggedInUserLikedPages;
+
             foreach (Page currentPage in userPages)
             {
                 PictureBoxBorderedAndNamed pagePictureBox = new PictureBoxBorderedAndNamed(k_PagePhotoSize, true);
+
                 try
                 {
                     pagePictureBox.PictureBackgroundImage = currentPage.ImageNormal;

@@ -18,7 +18,7 @@ namespace BasicFacebookFeatures.SubForms
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
         private TimeSpan m_TimeLeft;
         private int m_PairsLeft;
-        private PictureBoxCard m_prevSelectedCard = null;
+        private PictureBoxCard m_PrevSelectedCard = null;
         private PictureBoxCard m_SelectedCard = null;
         private const string k_LostMsg = "You lost. Try again...?";
         private const string k_WonMsg = "You won! play again?";
@@ -86,14 +86,14 @@ namespace BasicFacebookFeatures.SubForms
             {
                 m_SelectedCard = selectedCard;
                 selectedCard.FlipToFront();
-                if(m_prevSelectedCard == null)
+                if(m_PrevSelectedCard == null)
                 {
-                    m_prevSelectedCard = selectedCard;
-                    m_prevSelectedCard.Click -= card_Clicked;
+                    m_PrevSelectedCard = selectedCard;
+                    m_PrevSelectedCard.Click -= card_Clicked;
                 }
                 else
                 {
-                    if(m_prevSelectedCard.FrontImage == selectedCard.FrontImage)
+                    if(m_PrevSelectedCard.FrontImage == selectedCard.FrontImage)
                     {
                         setAllCardsUnClickable();
                         timerGoodPair.Start();
@@ -134,7 +134,7 @@ namespace BasicFacebookFeatures.SubForms
         private void timerWrongPair_Tick(object sender, EventArgs e)
         {
             timerWrongPair.Stop();
-            m_prevSelectedCard = null;
+            m_PrevSelectedCard = null;
             m_SelectedCard = null;
             setAllCardsToBackAndClickable();
         }
@@ -177,9 +177,9 @@ namespace BasicFacebookFeatures.SubForms
         {
             timerGoodPair.Stop();
             m_PairsLeft--;
-            panelGame.Controls.Remove(m_prevSelectedCard);
+            panelGame.Controls.Remove(m_PrevSelectedCard);
             panelGame.Controls.Remove(m_SelectedCard);
-            m_prevSelectedCard = null;
+            m_PrevSelectedCard = null;
             m_SelectedCard = null;
             if (m_PairsLeft == 0)
             {

@@ -38,9 +38,11 @@ namespace BasicFacebookFeatures.SubForms
         private void setAlbums()
         {
             FacebookObjectCollection<Album> userAlbums = r_UserManager.LoggedInUserAlbums;
+
             foreach(Album currentAlbum in userAlbums)
             {
                 PictureBoxBorderedAndNamed albumCoverPictureBox = new PictureBoxBorderedAndNamed(k_AlbumCoverSize, true);
+
                 try
                 {
                     albumCoverPictureBox.PictureBackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
@@ -110,6 +112,7 @@ namespace BasicFacebookFeatures.SubForms
         {
             Form photoForm = new Form();
             int photoWidthWitImageProportion = (k_ShownPhotoHeight * m_ChosenPhoto.Width) / m_ChosenPhoto.Height;
+
             photoForm.Size = new Size(photoWidthWitImageProportion, k_ShownPhotoHeight);
             photoForm.BackgroundImage = m_ChosenPhoto;
             photoForm.BackgroundImageLayout = ImageLayout.Stretch;

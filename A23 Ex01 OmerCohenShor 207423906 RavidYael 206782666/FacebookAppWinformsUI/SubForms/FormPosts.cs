@@ -16,9 +16,10 @@ namespace BasicFacebookFeatures.SubForms
     public partial class FormPosts : Form
     {
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
-        private const string k_EmptyFieldMSG = "-None-";
+        private const string k_EmptyFieldMsg = "-None-";
         private const string k_AccessDeniedMsg = "Access Denied!";
         private Post m_SelectedPost = null;
+
         public FormPosts()
         {
             InitializeComponent();
@@ -30,15 +31,18 @@ namespace BasicFacebookFeatures.SubForms
         private void setPosts()
         {
             FacebookObjectCollection<Post> userPosts = r_UserManager.LoggedInUserPosts;
+
             foreach(Post currentPost in userPosts)
             {
                 ListViewItem listViewItem = new ListViewItem(currentPost.CreatedTime.ToString());
-                listViewItem.SubItems.Add(currentPost.Message ?? k_EmptyFieldMSG);
-                listViewItem.SubItems.Add(currentPost.Caption ?? k_EmptyFieldMSG);
-                listViewItem.SubItems.Add(currentPost.Description ?? k_EmptyFieldMSG);
+
+                listViewItem.SubItems.Add(currentPost.Message ?? k_EmptyFieldMsg);
+                listViewItem.SubItems.Add(currentPost.Caption ?? k_EmptyFieldMsg);
+                listViewItem.SubItems.Add(currentPost.Description ?? k_EmptyFieldMsg);
                 listViewItem.SubItems.Add(currentPost.Id);
                 listViewPosts.Items.Add(listViewItem);
             }
+
             listViewPosts.Sort();
         }
 
@@ -46,7 +50,7 @@ namespace BasicFacebookFeatures.SubForms
         {
             if(listViewPosts.SelectedItems.Count == 1)
             {
-                m_SelectedPost = r_UserManager.LoggedInUserPosts.Find(post => post.Id == listViewPosts.SelectedItems[0].SubItems[4].Text);
+                m_SelectedPost = r_UserManager.LoggedInUserPosts.Find(i_Post => i_Post.Id == listViewPosts.SelectedItems[0].SubItems[4].Text);
                 if (m_SelectedPost != null)
                 {
                     listBoxComments.DataSource = m_SelectedPost.Comments;
@@ -61,7 +65,6 @@ namespace BasicFacebookFeatures.SubForms
                 listBoxComments.DataSource = null;
                 m_SelectedPost = null;
             }
-
         }
 
         private void buttonAddComment_Click(object sender, EventArgs e)
@@ -80,7 +83,6 @@ namespace BasicFacebookFeatures.SubForms
                     MessageBox.Show(exception.Message, k_AccessDeniedMsg,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
             else
             {

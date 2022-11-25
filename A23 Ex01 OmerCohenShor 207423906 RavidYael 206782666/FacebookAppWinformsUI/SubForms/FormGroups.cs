@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures.SubForms
         private const string k_AccessDeniedMsg = "Access Denied!";
         private const string k_EmptyFieldMsg = "None";
         private Group m_SelectedGroup = null;
+
         public FormGroups()
         {
             InitializeComponent();
@@ -30,9 +31,11 @@ namespace BasicFacebookFeatures.SubForms
         private void setGroups()
         {
             FacebookObjectCollection<Group> userGroups = r_UserManager.LoggedInUserGroups;
+
             foreach (Group currentGroup in userGroups)
             {
                 PictureBoxBorderedAndNamed groupPictureBox = new PictureBoxBorderedAndNamed(k_GroupPhotoSize, true);
+
                 try
                 {
                     groupPictureBox.PictureBackgroundImage = currentGroup.ImageNormal;

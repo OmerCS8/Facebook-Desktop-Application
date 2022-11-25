@@ -10,6 +10,7 @@ namespace BasicFacebookFeatures.SubForms
     {
         private const int k_MarginAmount = 10;
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
+
         public FormProfile()
         {
             InitializeComponent();

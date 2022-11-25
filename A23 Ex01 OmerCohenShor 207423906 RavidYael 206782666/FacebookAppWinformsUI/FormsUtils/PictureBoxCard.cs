@@ -11,7 +11,6 @@ namespace BasicFacebookFeatures.FormsUtils
     class PictureBoxCard : PictureBox
     {
         private readonly Image r_BackImage;
-        public bool IsCardOpen { get; private set; }
         public Image FrontImage { get;}
 
         public PictureBoxCard(int i_Width, int i_Height, Image i_FrontImage)
@@ -25,21 +24,18 @@ namespace BasicFacebookFeatures.FormsUtils
         {
             this.Size = new Size(i_Width, i_Height);
             this.BackgroundImageLayout = ImageLayout.Stretch;
-            this.Cursor = Cursors.Hand;
-            this.BackgroundImage = Properties.Resources.Card_back;
+            FlipToBack();
         }
 
         public void FlipToBack()
         {
             this.BackgroundImage = r_BackImage;
-            IsCardOpen = false;
             this.Cursor = Cursors.Hand;
         }
 
         public void FlipToFront()
         {
             this.BackgroundImage = FrontImage;
-            IsCardOpen = true;
             this.Cursor = Cursors.Default;
         }
     }

@@ -12,14 +12,14 @@ namespace BasicFacebookFeatures.FormsUtils
             this.Size = new Size(i_Width, i_Height);
             this.Visible = true;
         }
+
         protected override void OnResize(EventArgs e)
         {
+            GraphicsPath ovalGraphicsPath = new GraphicsPath();
+
             base.OnResize(e);
-            using (var graphicsPath = new GraphicsPath())
-            {
-                graphicsPath.AddEllipse(new Rectangle(0, 0, this.Width - 1, this.Height - 1));
-                this.Region = new Region(graphicsPath);
-            }
+            ovalGraphicsPath.AddEllipse(new Rectangle(0, 0, this.Width - 1, this.Height - 1));
+            this.Region = new Region(ovalGraphicsPath);
         }
     }
 }

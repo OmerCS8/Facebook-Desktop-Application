@@ -41,6 +41,7 @@ namespace FacebookAppEngine
         public bool CreateNewStatusAndReturnIfSucceeded(string i_StatusText)
         {
             bool didStatusCreationSucceed = false;
+
             if (LoggedInUser != null && i_StatusText != string.Empty)
             {
                 LoggedInUser.PostStatus(i_StatusText);
@@ -274,6 +275,7 @@ namespace FacebookAppEngine
         public bool UserLogInAndReturnIfSucceeded()
         {
             bool didLogInSucceed = false;
+
             LoginResult loginResult = FacebookService.Login(
                 "522656449734305",
                 "email",
@@ -326,6 +328,7 @@ namespace FacebookAppEngine
                     i--;
                     continue;
                 }
+
                 chosenPhotoImage = (chosenAlbum.Photos[randomMaker.Next(chosenAlbum.Photos.Count)].ImageNormal);
                 if (randomImages.Contains(chosenPhotoImage))
                 {

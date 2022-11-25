@@ -69,10 +69,11 @@ namespace BasicFacebookFeatures.FormsUtils
 
         private void setBorderAsParent(PictureBox i_PhotoPictureBox, Label i_NameLabel)
         {
+            Point photoLocation = new Point(r_BorderSize, r_BorderSize + r_BorderTextHeight);
+
             this.Controls.Add(i_NameLabel);
             this.Controls.Add(i_PhotoPictureBox);
             i_NameLabel.Location = new Point(0, 0);
-            Point photoLocation = new Point(r_BorderSize, r_BorderSize + r_BorderTextHeight);
             i_PhotoPictureBox.Location = photoLocation;
             i_NameLabel.BringToFront();
             i_PhotoPictureBox.BringToFront();
@@ -98,23 +99,28 @@ namespace BasicFacebookFeatures.FormsUtils
         private Label createNameLabel()
         {
             Label nameLabel = new Label();
+
             nameLabel.AutoEllipsis = true;
             nameLabel.Visible = true;
+
             return nameLabel;
         }
 
         private PictureBox createPhotoPictureBox(int i_Size)
         {
             PictureBox photoPictureBox = new PictureBox();
+
             photoPictureBox.Size = new Size(i_Size, i_Size);
             photoPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
             photoPictureBox.Visible = true;
+
             return photoPictureBox;
         }
 
         private void setBorder(int i_Size)
         {
             int borderSize = i_Size + (r_BorderSize * 2);
+
             this.Size = new Size(borderSize, borderSize + r_BorderTextHeight);
             this.BackColor = ColorsUtils.sr_PictureBoxBorderDefault;
             this.Visible = true;
