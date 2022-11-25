@@ -15,9 +15,9 @@ namespace BasicFacebookFeatures.FormsUtils
 
         public PictureBoxCard(int i_Width, int i_Height, Image i_FrontImage)
         {
-            setPictureBoxInitialProperties(i_Width, i_Height);
             r_BackImage = Properties.Resources.Card_back;
             FrontImage = i_FrontImage;
+            setPictureBoxInitialProperties(i_Width, i_Height);
         }
 
         private void setPictureBoxInitialProperties(int i_Width, int i_Height)

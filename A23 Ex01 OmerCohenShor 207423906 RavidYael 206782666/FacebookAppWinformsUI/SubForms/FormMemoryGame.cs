@@ -164,13 +164,8 @@ namespace BasicFacebookFeatures.SubForms
 
         private void removeAllCards()
         {
-            foreach (Control panelGameControl in panelGame.Controls)
-            {
-                if (panelGameControl is PictureBoxCard)
-                {
-                    panelGame.Controls.Remove(panelGameControl);
-                }
-            }
+            panelGame.Controls.Clear();
+            panelGame.Controls.Add(panelLevelButtons);
         }
 
         private void timerGoodPair_Tick(object sender, EventArgs e)
