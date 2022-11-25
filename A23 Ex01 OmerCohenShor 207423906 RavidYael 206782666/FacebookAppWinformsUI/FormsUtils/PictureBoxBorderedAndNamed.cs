@@ -45,26 +45,14 @@ namespace BasicFacebookFeatures.FormsUtils
 
         public string PictureName
         {
-            get
-            {
-                return r_NameLabel.Text;
-            }
-            set
-            {
-                r_NameLabel.Text = value;
-            }
+            get => r_NameLabel.Text;
+            set => r_NameLabel.Text = value;
         }     
         
         public Image PictureBackgroundImage
         {
-            get
-            {
-                return r_PhotoPictureBox.BackgroundImage;
-            }
-            set
-            {
-                r_PhotoPictureBox.BackgroundImage = value;
-            }
+            get => r_PhotoPictureBox.BackgroundImage;
+            set => r_PhotoPictureBox.BackgroundImage = value;
         }
 
         private void setBorderAsParent(PictureBox i_PhotoPictureBox, Label i_NameLabel)

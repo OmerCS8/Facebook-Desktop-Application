@@ -75,10 +75,6 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserBirthday;
             }
-            private set
-            {
-                m_LoggedInUserBirthday = value;
-            }
         }
 
         public User.eGender? LoggedInUserGender
@@ -91,10 +87,6 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserGender;
-            }
-            private set
-            {
-                m_LoggedInUserGender = value;
             }
         }
 
@@ -109,10 +101,6 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserName;
             }
-            private set
-            {
-                m_LoggedInUserName = value;
-            }
         }
 
         public Image LoggedInUserProfilePictureLarge
@@ -125,10 +113,6 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserProfilePictureLarge;
-            }
-            private set
-            {
-                m_LoggedInUserProfilePictureLarge = value;
             }
         }
 
@@ -147,10 +131,6 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserCoverImage;
             }
-            private set
-            {
-                m_LoggedInUserCoverImage = value;
-            }
         }
 
         public string LoggedInUserEmail
@@ -163,10 +143,6 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserEmail;
-            }
-            private set
-            {
-                m_LoggedInUserEmail = value;
             }
         }
 
@@ -181,10 +157,6 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserLocation;
             }
-            private set
-            {
-                m_LoggedInUserLocation = value;
-            }
         }
 
         public FacebookObjectCollection<User> LoggedInUserFriends
@@ -197,10 +169,6 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserFriends;
-            }
-            private set
-            {
-                m_LoggedInUserFriends = value;
             }
         }
 
@@ -215,10 +183,6 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserPosts;
             }
-            private set
-            {
-                m_LoggedInUserPosts = value;
-            }
         }
 
         public FacebookObjectCollection<Album> LoggedInUserAlbums
@@ -231,10 +195,6 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserAlbums;
-            }
-            private set
-            {
-                m_LoggedInUserAlbums = value;
             }
         }
 
@@ -249,10 +209,6 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserLikedPages;
             }
-            private set
-            {
-                m_LoggedInUserLikedPages = value;
-            }
         }
 
         public FacebookObjectCollection<Group> LoggedInUserGroups
@@ -265,10 +221,6 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserGroups;
-            }
-            private set
-            {
-                m_LoggedInUserGroups = value;
             }
         }
 
@@ -326,18 +278,19 @@ namespace FacebookAppEngine
                 if (chosenAlbum.Photos.Count == 0)
                 {
                     i--;
-                    continue;
-                }
-
-                chosenPhotoImage = (chosenAlbum.Photos[randomMaker.Next(chosenAlbum.Photos.Count)].ImageNormal);
-                if (randomImages.Contains(chosenPhotoImage))
-                {
-                    i--;
                 }
                 else
-                {
-                    randomImages.Add(chosenPhotoImage);
-                    randomImages.Add(chosenPhotoImage);
+                { 
+                    chosenPhotoImage = (chosenAlbum.Photos[randomMaker.Next(chosenAlbum.Photos.Count)].ImageNormal);
+                    if(randomImages.Contains(chosenPhotoImage))
+                    {
+                        i--;
+                    }
+                    else
+                    {
+                        randomImages.Add(chosenPhotoImage);
+                        randomImages.Add(chosenPhotoImage);
+                    }
                 }
             }
 

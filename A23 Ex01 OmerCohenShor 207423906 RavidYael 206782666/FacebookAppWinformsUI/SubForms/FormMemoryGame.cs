@@ -166,6 +166,7 @@ namespace BasicFacebookFeatures.SubForms
         {
             panelGame.Controls.Clear();
             panelGame.Controls.Add(panelLevelButtons);
+            panelGame.Controls.Add(labelResult);
         }
 
         private void timerGoodPair_Tick(object sender, EventArgs e)
