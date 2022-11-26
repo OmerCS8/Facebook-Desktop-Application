@@ -35,6 +35,7 @@ namespace FacebookAppEngine
         private string m_LoggedInUserBirthday = null;
         private string m_LoggedInUserEmail = null;
         private City m_LoggedInUserLocation = null;
+        private long? m_LoggedInUserNumberOfPhotos = null;
 
         public User LoggedInUser { get; private set; }
 
@@ -61,6 +62,23 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserAge;
+            }
+        }
+        
+        public long? LoggedInUserNumberOfPhotos
+        {
+            get
+            {
+                if (m_LoggedInUserNumberOfPhotos == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserNumberOfPhotos = 0;
+                    foreach(Album album in LoggedInUserAlbums)
+                    {
+                        m_LoggedInUserNumberOfPhotos += album.Count;
+                    }
+                }
+
+                return m_LoggedInUserNumberOfPhotos;
             }
         }
 

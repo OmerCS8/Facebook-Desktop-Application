@@ -22,6 +22,7 @@ namespace BasicFacebookFeatures.SubForms
         private PictureBoxCard m_SelectedCard = null;
         private const string k_LostMsg = "You lost. Try again...?";
         private const string k_WonMsg = "You won! play again?";
+        private const string k_NotEnoughPhotosMsg = "You don't have enough photos for this mode.";
         private const int k_EasyCardSize = 100;
         private const int k_MediumCardSize = 80;
         private const int k_HardCardSize = 70;
@@ -66,13 +67,21 @@ namespace BasicFacebookFeatures.SubForms
         }
         private void startGame(int i_Rows, int i_Cols, int i_CardSize)
         {
-            panelLevelButtons.Visible = false;
-            panelHeader.Visible = true;
-            labelResult.Visible = false;
-            generateCards(i_Rows, i_Cols, i_CardSize);
-            updateTimerLabel();
-            panelTimer.Visible = true;
-            timerTimeLeft.Start();
+            if(r_UserManager.LoggedInUserNumberOfPhotos >= (i_Cols * i_Rows)/2)
+            {
+                panelLevelButtons.Visible = false;
+                panelHeader.Visible = true;
+                labelResult.Visible = false;
+                generateCards(i_Rows, i_Cols, i_CardSize);
+                updateTimerLabel();
+                panelTimer.Visible = true;
+                timerTimeLeft.Start();
+            }
+            else
+            {
+                MessageBox.Show(k_NotEnoughPhotosMsg, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void generateCards(int i_Rows, int i_Cols, int i_CardSize)
