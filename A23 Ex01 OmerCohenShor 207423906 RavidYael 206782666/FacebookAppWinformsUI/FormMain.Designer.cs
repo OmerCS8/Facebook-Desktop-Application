@@ -30,10 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panelTopBar = new System.Windows.Forms.Panel();
-            this.buttonMemoryGame = new System.Windows.Forms.Button();
             this.labelHeadline = new System.Windows.Forms.Label();
             this.panelSideBar = new System.Windows.Forms.Panel();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.panelProfile = new System.Windows.Forms.Panel();
+            this.LabelName = new System.Windows.Forms.Label();
+            this.panelMain = new System.Windows.Forms.Panel();
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonPosts = new System.Windows.Forms.Button();
             this.buttonLikedPages = new System.Windows.Forms.Button();
@@ -41,9 +43,8 @@
             this.buttonProfile = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.buttonLogin = new System.Windows.Forms.Button();
-            this.panelProfile = new System.Windows.Forms.Panel();
-            this.LabelName = new System.Windows.Forms.Label();
-            this.panelMain = new System.Windows.Forms.Panel();
+            this.buttonGrouper = new System.Windows.Forms.Button();
+            this.buttonMemoryGame = new System.Windows.Forms.Button();
             this.panelTopBar.SuspendLayout();
             this.panelSideBar.SuspendLayout();
             this.panelMenu.SuspendLayout();
@@ -52,6 +53,7 @@
             // 
             // panelTopBar
             // 
+            this.panelTopBar.Controls.Add(this.buttonGrouper);
             this.panelTopBar.Controls.Add(this.buttonMemoryGame);
             this.panelTopBar.Controls.Add(this.labelHeadline);
             this.panelTopBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -60,29 +62,6 @@
             this.panelTopBar.Name = "panelTopBar";
             this.panelTopBar.Size = new System.Drawing.Size(1282, 95);
             this.panelTopBar.TabIndex = 0;
-            // 
-            // buttonMemoryGame
-            // 
-            this.buttonMemoryGame.BackColor = System.Drawing.Color.Transparent;
-            this.buttonMemoryGame.BackgroundImage = global::BasicFacebookFeatures.Properties.Resources.memory_game_icon;
-            this.buttonMemoryGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonMemoryGame.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonMemoryGame.Enabled = false;
-            this.buttonMemoryGame.FlatAppearance.BorderSize = 0;
-            this.buttonMemoryGame.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
-            this.buttonMemoryGame.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
-            this.buttonMemoryGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMemoryGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.buttonMemoryGame.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonMemoryGame.Location = new System.Drawing.Point(13, 12);
-            this.buttonMemoryGame.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonMemoryGame.Name = "buttonMemoryGame";
-            this.buttonMemoryGame.Size = new System.Drawing.Size(70, 70);
-            this.buttonMemoryGame.TabIndex = 56;
-            this.buttonMemoryGame.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonMemoryGame.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonMemoryGame.UseVisualStyleBackColor = false;
-            this.buttonMemoryGame.Click += new System.EventHandler(this.buttonMemoryGame_Click);
             // 
             // labelHeadline
             // 
@@ -124,6 +103,37 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(239, 409);
             this.panelMenu.TabIndex = 1;
+            // 
+            // panelProfile
+            // 
+            this.panelProfile.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelProfile.Controls.Add(this.LabelName);
+            this.panelProfile.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelProfile.Location = new System.Drawing.Point(0, 0);
+            this.panelProfile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelProfile.Name = "panelProfile";
+            this.panelProfile.Size = new System.Drawing.Size(239, 199);
+            this.panelProfile.TabIndex = 0;
+            // 
+            // LabelName
+            // 
+            this.LabelName.AutoSize = true;
+            this.LabelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.LabelName.Location = new System.Drawing.Point(56, 172);
+            this.LabelName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LabelName.Name = "LabelName";
+            this.LabelName.Size = new System.Drawing.Size(113, 25);
+            this.LabelName.TabIndex = 55;
+            this.LabelName.Text = "user name";
+            // 
+            // panelMain
+            // 
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(239, 95);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(1043, 608);
+            this.panelMain.TabIndex = 2;
             // 
             // buttonGroups
             // 
@@ -285,36 +295,51 @@
             this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
-            // panelProfile
+            // buttonGrouper
             // 
-            this.panelProfile.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panelProfile.Controls.Add(this.LabelName);
-            this.panelProfile.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelProfile.Location = new System.Drawing.Point(0, 0);
-            this.panelProfile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panelProfile.Name = "panelProfile";
-            this.panelProfile.Size = new System.Drawing.Size(239, 199);
-            this.panelProfile.TabIndex = 0;
+            this.buttonGrouper.BackColor = System.Drawing.Color.Transparent;
+            this.buttonGrouper.BackgroundImage = global::BasicFacebookFeatures.Properties.Resources.grouper_icon;
+            this.buttonGrouper.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGrouper.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonGrouper.Enabled = false;
+            this.buttonGrouper.FlatAppearance.BorderSize = 0;
+            this.buttonGrouper.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.buttonGrouper.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.buttonGrouper.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGrouper.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonGrouper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonGrouper.Location = new System.Drawing.Point(91, 13);
+            this.buttonGrouper.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGrouper.Name = "buttonGrouper";
+            this.buttonGrouper.Size = new System.Drawing.Size(70, 70);
+            this.buttonGrouper.TabIndex = 57;
+            this.buttonGrouper.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonGrouper.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonGrouper.UseVisualStyleBackColor = false;
+            this.buttonGrouper.Click += new System.EventHandler(this.button1_Click);
             // 
-            // LabelName
+            // buttonMemoryGame
             // 
-            this.LabelName.AutoSize = true;
-            this.LabelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.LabelName.Location = new System.Drawing.Point(56, 172);
-            this.LabelName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LabelName.Name = "LabelName";
-            this.LabelName.Size = new System.Drawing.Size(113, 25);
-            this.LabelName.TabIndex = 55;
-            this.LabelName.Text = "user name";
-            // 
-            // panelMain
-            // 
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(239, 95);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1043, 608);
-            this.panelMain.TabIndex = 2;
+            this.buttonMemoryGame.BackColor = System.Drawing.Color.Transparent;
+            this.buttonMemoryGame.BackgroundImage = global::BasicFacebookFeatures.Properties.Resources.memory_game_icon;
+            this.buttonMemoryGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonMemoryGame.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonMemoryGame.Enabled = false;
+            this.buttonMemoryGame.FlatAppearance.BorderSize = 0;
+            this.buttonMemoryGame.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.buttonMemoryGame.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.buttonMemoryGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMemoryGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonMemoryGame.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonMemoryGame.Location = new System.Drawing.Point(13, 13);
+            this.buttonMemoryGame.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonMemoryGame.Name = "buttonMemoryGame";
+            this.buttonMemoryGame.Size = new System.Drawing.Size(70, 70);
+            this.buttonMemoryGame.TabIndex = 56;
+            this.buttonMemoryGame.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonMemoryGame.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonMemoryGame.UseVisualStyleBackColor = false;
+            this.buttonMemoryGame.Click += new System.EventHandler(this.buttonMemoryGame_Click);
             // 
             // FormMain
             // 
@@ -358,6 +383,7 @@
         private System.Windows.Forms.Button buttonAlbums;
         private System.Windows.Forms.Button buttonProfile;
         private System.Windows.Forms.Button buttonMemoryGame;
+        private System.Windows.Forms.Button buttonGrouper;
     }
 }
 

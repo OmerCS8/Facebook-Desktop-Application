@@ -26,6 +26,8 @@ namespace BasicFacebookFeatures.FormsUtils
             addVisualEffects();
         }
 
+        public PictureBoxBorderedAndNamed() : this(100, true) { }
+
         private void addVisualEffects()
         {
             this.Cursor = Cursors.Hand;
@@ -86,23 +88,21 @@ namespace BasicFacebookFeatures.FormsUtils
 
         private Label createNameLabel()
         {
-            Label nameLabel = new Label();
-
-            nameLabel.AutoEllipsis = true;
-            nameLabel.Visible = true;
-
-            return nameLabel;
+            return new Label
+            {
+                AutoEllipsis = true,
+                Visible = true
+            };
         }
 
         private PictureBox createPhotoPictureBox(int i_Size)
         {
-            PictureBox photoPictureBox = new PictureBox();
-
-            photoPictureBox.Size = new Size(i_Size, i_Size);
-            photoPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
-            photoPictureBox.Visible = true;
-
-            return photoPictureBox;
+            return new PictureBox
+            {
+                Size = new Size(i_Size, i_Size),
+                BackgroundImageLayout = ImageLayout.Stretch,
+                Visible = true
+            };
         }
 
         private void setBorder(int i_Size)

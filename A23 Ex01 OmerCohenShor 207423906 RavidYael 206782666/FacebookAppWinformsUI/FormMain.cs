@@ -85,6 +85,8 @@ namespace BasicFacebookFeatures
                 control.Enabled = false;
             }
 
+            buttonGrouper.Enabled = false;
+            buttonMemoryGame.Enabled = false;
             buttonLogin.Enabled = true;
         }
 
@@ -100,6 +102,7 @@ namespace BasicFacebookFeatures
                 control.Enabled = true;
             }
 
+            buttonGrouper.Enabled = true;
             buttonMemoryGame.Enabled = true;
             buttonLogin.Enabled = false;
         }
@@ -190,6 +193,12 @@ namespace BasicFacebookFeatures
         {
             setChosenButtonAsClicked(buttonMemoryGame);
             setSubForm(new FormMemoryGame());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            setChosenButtonAsClicked(buttonGrouper);
+            setSubForm(new FormGrouper());
         }
     }
 }

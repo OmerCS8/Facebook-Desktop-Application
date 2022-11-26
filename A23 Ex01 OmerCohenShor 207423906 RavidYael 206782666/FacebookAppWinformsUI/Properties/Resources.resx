@@ -154,4 +154,25 @@
   <data name="Card_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Card-back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="coworkers_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\coworkers logo.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grouper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grouper-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Relationship_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Relationship logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="same_age_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\same age logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="same_city_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\same city logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="same_team_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\same team logo.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="students_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\students logo.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
