@@ -29,14 +29,23 @@ namespace BasicFacebookFeatures.SubForms
         public FormMemoryGame()
         {
             InitializeComponent();
+            initializeControlsLocations();
+        }
+
+        private void initializeControlsLocations()
+        {
             panelLevelButtons.Left = (panelGame.Width - panelLevelButtons.Width) / 2;
             panelLevelButtons.Top = (panelGame.Height - panelLevelButtons.Height) / 2;
+            pictureBoxHeadline.Left = (panelHeader.Width - pictureBoxHeadline.Width) / 2;
+            pictureBoxHeadline.Top = (panelHeader.Height - pictureBoxHeadline.Height) / 2;
+            labelResult.Top = panelLevelButtons.Top - labelResult.Height - 10;
         }
 
         private void buttonEasy_Click(object sender, EventArgs e)
         {
             m_TimeLeft = new TimeSpan(0, 2, 0);
             m_PairsLeft = 6;
+            panelTimer.Visible = false;
             startGame(3, 4 , k_EasyCardSize);
         }
 
@@ -44,6 +53,7 @@ namespace BasicFacebookFeatures.SubForms
         {
             m_TimeLeft = new TimeSpan(0, 1, 30);
             m_PairsLeft = 10;
+            panelTimer.Visible = false;
             startGame(4, 5, k_MediumCardSize);
         }
 
@@ -51,16 +61,18 @@ namespace BasicFacebookFeatures.SubForms
         {
             m_TimeLeft = new TimeSpan(0, 1, 0);
             m_PairsLeft = 15;
+            panelTimer.Visible = false;
             startGame(5, 6, k_HardCardSize);
         }
         private void startGame(int i_Rows, int i_Cols, int i_CardSize)
         {
             panelLevelButtons.Visible = false;
-            panelTimer.Visible = true;
+            panelHeader.Visible = true;
             labelResult.Visible = false;
-            updateTimerLabel();
-            timerTimeLeft.Start();
             generateCards(i_Rows, i_Cols, i_CardSize);
+            updateTimerLabel();
+            panelTimer.Visible = true;
+            timerTimeLeft.Start();
         }
 
         private void generateCards(int i_Rows, int i_Cols, int i_CardSize)
@@ -113,7 +125,7 @@ namespace BasicFacebookFeatures.SubForms
             updateTimerLabel();
             if (m_TimeLeft <= TimeSpan.Zero)
             {
-                setGameOver("You lost. Try again...?");
+                setGameOver(k_LostMsg);
             }
         }
 
@@ -123,12 +135,13 @@ namespace BasicFacebookFeatures.SubForms
             removeAllCards();
             labelResult.Text = i_ResultMsg;
             labelResult.Visible = true;
+            labelResult.Left = (panelGame.Width - labelResult.Width) / 2;
             panelLevelButtons.Visible = true;
         }
 
         private void updateTimerLabel()
         {
-            labelTimer.Text = $"{m_TimeLeft.Minutes}:{m_TimeLeft.Seconds}";
+            labelTimer.Text = $"{m_TimeLeft.Minutes:00}:{m_TimeLeft.Seconds:00}";
         }
 
         private void timerWrongPair_Tick(object sender, EventArgs e)

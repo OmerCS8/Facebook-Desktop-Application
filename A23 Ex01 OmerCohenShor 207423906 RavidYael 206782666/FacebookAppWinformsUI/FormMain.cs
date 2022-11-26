@@ -49,7 +49,7 @@ namespace BasicFacebookFeatures
         private void centerHeadlineLocation()
         {
             labelHeadline.Top = (panelTopBar.Height - labelHeadline.Height) / 2;
-            labelHeadline.Left = (panelTopBar.Width - labelHeadline.Width) / 2;
+            labelHeadline.Left = panelSideBar.Width + (panelMain.Width - labelHeadline.Width) / 2;
         }
 
         private void initializeProfilePanel()
