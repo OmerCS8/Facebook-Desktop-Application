@@ -35,6 +35,7 @@ namespace FacebookAppEngine
         private string m_LoggedInUserBirthday = null;
         private string m_LoggedInUserEmail = null;
         private City m_LoggedInUserLocation = null;
+        private List<Image> m_LoggedInUserImages = null;
 
         public User LoggedInUser { get; private set; }
 
@@ -211,6 +212,26 @@ namespace FacebookAppEngine
             }
         }
 
+        public List<Image> LoggedInUserImages
+        {
+            get
+            {
+                if (m_LoggedInUserImages == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserImages = new List<Image>();
+                    foreach (Album album in LoggedInUserAlbums)
+                    {
+                        foreach(Photo photo in album.Photos)
+                        {
+                            m_LoggedInUserImages.Add(photo.ImageNormal);
+                        }
+                    }
+                }
+
+                return m_LoggedInUserImages;
+            }
+        }
+
         public FacebookObjectCollection<Group> LoggedInUserGroups
         {
             get
@@ -266,35 +287,34 @@ namespace FacebookAppEngine
 
         public List<Image> GetRandomImagesFromUserAlbums(int i_NumberOfImages)
         {
-            FacebookObjectCollection<Album> userAlbums = LoggedInUserAlbums;
-            List<Image> randomImages = new List<Image>();
-            Album chosenAlbum;
-            Image chosenPhotoImage;
+            List<Image> randomImages;
+            Image chosenImage;
             Random randomMaker = new Random();
 
-            for (int i = 0; i < i_NumberOfImages; i++)
+            if(LoggedInUserImages.Count >= i_NumberOfImages)
             {
-                chosenAlbum = userAlbums[randomMaker.Next(userAlbums.Count)];
-                if (chosenAlbum.Photos.Count == 0)
+                randomImages = new List<Image>();
+                for (int i = 0; i < i_NumberOfImages; i++)
                 {
-                    i--;
+                    chosenImage = LoggedInUserImages[randomMaker.Next(LoggedInUserImages.Count)];
+                    LoggedInUserImages.Remove(chosenImage);
+                    randomImages.Add(chosenImage);
+                    randomImages.Add(chosenImage);
                 }
-                else
-                { 
-                    chosenPhotoImage = (chosenAlbum.Photos[randomMaker.Next(chosenAlbum.Photos.Count)].ImageNormal);
-                    if(randomImages.Contains(chosenPhotoImage))
-                    {
-                        i--;
-                    }
-                    else
-                    {
-                        randomImages.Add(chosenPhotoImage);
-                        randomImages.Add(chosenPhotoImage);
-                    }
+
+                for(int i = 0; i < randomImages.Count; i+=2)
+                {
+                    LoggedInUserImages.Add(randomImages[i]);
                 }
+
+                randomImages = randomImages.OrderBy(i_Image => randomMaker.Next()).ToList();
+            }
+            else
+            {
+                randomImages = null;
             }
 
-            return randomImages.OrderBy(i_Image => randomMaker.Next()).ToList();
+            return randomImages;
         }
     }
 }

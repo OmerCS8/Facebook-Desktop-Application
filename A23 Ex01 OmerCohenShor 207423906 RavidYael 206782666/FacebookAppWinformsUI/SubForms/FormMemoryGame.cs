@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures.SubForms
         private int m_PairsLeft;
         private PictureBoxCard m_PrevSelectedCard = null;
         private PictureBoxCard m_SelectedCard = null;
+        private const string k_NotEnoughPhotos = "you don't have enough photos for this level!";
         private const string k_LostMsg = "You lost. Try again...?";
         private const string k_WonMsg = "You won! play again?";
         private const int k_EasyCardSize = 100;
@@ -68,15 +69,22 @@ namespace BasicFacebookFeatures.SubForms
             List<Image> randomImages = r_UserManager.GetRandomImagesFromUserAlbums((i_Cols * i_Rows) / 2);
             PictureBoxCard cardPictureBox;
 
-            for(int i = 0; i < i_Rows; i++)
+            if(randomImages != null)
             {
-                for(int j = 0; j < i_Cols; j++)
+                for(int i = 0; i < i_Rows; i++)
                 {
-                    cardPictureBox = new PictureBoxCard(i_CardSize, i_CardSize, randomImages[i * i_Cols + j]);
-                    cardPictureBox.Click += card_Clicked;
-                    panelGame.Controls.Add(cardPictureBox);
-                    cardPictureBox.Location = new Point(j * (i_CardSize + 10) + 20, i * (i_CardSize + 10));
+                    for(int j = 0; j < i_Cols; j++)
+                    {
+                        cardPictureBox = new PictureBoxCard(i_CardSize, i_CardSize, randomImages[i * i_Cols + j]);
+                        cardPictureBox.Click += card_Clicked;
+                        panelGame.Controls.Add(cardPictureBox);
+                        cardPictureBox.Location = new Point(j * (i_CardSize + 10) + 20, i * (i_CardSize + 10));
+                    }
                 }
+            }
+            else
+            {
+                setGameOver(k_NotEnoughPhotos);
             }
         }
 
