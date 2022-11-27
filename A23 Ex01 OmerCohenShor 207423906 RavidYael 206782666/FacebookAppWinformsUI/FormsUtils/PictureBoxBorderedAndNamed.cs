@@ -26,8 +26,6 @@ namespace BasicFacebookFeatures.FormsUtils
             addVisualEffects();
         }
 
-        public PictureBoxBorderedAndNamed() : this(100, true) { }
-
         private void addVisualEffects()
         {
             this.Cursor = Cursors.Hand;

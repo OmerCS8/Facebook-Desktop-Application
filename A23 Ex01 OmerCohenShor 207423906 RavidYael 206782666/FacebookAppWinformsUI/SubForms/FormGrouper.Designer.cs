@@ -32,33 +32,27 @@ namespace BasicFacebookFeatures.SubForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGrouper));
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelHeader = new System.Windows.Forms.Panel();
-            this.panelSegestedGroups = new System.Windows.Forms.Panel();
             this.pictureBoxHeadline = new System.Windows.Forms.PictureBox();
-            this.pictureBoxGroupCoworkers = new BasicFacebookFeatures.FormsUtils.PictureBoxBorderedAndNamed();
-            this.pictureBoxGroupStudyTogether = new BasicFacebookFeatures.FormsUtils.PictureBoxBorderedAndNamed();
-            this.pictureBoxGroupSameStatus = new BasicFacebookFeatures.FormsUtils.PictureBoxBorderedAndNamed();
-            this.pictureBoxGroupSameCity = new BasicFacebookFeatures.FormsUtils.PictureBoxBorderedAndNamed();
-            this.pictureBoxGroupSameAge = new BasicFacebookFeatures.FormsUtils.PictureBoxBorderedAndNamed();
-            this.pictureBoxGroupSameTeam = new BasicFacebookFeatures.FormsUtils.PictureBoxBorderedAndNamed();
+            this.flowLayoutPanelGroups = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkedListBoxMatchedUsers = new System.Windows.Forms.CheckedListBox();
+            this.buttonCrateGroup = new System.Windows.Forms.Button();
+            this.labelChooseFriends = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             this.panelHeader.SuspendLayout();
-            this.panelSegestedGroups.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeadline)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupCoworkers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupStudyTogether)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameCity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameAge)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameTeam)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMain
             // 
-            this.panelMain.Controls.Add(this.panelSegestedGroups);
+            this.panelMain.BackColor = System.Drawing.Color.Transparent;
+            this.panelMain.Controls.Add(this.labelChooseFriends);
+            this.panelMain.Controls.Add(this.buttonCrateGroup);
+            this.panelMain.Controls.Add(this.checkedListBoxMatchedUsers);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 78);
+            this.panelMain.Location = new System.Drawing.Point(0, 63);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(800, 387);
+            this.panelMain.Size = new System.Drawing.Size(600, 315);
             this.panelMain.TabIndex = 9;
             // 
             // panelHeader
@@ -67,127 +61,82 @@ namespace BasicFacebookFeatures.SubForms
             this.panelHeader.Controls.Add(this.pictureBoxHeadline);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
+            this.panelHeader.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(800, 78);
+            this.panelHeader.Size = new System.Drawing.Size(600, 63);
             this.panelHeader.TabIndex = 8;
-            // 
-            // panelSegestedGroups
-            // 
-            this.panelSegestedGroups.AutoScroll = true;
-            this.panelSegestedGroups.Controls.Add(this.pictureBoxGroupSameAge);
-            this.panelSegestedGroups.Controls.Add(this.pictureBoxGroupSameTeam);
-            this.panelSegestedGroups.Controls.Add(this.pictureBoxGroupSameStatus);
-            this.panelSegestedGroups.Controls.Add(this.pictureBoxGroupSameCity);
-            this.panelSegestedGroups.Controls.Add(this.pictureBoxGroupStudyTogether);
-            this.panelSegestedGroups.Controls.Add(this.pictureBoxGroupCoworkers);
-            this.panelSegestedGroups.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSegestedGroups.Location = new System.Drawing.Point(0, 0);
-            this.panelSegestedGroups.Name = "panelSegestedGroups";
-            this.panelSegestedGroups.Size = new System.Drawing.Size(260, 387);
-            this.panelSegestedGroups.TabIndex = 0;
             // 
             // pictureBoxHeadline
             // 
             this.pictureBoxHeadline.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBoxHeadline.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxHeadline.BackgroundImage")));
             this.pictureBoxHeadline.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxHeadline.Location = new System.Drawing.Point(237, 7);
+            this.pictureBoxHeadline.Location = new System.Drawing.Point(178, 6);
+            this.pictureBoxHeadline.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBoxHeadline.Name = "pictureBoxHeadline";
-            this.pictureBoxHeadline.Size = new System.Drawing.Size(310, 68);
+            this.pictureBoxHeadline.Size = new System.Drawing.Size(232, 55);
             this.pictureBoxHeadline.TabIndex = 4;
             this.pictureBoxHeadline.TabStop = false;
             // 
-            // pictureBoxGroupCoworkers
+            // flowLayoutPanelGroups
             // 
-            this.pictureBoxGroupCoworkers.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGroupCoworkers.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxGroupCoworkers.Location = new System.Drawing.Point(7, 6);
-            this.pictureBoxGroupCoworkers.Name = "pictureBoxGroupCoworkers";
-            this.pictureBoxGroupCoworkers.PictureBackgroundImage = null;
-            this.pictureBoxGroupCoworkers.PictureName = "";
-            this.pictureBoxGroupCoworkers.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxGroupCoworkers.TabIndex = 0;
-            this.pictureBoxGroupCoworkers.TabStop = false;
+            this.flowLayoutPanelGroups.AutoScroll = true;
+            this.flowLayoutPanelGroups.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanelGroups.Dock = System.Windows.Forms.DockStyle.Left;
+            this.flowLayoutPanelGroups.Location = new System.Drawing.Point(0, 63);
+            this.flowLayoutPanelGroups.Name = "flowLayoutPanelGroups";
+            this.flowLayoutPanelGroups.Size = new System.Drawing.Size(282, 315);
+            this.flowLayoutPanelGroups.TabIndex = 10;
             // 
-            // pictureBoxGroupStudyTogether
+            // checkedListBoxMatchedUsers
             // 
-            this.pictureBoxGroupStudyTogether.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGroupStudyTogether.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxGroupStudyTogether.Location = new System.Drawing.Point(133, 6);
-            this.pictureBoxGroupStudyTogether.Name = "pictureBoxGroupStudyTogether";
-            this.pictureBoxGroupStudyTogether.PictureBackgroundImage = null;
-            this.pictureBoxGroupStudyTogether.PictureName = "";
-            this.pictureBoxGroupStudyTogether.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxGroupStudyTogether.TabIndex = 1;
-            this.pictureBoxGroupStudyTogether.TabStop = false;
+            this.checkedListBoxMatchedUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxMatchedUsers.FormattingEnabled = true;
+            this.checkedListBoxMatchedUsers.Location = new System.Drawing.Point(298, 44);
+            this.checkedListBoxMatchedUsers.Name = "checkedListBoxMatchedUsers";
+            this.checkedListBoxMatchedUsers.Size = new System.Drawing.Size(291, 214);
+            this.checkedListBoxMatchedUsers.TabIndex = 0;
             // 
-            // pictureBoxGroupSameStatus
+            // buttonCrateGroup
             // 
-            this.pictureBoxGroupSameStatus.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGroupSameStatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxGroupSameStatus.Location = new System.Drawing.Point(133, 132);
-            this.pictureBoxGroupSameStatus.Name = "pictureBoxGroupSameStatus";
-            this.pictureBoxGroupSameStatus.PictureBackgroundImage = null;
-            this.pictureBoxGroupSameStatus.PictureName = "";
-            this.pictureBoxGroupSameStatus.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxGroupSameStatus.TabIndex = 3;
-            this.pictureBoxGroupSameStatus.TabStop = false;
+            this.buttonCrateGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonCrateGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonCrateGroup.Location = new System.Drawing.Point(350, 267);
+            this.buttonCrateGroup.Name = "buttonCrateGroup";
+            this.buttonCrateGroup.Size = new System.Drawing.Size(180, 39);
+            this.buttonCrateGroup.TabIndex = 1;
+            this.buttonCrateGroup.Text = "Create friend list";
+            this.buttonCrateGroup.UseVisualStyleBackColor = true;
+            this.buttonCrateGroup.Click += new System.EventHandler(this.buttonCrateGroup_Click);
             // 
-            // pictureBoxGroupSameCity
+            // labelChooseFriends
             // 
-            this.pictureBoxGroupSameCity.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGroupSameCity.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxGroupSameCity.Location = new System.Drawing.Point(7, 132);
-            this.pictureBoxGroupSameCity.Name = "pictureBoxGroupSameCity";
-            this.pictureBoxGroupSameCity.PictureBackgroundImage = null;
-            this.pictureBoxGroupSameCity.PictureName = "";
-            this.pictureBoxGroupSameCity.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxGroupSameCity.TabIndex = 2;
-            this.pictureBoxGroupSameCity.TabStop = false;
-            // 
-            // pictureBoxGroupSameAge
-            // 
-            this.pictureBoxGroupSameAge.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGroupSameAge.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxGroupSameAge.Location = new System.Drawing.Point(133, 258);
-            this.pictureBoxGroupSameAge.Name = "pictureBoxGroupSameAge";
-            this.pictureBoxGroupSameAge.PictureBackgroundImage = null;
-            this.pictureBoxGroupSameAge.PictureName = "";
-            this.pictureBoxGroupSameAge.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxGroupSameAge.TabIndex = 5;
-            this.pictureBoxGroupSameAge.TabStop = false;
-            // 
-            // pictureBoxGroupSameTeam
-            // 
-            this.pictureBoxGroupSameTeam.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGroupSameTeam.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxGroupSameTeam.Location = new System.Drawing.Point(7, 258);
-            this.pictureBoxGroupSameTeam.Name = "pictureBoxGroupSameTeam";
-            this.pictureBoxGroupSameTeam.PictureBackgroundImage = null;
-            this.pictureBoxGroupSameTeam.PictureName = "";
-            this.pictureBoxGroupSameTeam.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxGroupSameTeam.TabIndex = 4;
-            this.pictureBoxGroupSameTeam.TabStop = false;
+            this.labelChooseFriends.AutoSize = true;
+            this.labelChooseFriends.BackColor = System.Drawing.Color.Transparent;
+            this.labelChooseFriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.labelChooseFriends.Location = new System.Drawing.Point(295, 13);
+            this.labelChooseFriends.Name = "labelChooseFriends";
+            this.labelChooseFriends.Size = new System.Drawing.Size(157, 24);
+            this.labelChooseFriends.TabIndex = 2;
+            this.labelChooseFriends.Text = "Choose friends:";
             // 
             // FormGrouper
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 465);
+            this.ClientSize = new System.Drawing.Size(600, 378);
+            this.Controls.Add(this.flowLayoutPanelGroups);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelHeader);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormGrouper";
             this.Text = "FormGrouper";
             this.panelMain.ResumeLayout(false);
+            this.panelMain.PerformLayout();
             this.panelHeader.ResumeLayout(false);
-            this.panelSegestedGroups.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeadline)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupCoworkers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupStudyTogether)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameCity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameAge)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroupSameTeam)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -197,12 +146,9 @@ namespace BasicFacebookFeatures.SubForms
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.PictureBox pictureBoxHeadline;
-        private System.Windows.Forms.Panel panelSegestedGroups;
-        private FormsUtils.PictureBoxBorderedAndNamed pictureBoxGroupSameAge;
-        private FormsUtils.PictureBoxBorderedAndNamed pictureBoxGroupSameTeam;
-        private FormsUtils.PictureBoxBorderedAndNamed pictureBoxGroupSameStatus;
-        private FormsUtils.PictureBoxBorderedAndNamed pictureBoxGroupSameCity;
-        private FormsUtils.PictureBoxBorderedAndNamed pictureBoxGroupStudyTogether;
-        private FormsUtils.PictureBoxBorderedAndNamed pictureBoxGroupCoworkers;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelGroups;
+        private System.Windows.Forms.Button buttonCrateGroup;
+        private System.Windows.Forms.CheckedListBox checkedListBoxMatchedUsers;
+        private System.Windows.Forms.Label labelChooseFriends;
     }
 }

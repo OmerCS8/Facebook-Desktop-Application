@@ -36,6 +36,10 @@ namespace FacebookAppEngine
         private string m_LoggedInUserEmail = null;
         private City m_LoggedInUserLocation = null;
         private long? m_LoggedInUserNumberOfPhotos = null;
+        private WorkExperience[] m_LoggedInUserWorkExperiences = null;
+        private Page[] m_LoggedInUserFavoritesTeams = null;
+        private User.eRelationshipStatus? m_LoggedInUserRelationshipStatus = null;
+        private Education[] m_LoggedInUserEducations = null;
 
         public User LoggedInUser { get; private set; }
 
@@ -62,6 +66,32 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserAge;
+            }
+        }
+
+        public WorkExperience[] LoggedInUserWorkExperiences
+        {
+            get
+            {
+                if (m_LoggedInUserWorkExperiences == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserWorkExperiences = LoggedInUser.WorkExperiences;
+                }
+
+                return m_LoggedInUserWorkExperiences;
+            }
+        }
+        
+        public Page[] LoggedInUserFavoritesTeams
+        {
+            get
+            {
+                if (m_LoggedInUserFavoritesTeams == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserFavoritesTeams = LoggedInUser.FavofriteTeams;
+                }
+
+                return m_LoggedInUserFavoritesTeams;
             }
         }
         
@@ -239,6 +269,32 @@ namespace FacebookAppEngine
                 }
 
                 return m_LoggedInUserGroups;
+            }
+        }
+
+        public User.eRelationshipStatus? LoggedInUserRelationshipStatus 
+        {
+            get
+            {
+                if (m_LoggedInUserRelationshipStatus == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserRelationshipStatus = LoggedInUser.RelationshipStatus;
+                }
+
+                return m_LoggedInUserRelationshipStatus;
+            }
+        }
+
+        public Education[] LoggedInUserEducations
+        {
+            get
+            {
+                if (m_LoggedInUserEducations == null && LoggedInUser != null)
+                {
+                    m_LoggedInUserEducations = LoggedInUser.Educations;
+                }
+
+                return m_LoggedInUserEducations;
             }
         }
 
