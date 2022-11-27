@@ -15,11 +15,12 @@ namespace BasicFacebookFeatures.FormsUtils
 
         protected override void OnResize(EventArgs e)
         {
-            GraphicsPath ovalGraphicsPath = new GraphicsPath();
-
-            base.OnResize(e);
-            ovalGraphicsPath.AddEllipse(new Rectangle(0, 0, this.Width - 1, this.Height - 1));
-            this.Region = new Region(ovalGraphicsPath);
+            using (GraphicsPath ovalGraphicsPath = new GraphicsPath())
+            {
+                base.OnResize(e);
+                ovalGraphicsPath.AddEllipse(new Rectangle(0, 0, this.Width - 1, this.Height - 1));
+                this.Region = new Region(ovalGraphicsPath);
+            }
         }
     }
 }
