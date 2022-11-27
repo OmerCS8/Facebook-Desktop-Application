@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormGroups : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance();
         private const int k_GroupPhotoSize = 100;
         private const string k_AccessDeniedMsg = "Access Denied!";
         private const string k_EmptyFieldMsg = "None";

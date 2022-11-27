@@ -13,7 +13,7 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance(); 
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance(); 
         private PictureBoxOval m_PictureBoxProfilePicture;
         private Button m_ChosenButton = null;
         private Form m_SubForm = null;
@@ -26,7 +26,6 @@ namespace BasicFacebookFeatures
             initializeProfilePanel();
             initializeMenuPanel();
             centerHeadlineLocation();
-            setMainMenuToLoggedOutUser();
         }
 
         private void initializeMenuPanel()
@@ -81,7 +80,7 @@ namespace BasicFacebookFeatures
             m_PictureBoxProfilePicture.Cursor = Cursors.Default;
             m_PictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
-            m_PictureBoxProfilePicture.Enabled = false;
+            panelProfile.Enabled = false;
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = false;
@@ -90,6 +89,7 @@ namespace BasicFacebookFeatures
             buttonGrouper.Enabled = false;
             buttonMemoryGame.Enabled = false;
             buttonLogin.Enabled = true;
+            checkBoxRememberMe.Checked = false;
         }
 
         private void setMainMenuToLoggedInUser()
@@ -98,7 +98,7 @@ namespace BasicFacebookFeatures
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
             m_PictureBoxProfilePicture.BackgroundImage = r_UserManager.LoggedInUserProfilePictureLarge;
-            m_PictureBoxProfilePicture.Enabled = true;
+            panelProfile.Enabled = true;
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = true;
@@ -107,6 +107,7 @@ namespace BasicFacebookFeatures
             buttonGrouper.Enabled = true;
             buttonMemoryGame.Enabled = true;
             buttonLogin.Enabled = false;
+            checkBoxRememberMe.Checked = r_UserManager.DoesUserWantToRememberHim;
         }
 
         private void setPanelsColors()
@@ -201,6 +202,28 @@ namespace BasicFacebookFeatures
         {
             setChosenButtonAsClicked(buttonGrouper);
             setSubForm(new FormGrouper());
+        }
+
+        private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
+        {
+            r_UserManager.DoesUserWantToRememberHim = checkBoxRememberMe.Checked;
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            r_UserManager.SaveSettingsChanges();
+        }
+
+        private void FormMain_Shown(object sender, EventArgs e)
+        {
+            if(r_UserManager.TryLogInIfUserIsRememberedAndReturnIfSucceeded())
+            {
+                setMainMenuToLoggedInUser();
+            }
+            else
+            {
+                setMainMenuToLoggedOutUser();
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormGrouper : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance();
         private const int k_PictureBoxGroupSize = 100;
         private const bool k_PictureBoxGroupHasBorder = true;
         private PictureBoxBorderedAndNamed m_PictureBoxGroupCoworkers;

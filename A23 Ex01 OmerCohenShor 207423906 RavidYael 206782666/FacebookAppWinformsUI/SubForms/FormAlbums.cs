@@ -19,7 +19,7 @@ namespace BasicFacebookFeatures.SubForms
         private const int k_PhotoSize = 150;
         private const int k_ShownPhotoHeight = 400;
         private Image m_ChosenPhoto;
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.GetFaceBookUserManagerInstance();
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance();
         public FormAlbums()
         {
             InitializeComponent();
