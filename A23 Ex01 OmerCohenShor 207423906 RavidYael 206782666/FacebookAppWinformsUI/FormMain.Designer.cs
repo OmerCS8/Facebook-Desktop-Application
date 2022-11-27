@@ -85,7 +85,7 @@
             this.buttonGrouper.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGrouper.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonGrouper.UseVisualStyleBackColor = false;
-            this.buttonGrouper.Click += new System.EventHandler(this.button1_Click);
+            this.buttonGrouper.Click += new System.EventHandler(this.buttonGrouper_Click);
             // 
             // buttonMemoryGame
             // 

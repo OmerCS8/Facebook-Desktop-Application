@@ -198,7 +198,7 @@ namespace BasicFacebookFeatures
             setSubForm(new FormMemoryGame());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonGrouper_Click(object sender, EventArgs e)
         {
             setChosenButtonAsClicked(buttonGrouper);
             setSubForm(new FormGrouper());
