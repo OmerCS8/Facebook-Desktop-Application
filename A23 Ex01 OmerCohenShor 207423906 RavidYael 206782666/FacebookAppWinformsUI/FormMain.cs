@@ -67,7 +67,9 @@ namespace BasicFacebookFeatures
             panelProfile.Controls.Add(pictureBoxProfileBorder);
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             LabelName.Top = pictureBoxProfileBorder.Bottom + 5;
-            panelProfile.Height = LabelName.Bottom + 5;
+            checkBoxRememberMe.Top = LabelName.Bottom + 5;
+            checkBoxRememberMe.Left = (panelProfile.Width - checkBoxRememberMe.Width) / 2;
+            panelProfile.Height = checkBoxRememberMe.Bottom + 5;
             m_PictureBoxProfilePicture.Click += new System.EventHandler(buttonProfile_Click);
         }
 
@@ -79,7 +81,7 @@ namespace BasicFacebookFeatures
             m_PictureBoxProfilePicture.Cursor = Cursors.Default;
             m_PictureBoxProfilePicture.BackgroundImage = Properties.Resources.guest;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
-            panelProfile.Enabled = false;
+            m_PictureBoxProfilePicture.Enabled = false;
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = false;
@@ -96,7 +98,7 @@ namespace BasicFacebookFeatures
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
             m_PictureBoxProfilePicture.BackgroundImage = r_UserManager.LoggedInUserProfilePictureLarge;
-            panelProfile.Enabled = true;
+            m_PictureBoxProfilePicture.Enabled = true;
             foreach (Control control in panelMenu.Controls)
             {
                 control.Enabled = true;

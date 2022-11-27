@@ -94,7 +94,7 @@ namespace BasicFacebookFeatures.SubForms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxMatchedUsers.FormattingEnabled = true;
-            this.checkedListBoxMatchedUsers.Location = new System.Drawing.Point(298, 44);
+            this.checkedListBoxMatchedUsers.Location = new System.Drawing.Point(295, 44);
             this.checkedListBoxMatchedUsers.Name = "checkedListBoxMatchedUsers";
             this.checkedListBoxMatchedUsers.Size = new System.Drawing.Size(291, 214);
             this.checkedListBoxMatchedUsers.TabIndex = 0;
@@ -103,7 +103,7 @@ namespace BasicFacebookFeatures.SubForms
             // 
             this.buttonCrateGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonCrateGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.buttonCrateGroup.Location = new System.Drawing.Point(350, 267);
+            this.buttonCrateGroup.Location = new System.Drawing.Point(349, 267);
             this.buttonCrateGroup.Name = "buttonCrateGroup";
             this.buttonCrateGroup.Size = new System.Drawing.Size(180, 39);
             this.buttonCrateGroup.TabIndex = 1;
