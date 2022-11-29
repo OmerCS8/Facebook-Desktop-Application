@@ -36,11 +36,11 @@ namespace BasicFacebookFeatures.SubForms
         private void initializeGroupsPictureBoxes()
         {
             createGroupsPictureBoxes();
-            addClickLOgicToGroupPictureBoxes();
+            addClickLogicToGroupPictureBoxes();
             addGroupsPictureBoxesToGroupsPanel();
         }
 
-        private void addClickLOgicToGroupPictureBoxes()
+        private void addClickLogicToGroupPictureBoxes()
         {
             m_PictureBoxGroupSameTeam.Click += pictureBoxGroupSameTeam_Click;
             m_PictureBoxGroupStudyTogether.Click += pictureBoxGroupStudyTogether_Click;
@@ -106,8 +106,8 @@ namespace BasicFacebookFeatures.SubForms
         
         private bool checkIfHaveCommonSchool(Education[] i_FriendEducations, Education[] i_LoggedInUserEducations)
         {
-            List<Page> userSchools = i_LoggedInUserEducations.Select(userEducation => userEducation.School).ToList();
-            List<Page> friendSchools = i_FriendEducations.Select(userEducation => userEducation.School).ToList();
+            List<Page> userSchools = i_LoggedInUserEducations.Select(i_UserEducation => i_UserEducation.School).ToList();
+            List<Page> friendSchools = i_FriendEducations.Select(i_UserEducation => i_UserEducation.School).ToList();
 
             return (userSchools.Intersect(friendSchools)).Count() != 0;
         }
@@ -122,21 +122,21 @@ namespace BasicFacebookFeatures.SubForms
 
         private bool checkIfHaveCommonEmployer(WorkExperience[] i_FriendWorkExperiences, WorkExperience[] i_LoggedInUserWorkExperiences)
         {
-            List<Page> userEmployers = i_LoggedInUserWorkExperiences.Select(userExperience => userExperience.Employer).ToList();
-            List<Page> friendEmployers = i_FriendWorkExperiences.Select(userExperience => userExperience.Employer).ToList();
+            List<Page> userEmployers = i_LoggedInUserWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer).ToList();
+            List<Page> friendEmployers = i_FriendWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer).ToList();
 
             return (userEmployers.Intersect(friendEmployers)).Count() != 0;
         }
 
-        private bool checkIfHaveCommonFavoriteTeam(Page[] i_FriendFavofriteTeams, Page[] i_LoggedInUserFavoritesTeams)
+        private bool checkIfHaveCommonFavoriteTeam(Page[] i_FriendFavoriteTeams, Page[] i_LoggedInUserFavoritesTeams)
         {
-            return (i_FriendFavofriteTeams.Intersect(i_LoggedInUserFavoritesTeams)).Count() != 0;
+            return (i_FriendFavoriteTeams.Intersect(i_LoggedInUserFavoritesTeams)).Count() != 0;
         }
 
-        private void setUsersToCheckedListBoxMatchedUsers(List<User> i_matchedFriends)
+        private void setUsersToCheckedListBoxMatchedUsers(List<User> i_MatchedFriends)
         {
             checkedListBoxMatchedUsers.Items.Clear();
-            foreach (User user in i_matchedFriends)
+            foreach (User user in i_MatchedFriends)
             {
                 checkedListBoxMatchedUsers.Items.Add(user);
             }
