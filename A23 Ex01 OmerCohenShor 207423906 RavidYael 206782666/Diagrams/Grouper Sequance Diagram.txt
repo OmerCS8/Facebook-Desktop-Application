@@ -1,0 +1,47 @@
+title Create new friend list
+
+actor user
+
+participant "<link:facebook.com>:FormMain </link>" as FormMain
+participant "<link:facebook.com>:FormGrouper </link>" as FormGrouper
+participant "<link:facebook.com>:FacebookUserManager </link>" as FacebookUserManager
+participant "<link:facebook.com>:FacebookApi </link>" as FacebookApi
+activate user
+user->FormMain:click on the "Grouper" button
+activate FormMain
+deactivate user
+FormMain --> user: display FormGrouper as sub-form
+deactivate FormMain
+activate user
+user->FormGrouper:Choose friend list category
+deactivate user
+activate FormGrouper
+FormGrouper ->FacebookUserManager:get users friends list
+deactivate FormGrouper
+activate FacebookUserManager
+opt FacebookUserManager doesn't hold user's friend list
+FacebookUserManager->(2)FacebookApi:get user friend list
+deactivate FacebookUserManager
+activate FacebookApi
+FacebookApi -->FacebookUserManager:return user's friend list
+deactivate FacebookApi
+activate FacebookUserManager
+end
+FacebookUserManager-->FormGrouper:return user's friend list
+deactivate FacebookUserManager
+activate FormGrouper
+FormGrouper->FormGrouper:filter friends who have common ground with user in category
+FormGrouper-->user: print list of matched friends
+deactivate FormGrouper
+activate user
+user->user:select users from list
+user ->FormGrouper: press create friend list button
+deactivate user
+activate FormGrouper
+opt chosen friends list > 0
+FormGrouper ->(3)FacebookApi:create new friend list
+deactivate FormGrouper
+activate FacebookApi
+FacebookApi -->FormGrouper:return
+end
+deactivate FacebookApi
