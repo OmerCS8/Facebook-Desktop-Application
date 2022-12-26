@@ -160,12 +160,14 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // flowLayoutPanelPages
             // 
+            this.flowLayoutPanelPages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelPages.AutoScroll = true;
             this.flowLayoutPanelPages.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanelPages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelPages.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelPages.Location = new System.Drawing.Point(-2, 0);
             this.flowLayoutPanelPages.Name = "flowLayoutPanelPages";
-            this.flowLayoutPanelPages.Size = new System.Drawing.Size(800, 450);
+            this.flowLayoutPanelPages.Size = new System.Drawing.Size(413, 450);
             this.flowLayoutPanelPages.TabIndex = 3;
             // 
             // FormLikedPages
