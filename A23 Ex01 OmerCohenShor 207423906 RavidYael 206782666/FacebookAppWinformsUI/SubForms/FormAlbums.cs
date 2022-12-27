@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures.SubForms
         private const int k_PhotoSize = 150;
         private const int k_ShownPhotoHeight = 400;
         private Image m_ChosenPhoto;
+        private Dictionary<Album, FlowLayoutPanel> m_ImagesPanels = new Dictionary<Album, FlowLayoutPanel>();
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         public FormAlbums()
         {
@@ -61,26 +62,42 @@ namespace BasicFacebookFeatures.SubForms
 
         private void setAlbumPhotos(Album i_SelectedAlbum)
         {
-            flowLayoutPanelPhotos.Invoke(new Action(() => flowLayoutPanelPhotos.Controls.Clear()));
-            linkLabelPhotoLink.Invoke(new Action((() => linkLabelPhotoLink.Visible = false)));
-            
-            foreach (Photo currentPhoto in i_SelectedAlbum.Photos)
-            {
-                labelChosenPhotoName.Text = "Selected photo:";
-                PictureBoxBorderedAndNamed albumPhotoPictureBox = new PictureBoxBorderedAndNamed(k_PhotoSize, false);
-                try
-                {
-                    albumPhotoPictureBox.PictureBackgroundImage = currentPhoto.ImageNormal;
-                }
-                catch(Exception)
-                {
-                    albumPhotoPictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
-                }
+            bool isFirstCallToAlbum = !m_ImagesPanels.ContainsKey(i_SelectedAlbum);
+            FlowLayoutPanel imagesPanel = getAlbumImagesPanel(i_SelectedAlbum);
 
-                albumPhotoPictureBox.PictureName = currentPhoto.PictureNormalURL;
-                albumPhotoPictureBox.AddOnClickAction(this.albumPhotoPictureBox_Clicked);
-                flowLayoutPanelPhotos.Invoke(new Action(() => flowLayoutPanelPhotos.Controls.Add(albumPhotoPictureBox)));
+            panelPhotos.Invoke(new Action(() => panelPhotos.Controls.Clear()));
+            panelPhotos.Invoke(new Action(() => panelPhotos.Controls.Add(imagesPanel)));
+            linkLabelPhotoLink.Invoke(new Action((() => linkLabelPhotoLink.Text = string.Empty)));
+            if(isFirstCallToAlbum)
+            {
+                foreach(Photo currentPhoto in i_SelectedAlbum.Photos)
+                {
+                    PictureBoxBorderedAndNamed albumPhotoPictureBox =
+                        new PictureBoxBorderedAndNamed(k_PhotoSize, false);
+                    try
+                    {
+                        albumPhotoPictureBox.PictureBackgroundImage = currentPhoto.ImageNormal;
+                    }
+                    catch(Exception)
+                    {
+                        albumPhotoPictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
+                    }
+
+                    albumPhotoPictureBox.PictureName = currentPhoto.PictureNormalURL;
+                    albumPhotoPictureBox.AddOnClickAction(this.albumPhotoPictureBox_Clicked);
+                    imagesPanel.Invoke(new Action(() => imagesPanel.Controls.Add(albumPhotoPictureBox)));
+                }
             }
+        }
+
+        private FlowLayoutPanel getAlbumImagesPanel(Album i_SelectedAlbum)
+        {
+            if(!m_ImagesPanels.ContainsKey(i_SelectedAlbum))
+            {
+                m_ImagesPanels.Add(i_SelectedAlbum, new FlowLayoutPanel(){Dock = DockStyle.Fill, AutoScroll = true});
+            }
+
+            return m_ImagesPanels[i_SelectedAlbum];
         }
 
         private void albumPhotoPictureBox_Clicked(object i_Sender, EventArgs i_E)

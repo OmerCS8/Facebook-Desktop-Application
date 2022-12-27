@@ -33,10 +33,10 @@ namespace BasicFacebookFeatures.SubForms
             this.flowLayoutPanelAlbums = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAlbumName = new System.Windows.Forms.Panel();
             this.labelChosenAlbumName = new System.Windows.Forms.Label();
-            this.flowLayoutPanelPhotos = new System.Windows.Forms.FlowLayoutPanel();
             this.panelPhotoName = new System.Windows.Forms.Panel();
             this.linkLabelPhotoLink = new System.Windows.Forms.LinkLabel();
             this.labelChosenPhotoName = new System.Windows.Forms.Label();
+            this.panelPhotos = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerAlbumsPhotos)).BeginInit();
             this.splitContainerAlbumsPhotos.Panel1.SuspendLayout();
             this.splitContainerAlbumsPhotos.Panel2.SuspendLayout();
@@ -60,7 +60,7 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // splitContainerAlbumsPhotos.Panel2
             // 
-            this.splitContainerAlbumsPhotos.Panel2.Controls.Add(this.flowLayoutPanelPhotos);
+            this.splitContainerAlbumsPhotos.Panel2.Controls.Add(this.panelPhotos);
             this.splitContainerAlbumsPhotos.Panel2.Controls.Add(this.panelPhotoName);
             this.splitContainerAlbumsPhotos.Panel2MinSize = 150;
             this.splitContainerAlbumsPhotos.Size = new System.Drawing.Size(1067, 554);
@@ -100,16 +100,6 @@ namespace BasicFacebookFeatures.SubForms
             this.labelChosenAlbumName.TabIndex = 0;
             this.labelChosenAlbumName.Text = "Selected album: ";
             // 
-            // flowLayoutPanelPhotos
-            // 
-            this.flowLayoutPanelPhotos.AutoScroll = true;
-            this.flowLayoutPanelPhotos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelPhotos.Location = new System.Drawing.Point(0, 91);
-            this.flowLayoutPanelPhotos.Name = "flowLayoutPanelPhotos";
-            this.flowLayoutPanelPhotos.Padding = new System.Windows.Forms.Padding(2);
-            this.flowLayoutPanelPhotos.Size = new System.Drawing.Size(563, 463);
-            this.flowLayoutPanelPhotos.TabIndex = 3;
-            // 
             // panelPhotoName
             // 
             this.panelPhotoName.AutoScroll = true;
@@ -128,7 +118,7 @@ namespace BasicFacebookFeatures.SubForms
             this.linkLabelPhotoLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelPhotoLink.Location = new System.Drawing.Point(184, 41);
             this.linkLabelPhotoLink.Name = "linkLabelPhotoLink";
-            this.linkLabelPhotoLink.Size = new System.Drawing.Size(78, 17);
+            this.linkLabelPhotoLink.Size = new System.Drawing.Size(73, 16);
             this.linkLabelPhotoLink.TabIndex = 0;
             this.linkLabelPhotoLink.TabStop = true;
             this.linkLabelPhotoLink.Text = "Pohoto link";
@@ -146,6 +136,14 @@ namespace BasicFacebookFeatures.SubForms
             this.labelChosenPhotoName.Size = new System.Drawing.Size(164, 25);
             this.labelChosenPhotoName.TabIndex = 0;
             this.labelChosenPhotoName.Text = "Selected photo:";
+            // 
+            // panelPhotos
+            // 
+            this.panelPhotos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPhotos.Location = new System.Drawing.Point(0, 91);
+            this.panelPhotos.Name = "panelPhotos";
+            this.panelPhotos.Size = new System.Drawing.Size(563, 463);
+            this.panelPhotos.TabIndex = 3;
             // 
             // FormAlbums
             // 
@@ -174,9 +172,9 @@ namespace BasicFacebookFeatures.SubForms
         private System.Windows.Forms.Panel panelAlbumName;
         private System.Windows.Forms.Label labelChosenAlbumName;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelAlbums;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPhotos;
         private System.Windows.Forms.Panel panelPhotoName;
         private System.Windows.Forms.Label labelChosenPhotoName;
         private System.Windows.Forms.LinkLabel linkLabelPhotoLink;
+        private System.Windows.Forms.Panel panelPhotos;
     }
 }
