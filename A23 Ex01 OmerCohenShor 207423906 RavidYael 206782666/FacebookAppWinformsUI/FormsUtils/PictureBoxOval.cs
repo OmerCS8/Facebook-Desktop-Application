@@ -7,12 +7,6 @@ namespace BasicFacebookFeatures.FormsUtils
 {
     public class PictureBoxOval : PictureBox
     {
-        public PictureBoxOval(int i_Width, int i_Height)
-        {
-            this.Size = new Size(i_Width, i_Height);
-            this.Visible = true;
-        }
-
         protected override void OnResize(EventArgs e)
         {
             using (GraphicsPath ovalGraphicsPath = new GraphicsPath())

@@ -59,73 +59,11 @@ namespace BasicFacebookFeatures.SubForms
                     i_Group => i_Group.Name == clickedGroupPictureBox.PictureName);
                 if (m_SelectedGroup != null)
                 {
-                    setGroupDetails(m_SelectedGroup);
                     buttonPostInGroup.Enabled = true;
                     richTextBoxPost.Enabled = true;
+                    groupBindingSource.DataSource = m_SelectedGroup;
                 }
             }
-        }
-
-        private void setGroupDetails(Group i_SelectedGroup)
-        {
-            string groupName;
-            string groupMembers;
-            string groupPosts;
-            string groupDescription;
-            string groupOwner;
-
-            try
-            {
-                groupName = i_SelectedGroup.Name ?? k_EmptyFieldMsg;
-            }
-            catch(Exception)
-            {
-                groupName = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                groupMembers = i_SelectedGroup.Members != null ? i_SelectedGroup.Members.Count.ToString() :
-                                   k_EmptyFieldMsg;
-            }
-            catch(Exception)
-            {
-                groupMembers = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                groupPosts = i_SelectedGroup.WallPosts != null ? i_SelectedGroup.WallPosts.Count.ToString() :
-                                 k_EmptyFieldMsg;
-            }
-            catch(Exception)
-            {
-                groupPosts = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                groupDescription = i_SelectedGroup.Description ?? k_EmptyFieldMsg;
-            }
-            catch(Exception)
-            {
-                groupDescription = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                groupOwner = i_SelectedGroup.Owner != null? i_SelectedGroup.Owner.Name : k_EmptyFieldMsg;
-            }
-            catch(Exception)
-            {
-                groupOwner = k_AccessDeniedMsg;
-            }
-
-            labelGroupName.Text = $"Group name: {groupName}";
-            labelGroupMembers.Text = $"Group members: {groupMembers}";
-            labelGroupPosts.Text = $"Group posts: {groupPosts}";
-            labelGroupDescription.Text = $"Group Description: {groupDescription}";
-            labelOwner.Text = $"Group Owner: {groupOwner}";
         }
 
         private void buttonPostInGroup_Click(object sender, EventArgs e)

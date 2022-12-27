@@ -53,10 +53,11 @@ namespace BasicFacebookFeatures
 
         private void initializeProfilePanel()
         {
-            PictureBoxOval pictureBoxProfileBorder = new PictureBoxOval(panelSideBar.Width - 40, panelSideBar.Width - 40);
-
+            PictureBoxOval pictureBoxProfileBorder =
+                new PictureBoxOval() { Width = panelSideBar.Width - 40, Height = panelSideBar.Width - 40 };
             pictureBoxProfileBorder.BackColor = Color.White;
-            m_PictureBoxProfilePicture = new PictureBoxOval(pictureBoxProfileBorder.Width - 10, pictureBoxProfileBorder.Height - 10);
+            m_PictureBoxProfilePicture = 
+                new PictureBoxOval() { Width = pictureBoxProfileBorder.Width - 10, Height = pictureBoxProfileBorder.Height - 10 };
             m_PictureBoxProfilePicture.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBoxProfileBorder.Controls.Add(m_PictureBoxProfilePicture);
             pictureBoxProfileBorder.Top = 10;

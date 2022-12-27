@@ -29,112 +29,252 @@ namespace BasicFacebookFeatures.SubForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelPagePhone = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label descriptionLabel;
+            System.Windows.Forms.Label isCommunityPageLabel;
+            System.Windows.Forms.Label isPublishedLabel;
+            System.Windows.Forms.Label likesCountLabel;
+            System.Windows.Forms.Label nameLabel;
+            System.Windows.Forms.Label phoneLabel;
+            System.Windows.Forms.Label uRLLabel;
+            System.Windows.Forms.Label websiteLabel;
             this.panelGroupDetails = new System.Windows.Forms.Panel();
-            this.flowLayoutPanelPageDetails = new System.Windows.Forms.FlowLayoutPanel();
-            this.labelPageName = new System.Windows.Forms.Label();
-            this.labelPageLocation = new System.Windows.Forms.Label();
-            this.labelPagePosts = new System.Windows.Forms.Label();
-            this.labelPageDescription = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.isCommunityPageCheckBox = new System.Windows.Forms.CheckBox();
+            this.isPublishedCheckBox = new System.Windows.Forms.CheckBox();
+            this.likesCountLabel1 = new System.Windows.Forms.Label();
+            this.nameLabel1 = new System.Windows.Forms.Label();
+            this.phoneLabel1 = new System.Windows.Forms.Label();
+            this.uRLLabel1 = new System.Windows.Forms.Label();
+            this.websiteLabel1 = new System.Windows.Forms.Label();
             this.panelActions = new System.Windows.Forms.Panel();
             this.richTextBoxPage = new System.Windows.Forms.RichTextBox();
             this.buttonPostInPage = new System.Windows.Forms.Button();
             this.flowLayoutPanelPages = new System.Windows.Forms.FlowLayoutPanel();
+            descriptionLabel = new System.Windows.Forms.Label();
+            isCommunityPageLabel = new System.Windows.Forms.Label();
+            isPublishedLabel = new System.Windows.Forms.Label();
+            likesCountLabel = new System.Windows.Forms.Label();
+            nameLabel = new System.Windows.Forms.Label();
+            phoneLabel = new System.Windows.Forms.Label();
+            uRLLabel = new System.Windows.Forms.Label();
+            websiteLabel = new System.Windows.Forms.Label();
             this.panelGroupDetails.SuspendLayout();
-            this.flowLayoutPanelPageDetails.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).BeginInit();
             this.panelActions.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelPagePhone
+            // descriptionLabel
             // 
-            this.labelPagePhone.AutoSize = true;
-            this.labelPagePhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelPagePhone.Location = new System.Drawing.Point(2, 150);
-            this.labelPagePhone.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.labelPagePhone.Name = "labelPagePhone";
-            this.labelPagePhone.Size = new System.Drawing.Size(135, 25);
-            this.labelPagePhone.TabIndex = 4;
-            this.labelPagePhone.Text = "Page phone:";
+            descriptionLabel.AutoSize = true;
+            descriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            descriptionLabel.Location = new System.Drawing.Point(17, 184);
+            descriptionLabel.Name = "descriptionLabel";
+            descriptionLabel.Size = new System.Drawing.Size(127, 25);
+            descriptionLabel.TabIndex = 4;
+            descriptionLabel.Text = "Description:";
+            // 
+            // isCommunityPageLabel
+            // 
+            isCommunityPageLabel.AutoSize = true;
+            isCommunityPageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            isCommunityPageLabel.Location = new System.Drawing.Point(14, 34);
+            isCommunityPageLabel.Name = "isCommunityPageLabel";
+            isCommunityPageLabel.Size = new System.Drawing.Size(206, 25);
+            isCommunityPageLabel.TabIndex = 6;
+            isCommunityPageLabel.Text = "Is Community Page:";
+            // 
+            // isPublishedLabel
+            // 
+            isPublishedLabel.AutoSize = true;
+            isPublishedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            isPublishedLabel.Location = new System.Drawing.Point(14, 59);
+            isPublishedLabel.Name = "isPublishedLabel";
+            isPublishedLabel.Size = new System.Drawing.Size(137, 25);
+            isPublishedLabel.TabIndex = 8;
+            isPublishedLabel.Text = "Is Published:";
+            // 
+            // likesCountLabel
+            // 
+            likesCountLabel.AutoSize = true;
+            likesCountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            likesCountLabel.Location = new System.Drawing.Point(17, 84);
+            likesCountLabel.Name = "likesCountLabel";
+            likesCountLabel.Size = new System.Drawing.Size(134, 25);
+            likesCountLabel.TabIndex = 10;
+            likesCountLabel.Text = "Likes Count:";
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            nameLabel.Location = new System.Drawing.Point(14, 9);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(75, 25);
+            nameLabel.TabIndex = 12;
+            nameLabel.Text = "Name:";
+            // 
+            // phoneLabel
+            // 
+            phoneLabel.AutoSize = true;
+            phoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            phoneLabel.Location = new System.Drawing.Point(17, 109);
+            phoneLabel.Name = "phoneLabel";
+            phoneLabel.Size = new System.Drawing.Size(81, 25);
+            phoneLabel.TabIndex = 14;
+            phoneLabel.Text = "Phone:";
+            // 
+            // uRLLabel
+            // 
+            uRLLabel.AutoSize = true;
+            uRLLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            uRLLabel.Location = new System.Drawing.Point(17, 134);
+            uRLLabel.Name = "uRLLabel";
+            uRLLabel.Size = new System.Drawing.Size(60, 25);
+            uRLLabel.TabIndex = 16;
+            uRLLabel.Text = "URL:";
+            // 
+            // websiteLabel
+            // 
+            websiteLabel.AutoSize = true;
+            websiteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            websiteLabel.Location = new System.Drawing.Point(17, 159);
+            websiteLabel.Name = "websiteLabel";
+            websiteLabel.Size = new System.Drawing.Size(98, 25);
+            websiteLabel.TabIndex = 18;
+            websiteLabel.Text = "Website:";
             // 
             // panelGroupDetails
             // 
             this.panelGroupDetails.BackColor = System.Drawing.Color.Transparent;
-            this.panelGroupDetails.Controls.Add(this.flowLayoutPanelPageDetails);
+            this.panelGroupDetails.Controls.Add(this.panel1);
             this.panelGroupDetails.Controls.Add(this.panelActions);
             this.panelGroupDetails.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelGroupDetails.Location = new System.Drawing.Point(412, 0);
+            this.panelGroupDetails.Location = new System.Drawing.Point(382, 0);
             this.panelGroupDetails.Name = "panelGroupDetails";
-            this.panelGroupDetails.Size = new System.Drawing.Size(388, 450);
+            this.panelGroupDetails.Size = new System.Drawing.Size(388, 512);
             this.panelGroupDetails.TabIndex = 2;
             // 
-            // flowLayoutPanelPageDetails
+            // panel1
             // 
-            this.flowLayoutPanelPageDetails.AutoScroll = true;
-            this.flowLayoutPanelPageDetails.Controls.Add(this.labelPageName);
-            this.flowLayoutPanelPageDetails.Controls.Add(this.labelPageLocation);
-            this.flowLayoutPanelPageDetails.Controls.Add(this.labelPagePosts);
-            this.flowLayoutPanelPageDetails.Controls.Add(this.labelPageDescription);
-            this.flowLayoutPanelPageDetails.Controls.Add(this.labelPagePhone);
-            this.flowLayoutPanelPageDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelPageDetails.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanelPageDetails.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanelPageDetails.Name = "flowLayoutPanelPageDetails";
-            this.flowLayoutPanelPageDetails.Padding = new System.Windows.Forms.Padding(2, 5, 5, 5);
-            this.flowLayoutPanelPageDetails.Size = new System.Drawing.Size(388, 205);
-            this.flowLayoutPanelPageDetails.TabIndex = 3;
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.descriptionRichTextBox);
+            this.panel1.Controls.Add(descriptionLabel);
+            this.panel1.Controls.Add(isCommunityPageLabel);
+            this.panel1.Controls.Add(this.isCommunityPageCheckBox);
+            this.panel1.Controls.Add(isPublishedLabel);
+            this.panel1.Controls.Add(this.isPublishedCheckBox);
+            this.panel1.Controls.Add(likesCountLabel);
+            this.panel1.Controls.Add(this.likesCountLabel1);
+            this.panel1.Controls.Add(nameLabel);
+            this.panel1.Controls.Add(this.nameLabel1);
+            this.panel1.Controls.Add(phoneLabel);
+            this.panel1.Controls.Add(this.phoneLabel1);
+            this.panel1.Controls.Add(uRLLabel);
+            this.panel1.Controls.Add(this.uRLLabel1);
+            this.panel1.Controls.Add(websiteLabel);
+            this.panel1.Controls.Add(this.websiteLabel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(388, 265);
+            this.panel1.TabIndex = 3;
             // 
-            // labelPageName
+            // descriptionRichTextBox
             // 
-            this.labelPageName.AutoSize = true;
-            this.labelPageName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelPageName.Location = new System.Drawing.Point(2, 10);
-            this.labelPageName.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.labelPageName.Name = "labelPageName";
-            this.labelPageName.Size = new System.Drawing.Size(128, 25);
-            this.labelPageName.TabIndex = 0;
-            this.labelPageName.Text = "Page name:";
+            this.descriptionRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.descriptionRichTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "Description", true, System.Windows.Forms.DataSourceUpdateMode.Never, "None"));
+            this.descriptionRichTextBox.Location = new System.Drawing.Point(22, 212);
+            this.descriptionRichTextBox.Name = "descriptionRichTextBox";
+            this.descriptionRichTextBox.Size = new System.Drawing.Size(343, 47);
+            this.descriptionRichTextBox.TabIndex = 5;
+            this.descriptionRichTextBox.Text = "";
             // 
-            // labelPageLocation
+            // pageBindingSource
             // 
-            this.labelPageLocation.AutoSize = true;
-            this.labelPageLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelPageLocation.Location = new System.Drawing.Point(2, 45);
-            this.labelPageLocation.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.labelPageLocation.Name = "labelPageLocation";
-            this.labelPageLocation.Size = new System.Drawing.Size(150, 25);
-            this.labelPageLocation.TabIndex = 1;
-            this.labelPageLocation.Text = "Page location:";
+            this.pageBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Page);
             // 
-            // labelPagePosts
+            // isCommunityPageCheckBox
             // 
-            this.labelPagePosts.AutoSize = true;
-            this.labelPagePosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelPagePosts.Location = new System.Drawing.Point(2, 80);
-            this.labelPagePosts.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.labelPagePosts.Name = "labelPagePosts";
-            this.labelPagePosts.Size = new System.Drawing.Size(127, 25);
-            this.labelPagePosts.TabIndex = 2;
-            this.labelPagePosts.Text = "Page posts:";
+            this.isCommunityPageCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.pageBindingSource, "IsCommunityPage", true, System.Windows.Forms.DataSourceUpdateMode.Never, "unknown"));
+            this.isCommunityPageCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.isCommunityPageCheckBox.Location = new System.Drawing.Point(237, 35);
+            this.isCommunityPageCheckBox.Name = "isCommunityPageCheckBox";
+            this.isCommunityPageCheckBox.Size = new System.Drawing.Size(139, 24);
+            this.isCommunityPageCheckBox.TabIndex = 7;
+            this.isCommunityPageCheckBox.UseVisualStyleBackColor = true;
             // 
-            // labelPageDescription
+            // isPublishedCheckBox
             // 
-            this.labelPageDescription.AutoSize = true;
-            this.labelPageDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelPageDescription.Location = new System.Drawing.Point(2, 115);
-            this.labelPageDescription.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.labelPageDescription.Name = "labelPageDescription";
-            this.labelPageDescription.Size = new System.Drawing.Size(183, 25);
-            this.labelPageDescription.TabIndex = 3;
-            this.labelPageDescription.Text = "Page Description:";
+            this.isPublishedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.pageBindingSource, "IsPublished", true, System.Windows.Forms.DataSourceUpdateMode.Never, "Unknown"));
+            this.isPublishedCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.isPublishedCheckBox.Location = new System.Drawing.Point(162, 59);
+            this.isPublishedCheckBox.Name = "isPublishedCheckBox";
+            this.isPublishedCheckBox.Size = new System.Drawing.Size(208, 24);
+            this.isPublishedCheckBox.TabIndex = 9;
+            this.isPublishedCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // likesCountLabel1
+            // 
+            this.likesCountLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "LikesCount", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "None", "N2"));
+            this.likesCountLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.likesCountLabel1.Location = new System.Drawing.Point(157, 86);
+            this.likesCountLabel1.Name = "likesCountLabel1";
+            this.likesCountLabel1.Size = new System.Drawing.Size(208, 23);
+            this.likesCountLabel1.TabIndex = 11;
+            // 
+            // nameLabel1
+            // 
+            this.nameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "None"));
+            this.nameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel1.Location = new System.Drawing.Point(95, 9);
+            this.nameLabel1.Name = "nameLabel1";
+            this.nameLabel1.Size = new System.Drawing.Size(270, 23);
+            this.nameLabel1.TabIndex = 13;
+            // 
+            // phoneLabel1
+            // 
+            this.phoneLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "Phone", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "None"));
+            this.phoneLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.phoneLabel1.Location = new System.Drawing.Point(104, 109);
+            this.phoneLabel1.Name = "phoneLabel1";
+            this.phoneLabel1.Size = new System.Drawing.Size(261, 23);
+            this.phoneLabel1.TabIndex = 15;
+            // 
+            // uRLLabel1
+            // 
+            this.uRLLabel1.AutoEllipsis = true;
+            this.uRLLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "URL", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "None"));
+            this.uRLLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uRLLabel1.ForeColor = System.Drawing.Color.Blue;
+            this.uRLLabel1.Location = new System.Drawing.Point(88, 136);
+            this.uRLLabel1.Name = "uRLLabel1";
+            this.uRLLabel1.Size = new System.Drawing.Size(282, 23);
+            this.uRLLabel1.TabIndex = 17;
+            // 
+            // websiteLabel1
+            // 
+            this.websiteLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "Website", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "None"));
+            this.websiteLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.websiteLabel1.Location = new System.Drawing.Point(116, 159);
+            this.websiteLabel1.Name = "websiteLabel1";
+            this.websiteLabel1.Size = new System.Drawing.Size(249, 23);
+            this.websiteLabel1.TabIndex = 19;
             // 
             // panelActions
             // 
             this.panelActions.Controls.Add(this.richTextBoxPage);
             this.panelActions.Controls.Add(this.buttonPostInPage);
             this.panelActions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelActions.Location = new System.Drawing.Point(0, 205);
+            this.panelActions.Location = new System.Drawing.Point(0, 265);
             this.panelActions.Name = "panelActions";
-            this.panelActions.Size = new System.Drawing.Size(388, 245);
+            this.panelActions.Size = new System.Drawing.Size(388, 247);
             this.panelActions.TabIndex = 2;
             // 
             // richTextBoxPage
@@ -167,38 +307,42 @@ namespace BasicFacebookFeatures.SubForms
             this.flowLayoutPanelPages.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanelPages.Location = new System.Drawing.Point(-2, 0);
             this.flowLayoutPanelPages.Name = "flowLayoutPanelPages";
-            this.flowLayoutPanelPages.Size = new System.Drawing.Size(413, 450);
+            this.flowLayoutPanelPages.Size = new System.Drawing.Size(383, 512);
             this.flowLayoutPanelPages.TabIndex = 3;
             // 
             // FormLikedPages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(770, 512);
             this.Controls.Add(this.panelGroupDetails);
             this.Controls.Add(this.flowLayoutPanelPages);
             this.Name = "FormLikedPages";
             this.Text = "FormLikedPages";
             this.panelGroupDetails.ResumeLayout(false);
-            this.flowLayoutPanelPageDetails.ResumeLayout(false);
-            this.flowLayoutPanelPageDetails.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).EndInit();
             this.panelActions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelPagePhone;
         private System.Windows.Forms.Panel panelGroupDetails;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPageDetails;
-        private System.Windows.Forms.Label labelPageName;
-        private System.Windows.Forms.Label labelPageLocation;
-        private System.Windows.Forms.Label labelPagePosts;
-        private System.Windows.Forms.Label labelPageDescription;
         private System.Windows.Forms.Panel panelActions;
         private System.Windows.Forms.RichTextBox richTextBoxPage;
         private System.Windows.Forms.Button buttonPostInPage;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPages;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.BindingSource pageBindingSource;
+        private System.Windows.Forms.RichTextBox descriptionRichTextBox;
+        private System.Windows.Forms.CheckBox isCommunityPageCheckBox;
+        private System.Windows.Forms.CheckBox isPublishedCheckBox;
+        private System.Windows.Forms.Label likesCountLabel1;
+        private System.Windows.Forms.Label nameLabel1;
+        private System.Windows.Forms.Label phoneLabel1;
+        private System.Windows.Forms.Label uRLLabel1;
+        private System.Windows.Forms.Label websiteLabel1;
     }
 }

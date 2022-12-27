@@ -47,14 +47,8 @@ namespace FacebookAppEngine
 
         public bool DoesUserWantToRememberHim
         {
-            get
-            {
-                return r_UserAppSettings.DoesUserWantToRememberHim;
-            }
-            set
-            {
-                r_UserAppSettings.DoesUserWantToRememberHim = value;
-            }
+            get => r_UserAppSettings.DoesUserWantToRememberHim;
+            set => r_UserAppSettings.DoesUserWantToRememberHim = value;
         }
 
         public bool CreateNewStatusAndReturnIfSucceeded(string i_StatusText)
@@ -193,10 +187,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserAge;
             }
-            private set
-            {
-                m_LoggedInUserAge = value;
-            }
+            private set => m_LoggedInUserAge = value;
         }
 
         public WorkExperience[] LoggedInUserWorkExperiences
@@ -210,10 +201,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserWorkExperiences;
             }
-            private set
-            {
-                m_LoggedInUserWorkExperiences = value;
-            }
+            private set => m_LoggedInUserWorkExperiences = value;
         }
         
         public Page[] LoggedInUserFavoritesTeams
@@ -227,10 +215,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserFavoritesTeams;
             }
-            private set
-            {
-                m_LoggedInUserFavoritesTeams = value;
-            }
+            private set => m_LoggedInUserFavoritesTeams = value;
         }
         
         public long? LoggedInUserNumberOfPhotos
@@ -248,10 +233,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserNumberOfPhotos;
             }
-            private set
-            {
-                m_LoggedInUserNumberOfPhotos = value;
-            }
+            private set => m_LoggedInUserNumberOfPhotos = value;
         }
 
         public string LoggedInUserBirthday
@@ -265,10 +247,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserBirthday;
             }
-            private set
-            {
-                m_LoggedInUserBirthday = value;
-            }
+            private set => m_LoggedInUserBirthday = value;
         }
 
         public User.eGender? LoggedInUserGender
@@ -282,10 +261,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserGender;
             }
-            private set
-            {
-                m_LoggedInUserGender = value;
-            }
+            private set => m_LoggedInUserGender = value;
         }
 
         public string LoggedInUserName
@@ -299,10 +275,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserName;
             }
-            private set
-            {
-                m_LoggedInUserName = value;
-            }
+            private set => m_LoggedInUserName = value;
         }
 
         public Image LoggedInUserProfilePictureLarge
@@ -316,10 +289,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserProfilePictureLarge;
             }
-            private set
-            {
-                m_LoggedInUserProfilePictureLarge = value;
-            }
+            private set => m_LoggedInUserProfilePictureLarge = value;
         }
 
         public Image LoggedInUserCoverImage
@@ -337,10 +307,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserCoverImage;
             }
-            private set
-            {
-                m_LoggedInUserCoverImage = value;
-            }
+            private set => m_LoggedInUserCoverImage = value;
         }
 
         public string LoggedInUserEmail
@@ -354,10 +321,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserEmail;
             }
-            private set
-            {
-                m_LoggedInUserEmail = value;
-            }
+            private set => m_LoggedInUserEmail = value;
         }
 
         public City LoggedInUserLocation
@@ -371,10 +335,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserLocation;
             }
-            private set
-            {
-                m_LoggedInUserLocation = value;
-            }
+            private set => m_LoggedInUserLocation = value;
         }
 
         public FacebookObjectCollection<User> LoggedInUserFriends
@@ -388,10 +349,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserFriends;
             }
-            private set
-            {
-                m_LoggedInUserFriends = value;
-            }
+            private set => m_LoggedInUserFriends = value;
         }
 
         public FacebookObjectCollection<Post> LoggedInUserPosts
@@ -405,10 +363,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserPosts;
             }
-            private set
-            {
-                m_LoggedInUserPosts = value;
-            }
+            private set => m_LoggedInUserPosts = value;
         }
 
         public FacebookObjectCollection<Album> LoggedInUserAlbums
@@ -422,10 +377,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserAlbums;
             }
-            private set
-            {
-                m_LoggedInUserAlbums = value;
-            }
+            private set => m_LoggedInUserAlbums = value;
         }
 
         public FacebookObjectCollection<Page> LoggedInUserLikedPages
@@ -439,10 +391,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserLikedPages;
             }
-            private set
-            {
-                m_LoggedInUserLikedPages = value;
-            }
+            private set => m_LoggedInUserLikedPages = value;
         }
 
         public FacebookObjectCollection<Group> LoggedInUserGroups
@@ -456,10 +405,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserGroups;
             }
-            private set
-            {
-                m_LoggedInUserGroups = value;
-            }
+            private set => m_LoggedInUserGroups = value;
         }
 
         public User.eRelationshipStatus? LoggedInUserRelationshipStatus 
@@ -473,10 +419,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserRelationshipStatus;
             }
-            private set
-            {
-                m_LoggedInUserRelationshipStatus = value;
-            }
+            private set => m_LoggedInUserRelationshipStatus = value;
         }
 
         public Education[] LoggedInUserEducations
@@ -490,10 +433,7 @@ namespace FacebookAppEngine
 
                 return m_LoggedInUserEducations;
             }
-            private set
-            {
-                m_LoggedInUserEducations = value;
-            }
+            private set => m_LoggedInUserEducations = value;
         }
     }
 }

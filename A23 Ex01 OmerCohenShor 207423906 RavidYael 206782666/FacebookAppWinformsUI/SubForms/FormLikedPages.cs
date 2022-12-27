@@ -59,74 +59,13 @@ namespace BasicFacebookFeatures.SubForms
                     i_Page => i_Page.Name == clickedPagePictureBox.PictureName);
                 if (m_SelectedPage != null)
                 {
-                    setPageDetails(m_SelectedPage);
                     buttonPostInPage.Enabled = true;
                     richTextBoxPage.Enabled = true;
+                    pageBindingSource.DataSource = m_SelectedPage;
                 }
             }
         }
 
-        private void setPageDetails(Page i_SelectedPage)
-        {
-            string pageName;
-            string pageLocation;
-            string pagePosts;
-            string pageDescription;
-            string pagePhone;
-
-            try
-            {
-                pageName = i_SelectedPage.Name ?? k_EmptyFieldMsg;
-            }
-            catch (Exception)
-            {
-                pageName = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                pageLocation = i_SelectedPage.Location != null ? i_SelectedPage.Location.ToString() :
-                                   k_EmptyFieldMsg;
-            }
-            catch (Exception)
-            {
-                pageLocation = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                pagePosts = i_SelectedPage.WallPosts != null ? i_SelectedPage.WallPosts.Count.ToString() :
-                                 k_EmptyFieldMsg;
-            }
-            catch (Exception)
-            {
-                pagePosts = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                pageDescription = i_SelectedPage.Description ?? k_EmptyFieldMsg;
-            }
-            catch (Exception)
-            {
-                pageDescription = k_AccessDeniedMsg;
-            }
-
-            try
-            {
-                pagePhone = i_SelectedPage.Phone ??  k_EmptyFieldMsg;
-            }
-            catch (Exception)
-            {
-                pagePhone = k_AccessDeniedMsg;
-            }
-
-            labelPageName.Text = $"Page name: {pageName}";
-            labelPageLocation.Text = $"Page location: {pageLocation}";
-            labelPagePosts.Text = $"Page posts: {pagePosts}";
-            labelPageDescription.Text = $"Page Description: {pageDescription}";
-            labelPagePhone.Text = $"Page phone: {pagePhone}";
-        }
 
         private void buttonPostInPage_Click(object sender, EventArgs e)
         {
