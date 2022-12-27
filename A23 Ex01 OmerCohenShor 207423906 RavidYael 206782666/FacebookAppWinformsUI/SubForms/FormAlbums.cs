@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.FormsUtils;
@@ -24,7 +25,7 @@ namespace BasicFacebookFeatures.SubForms
         {
             InitializeComponent();
             setSplitterLocationAndAddColor();
-            setAlbums();
+            new Thread(setAlbums).Start();
         }
 
         private void setSplitterLocationAndAddColor()
@@ -54,14 +55,15 @@ namespace BasicFacebookFeatures.SubForms
 
                 albumCoverPictureBox.PictureName = currentAlbum.Name;
                 albumCoverPictureBox.AddOnClickAction(this.albumCoverPictureBox_Clicked);
-                flowLayoutPanelAlbums.Controls.Add(albumCoverPictureBox);
+                flowLayoutPanelAlbums.Invoke(new Action(() => flowLayoutPanelAlbums.Controls.Add(albumCoverPictureBox)));
             }
         }
 
         private void setAlbumPhotos(Album i_SelectedAlbum)
         {
-            flowLayoutPanelPhotos.Controls.Clear();
-            linkLabelPhotoLink.Visible = false;
+            flowLayoutPanelPhotos.Invoke(new Action(() => flowLayoutPanelPhotos.Controls.Clear()));
+            linkLabelPhotoLink.Invoke(new Action((() => linkLabelPhotoLink.Visible = false)));
+            
             foreach (Photo currentPhoto in i_SelectedAlbum.Photos)
             {
                 labelChosenPhotoName.Text = "Selected photo:";
@@ -77,7 +79,7 @@ namespace BasicFacebookFeatures.SubForms
 
                 albumPhotoPictureBox.PictureName = currentPhoto.PictureNormalURL;
                 albumPhotoPictureBox.AddOnClickAction(this.albumPhotoPictureBox_Clicked);
-                flowLayoutPanelPhotos.Controls.Add(albumPhotoPictureBox);
+                flowLayoutPanelPhotos.Invoke(new Action(() => flowLayoutPanelPhotos.Controls.Add(albumPhotoPictureBox)));
             }
         }
 
@@ -103,7 +105,7 @@ namespace BasicFacebookFeatures.SubForms
                 selectedAlbum = r_UserManager.LoggedInUserAlbums.Find(i_Album => i_Album.Name == albumName);
                 if(selectedAlbum != null)
                 {
-                    setAlbumPhotos(selectedAlbum);
+                    new Thread(() => setAlbumPhotos(selectedAlbum)).Start();
                 }
             }
         }
