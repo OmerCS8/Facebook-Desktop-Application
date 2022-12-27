@@ -13,7 +13,7 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance(); 
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance; 
         private PictureBoxOval m_PictureBoxProfilePicture;
         private Button m_ChosenButton = null;
         private Form m_SubForm = null;

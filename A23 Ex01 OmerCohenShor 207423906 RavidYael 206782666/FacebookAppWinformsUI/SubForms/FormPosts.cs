@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormPosts : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance();
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         private const string k_EmptyFieldMsg = "-None-";
         private const string k_AccessDeniedMsg = "Access Denied!";
         private Post m_SelectedPost = null;

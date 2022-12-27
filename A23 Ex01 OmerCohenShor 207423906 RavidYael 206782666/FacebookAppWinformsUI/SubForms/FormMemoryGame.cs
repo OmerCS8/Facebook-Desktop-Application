@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormMemoryGame : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance();
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         private TimeSpan m_TimeLeft;
         private int m_PairsLeft;
         private PictureBoxCard m_PrevSelectedCard = null;

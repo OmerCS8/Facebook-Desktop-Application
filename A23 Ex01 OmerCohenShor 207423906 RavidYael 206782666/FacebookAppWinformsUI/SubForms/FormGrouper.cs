@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.SubForms
 {
     public partial class FormGrouper : Form
     {
-        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance();
+        private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         private const int k_PictureBoxGroupSize = 100;
         private const bool k_PictureBoxGroupHasBorder = true;
         private PictureBoxBorderedAndNamed m_PictureBoxGroupCoworkers;
@@ -52,7 +52,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void pictureBoxGroupCoworkers_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUser.Friends.Where(
+            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
                 user => checkIfHaveCommonEmployer(user.WorkExperiences, r_UserManager.LoggedInUserWorkExperiences)).ToList();
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
@@ -61,7 +61,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void pictureBoxGroupSameAge_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUser.Friends.Where(
+            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
                 user => checkIfInSameAgeGroup(user.Birthday, r_UserManager.LoggedInUserBirthday)).ToList();
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
@@ -70,7 +70,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void pictureBoxGroupSameCity_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUser.Friends.Where(
+            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
                 user => user.Location == r_UserManager.LoggedInUserLocation).ToList();
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
@@ -79,7 +79,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void pictureBoxGroupSameStatus_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUser.Friends.Where(
+            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
                 user => user.RelationshipStatus == r_UserManager.LoggedInUserRelationshipStatus).ToList();
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
@@ -88,7 +88,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void pictureBoxGroupStudyTogether_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUser.Friends.Where(
+            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
                 user => checkIfHaveCommonSchool(user.Educations, r_UserManager.LoggedInUserEducations)).ToList();
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
@@ -97,7 +97,7 @@ namespace BasicFacebookFeatures.SubForms
 
         private void pictureBoxGroupSameTeam_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUser.Friends.Where(
+            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
                 user => checkIfHaveCommonFavoriteTeam(user.FavofriteTeams, r_UserManager.LoggedInUserFavoritesTeams)).ToList();
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
@@ -198,7 +198,7 @@ namespace BasicFacebookFeatures.SubForms
 
             if (chosenUsersToFriendlist.Count() != 0)
             {
-                FriendList friendList = r_UserManager.LoggedInUser.CreateFriendList(m_CurrentGroupName);
+                FriendList friendList = r_UserManager.CreateFriendList(m_CurrentGroupName);
                 friendList.AddMemeber(chosenUsersToFriendlist);
             }
             else

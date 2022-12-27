@@ -13,56 +13,36 @@ namespace FacebookAppEngine
 {
     public sealed class FaceBookUserManager
     {
+        // -------------------------------------- Singleton Instance --------------------------------------
+
         private FaceBookUserManager()
         {
         }
 
-        public static FaceBookUserManager Instance()
+        private static FaceBookUserManager UserManager { get; set; }
+
+        public static FaceBookUserManager Instance
         {
-            return sr_FaceBookUserManagerInstance;
-        }
-
-        private static readonly FaceBookUserManager sr_FaceBookUserManagerInstance = new FaceBookUserManager();
-        private readonly AppSettings r_UserAppSettings = AppSettings.LoadAppSettingsFromFileOrCreateIfDoesNotExist();
-        private FacebookObjectCollection<Post> m_LoggedInUserPosts = null;
-        private FacebookObjectCollection<Album> m_LoggedInUserAlbums = null;
-        private FacebookObjectCollection<Page> m_LoggedInUserLikedPages = null;
-        private FacebookObjectCollection<Group> m_LoggedInUserGroups = null;
-        private FacebookObjectCollection<User> m_LoggedInUserFriends = null;
-        private string m_LoggedInUserName = null;
-        private Image m_LoggedInUserProfilePictureLarge = null;
-        private Image m_LoggedInUserCoverImage = null;
-        private int? m_LoggedInUserAge = null;
-        private User.eGender? m_LoggedInUserGender = null;
-        private string m_LoggedInUserBirthday = null;
-        private string m_LoggedInUserEmail = null;
-        private City m_LoggedInUserLocation = null;
-        private long? m_LoggedInUserNumberOfPhotos = null;
-        private WorkExperience[] m_LoggedInUserWorkExperiences = null;
-        private Page[] m_LoggedInUserFavoritesTeams = null;
-        private User.eRelationshipStatus? m_LoggedInUserRelationshipStatus = null;
-        private Education[] m_LoggedInUserEducations = null;
-
-        public User LoggedInUser { get; private set; }
-
-        public bool DoesUserWantToRememberHim
-        {
-            get => r_UserAppSettings.DoesUserWantToRememberHim;
-            set => r_UserAppSettings.DoesUserWantToRememberHim = value;
-        }
-
-        public bool CreateNewStatusAndReturnIfSucceeded(string i_StatusText)
-        {
-            bool didStatusCreationSucceed = false;
-
-            if (LoggedInUser != null && i_StatusText != string.Empty)
+            get
             {
-                LoggedInUser.PostStatus(i_StatusText);
-                didStatusCreationSucceed = true;
-            }
+                if (UserManager == null)
+                {
+                    lock (sr_InstanceLock)
+                    {
+                        if (UserManager == null)
+                        {
+                            UserManager = new FaceBookUserManager();
+                        }
+                    }
+                }
 
-            return didStatusCreationSucceed;
+                return UserManager;
+            }
         }
+
+        // ----------------------------------------- Logged in user  --------------------------------------
+
+        private User LoggedInUser { get; set; }
 
         public bool UserLogInAndReturnIfSucceeded()
         {
@@ -125,20 +105,34 @@ namespace FacebookAppEngine
             clearCache();
         }
 
-        private void clearCache()
+        // ------------------------------------------ App settings ----------------------------------------
+
+        private readonly AppSettings r_UserAppSettings = AppSettings.LoadAppSettingsFromFileOrCreateIfDoesNotExist();
+        
+        public bool DoesUserWantToRememberHim
         {
-            foreach (PropertyInfo propertyInfo in this.GetType().GetProperties())
-            {
-                if (propertyInfo.SetMethod.IsPrivate && Nullable.GetUnderlyingType(propertyInfo.PropertyType) != null)
-                {
-                    propertyInfo.SetValue(this, null);
-                }
-            }
+            get => r_UserAppSettings.DoesUserWantToRememberHim;
+            set => r_UserAppSettings.DoesUserWantToRememberHim = value;
         }
 
         public void SaveSettingsChanges()
         {
             r_UserAppSettings.SaveAppSettingsToFile();
+        }
+
+        // ------------------------------------------ User actions ----------------------------------------
+
+        public bool CreateNewStatusAndReturnIfSucceeded(string i_StatusText)
+        {
+            bool didStatusCreationSucceed = false;
+
+            if (LoggedInUser != null && i_StatusText != string.Empty)
+            {
+                LoggedInUser.PostStatus(i_StatusText);
+                didStatusCreationSucceed = true;
+            }
+
+            return didStatusCreationSucceed;
         }
 
         public List<Image> GetRandomImagesFromUserAlbums(int i_NumberOfImages)
@@ -174,16 +168,87 @@ namespace FacebookAppEngine
             return randomImages.OrderBy(i_Image => randomMaker.Next()).ToList();
         }
 
-        //-------------------------------------------Cached properties---------------------------------------
+        public FriendList CreateFriendList(string i_FriendListName)
+        {
+            return LoggedInUser.CreateFriendList(i_FriendListName);
+        }
+
+        // --------------------------------------------- Locks --------------------------------------------
+
+
+        private static readonly object sr_InstanceLock = new object();
+        private readonly object r_LoggedInUserPostsLock = new object();
+        private readonly object r_LoggedInUserAlbumsLock = new object ();
+        private readonly object r_LoggedInUserLikedPagesLock = new object();
+        private readonly object r_LoggedInUserGroupsLock = new object();
+        private readonly object r_LoggedInUserFriendsLock = new object();
+        private readonly object r_LoggedInUserNameLock = new object();
+        private readonly object r_LoggedInUserProfilePictureLargeLock = new object();
+        private readonly object r_LoggedInUserCoverImageLock =new object();
+        private readonly object r_LoggedInUserAgeLock = new object();
+        private readonly object r_LoggedInUserGenderLock = new object();
+        private readonly object r_LoggedInUserBirthdayLock = new object();
+        private readonly object r_LoggedInUserEmailLock = new object();
+        private readonly object r_LoggedInUserLocationLock = new object();
+        private readonly object r_LoggedInUserNumberOfPhotosLock = new object();
+        private readonly object r_LoggedInUserWorkExperiencesLock = new object();
+        private readonly object r_LoggedInUserFavoritesTeamsLock = new object();
+        private readonly object r_LoggedInUserRelationshipStatusLock = new object();
+        private readonly object r_LoggedInUserEducationsLock = new object();
+
+
+        // --------------------------------------------- Cache --------------------------------------------
+
+        private void clearCache()
+        {
+            foreach (PropertyInfo propertyInfo in this.GetType().GetProperties())
+            {
+                if (propertyInfo.SetMethod.IsPrivate && Nullable.GetUnderlyingType(propertyInfo.PropertyType) != null)
+                {
+                    propertyInfo.SetValue(this, null);
+                }
+            }
+        }
+
+        private void getObjectFromFacebookToCacheIfNeeded<T>(ref T i_ObjectToGet, object i_Locker, Func<T> i_FacebookGetFunc)
+        {
+            if(i_ObjectToGet == null && LoggedInUser != null)
+            {
+                lock(i_Locker)
+                {
+                    if(i_ObjectToGet == null)
+                    {
+                        i_ObjectToGet = i_FacebookGetFunc.Invoke();
+                    }
+                }
+            }
+        }
+
+        private FacebookObjectCollection<Post> m_LoggedInUserPosts = null;
+        private FacebookObjectCollection<Album> m_LoggedInUserAlbums = null;
+        private FacebookObjectCollection<Page> m_LoggedInUserLikedPages = null;
+        private FacebookObjectCollection<Group> m_LoggedInUserGroups = null;
+        private FacebookObjectCollection<User> m_LoggedInUserFriends = null;
+        private string m_LoggedInUserName = null;
+        private Image m_LoggedInUserProfilePictureLarge = null;
+        private Image m_LoggedInUserCoverImage = null;
+        private int? m_LoggedInUserAge = null;
+        private User.eGender? m_LoggedInUserGender = null;
+        private string m_LoggedInUserBirthday = null;
+        private string m_LoggedInUserEmail = null;
+        private City m_LoggedInUserLocation = null;
+        private long? m_LoggedInUserNumberOfPhotos = null;
+        private WorkExperience[] m_LoggedInUserWorkExperiences = null;
+        private Page[] m_LoggedInUserFavoritesTeams = null;
+        private User.eRelationshipStatus? m_LoggedInUserRelationshipStatus = null;
+        private Education[] m_LoggedInUserEducations = null;
 
         public int? LoggedInUserAge
         {
             get
             {
-                if (m_LoggedInUserAge == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserAge = DateTime.Now.Year - DateTime.Parse(LoggedInUserBirthday).Year;
-                }
+                getObjectFromFacebookToCacheIfNeeded<int?>(ref m_LoggedInUserAge, r_LoggedInUserAgeLock,
+                    () => DateTime.Now.Year - DateTime.Parse(LoggedInUserBirthday).Year);
 
                 return m_LoggedInUserAge;
             }
@@ -194,10 +259,9 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserWorkExperiences == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserWorkExperiences = LoggedInUser.WorkExperiences;
-                }
+                getObjectFromFacebookToCacheIfNeeded<WorkExperience[]>(
+                    ref m_LoggedInUserWorkExperiences, r_LoggedInUserWorkExperiencesLock,
+                    () => LoggedInUser.WorkExperiences);
 
                 return m_LoggedInUserWorkExperiences;
             }
@@ -206,12 +270,11 @@ namespace FacebookAppEngine
         
         public Page[] LoggedInUserFavoritesTeams
         {
+
             get
             {
-                if (m_LoggedInUserFavoritesTeams == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserFavoritesTeams = LoggedInUser.FavofriteTeams;
-                }
+                getObjectFromFacebookToCacheIfNeeded<Page[]>(ref m_LoggedInUserFavoritesTeams, r_LoggedInUserFavoritesTeamsLock,
+                    () => LoggedInUser.FavofriteTeams);
 
                 return m_LoggedInUserFavoritesTeams;
             }
@@ -222,14 +285,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserNumberOfPhotos == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserNumberOfPhotos = 0;
-                    foreach(Album album in LoggedInUserAlbums)
-                    {
-                        m_LoggedInUserNumberOfPhotos += album.Count;
-                    }
-                }
+                getObjectFromFacebookToCacheIfNeeded<long?>(ref m_LoggedInUserNumberOfPhotos, r_LoggedInUserNumberOfPhotosLock,
+                    () => LoggedInUserAlbums.Sum(i_Album => i_Album.Count));
 
                 return m_LoggedInUserNumberOfPhotos;
             }
@@ -240,10 +297,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserBirthday == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserBirthday = LoggedInUser.Birthday;
-                }
+                getObjectFromFacebookToCacheIfNeeded<string>(ref m_LoggedInUserBirthday, r_LoggedInUserBirthdayLock,
+                    () => LoggedInUser.Birthday);
 
                 return m_LoggedInUserBirthday;
             }
@@ -254,10 +309,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserGender == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserGender = LoggedInUser.Gender;
-                }
+                getObjectFromFacebookToCacheIfNeeded<User.eGender?>(ref m_LoggedInUserGender, r_LoggedInUserGenderLock,
+                    () => LoggedInUser.Gender);
 
                 return m_LoggedInUserGender;
             }
@@ -268,10 +321,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserName == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserName = LoggedInUser.Name;
-                }
+                getObjectFromFacebookToCacheIfNeeded<string>(ref m_LoggedInUserName, r_LoggedInUserNameLock,
+                    () => LoggedInUser.Name);
 
                 return m_LoggedInUserName;
             }
@@ -282,10 +333,9 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserProfilePictureLarge == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserProfilePictureLarge = LoggedInUser.ImageLarge;
-                }
+                getObjectFromFacebookToCacheIfNeeded<Image>(
+                    ref m_LoggedInUserProfilePictureLarge, r_LoggedInUserProfilePictureLargeLock,
+                    () => LoggedInUser.ImageLarge);
 
                 return m_LoggedInUserProfilePictureLarge;
             }
@@ -296,14 +346,10 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserCoverImage == null && LoggedInUser != null)
-                {
-                    Album coversAlbum = LoggedInUserAlbums.Find(i_Album => i_Album.Name == "Cover photos");
-                    if(coversAlbum != null && coversAlbum.Photos.Count > 0)
-                    {
-                        m_LoggedInUserCoverImage = coversAlbum.Photos[0].ImageNormal;
-                    }
-                }
+                getObjectFromFacebookToCacheIfNeeded<Image>(
+                    ref m_LoggedInUserCoverImage, r_LoggedInUserCoverImageLock,
+                    () => LoggedInUserAlbums.FirstOrDefault(i_Album => i_Album.Name == "Cover photos")?.Photos
+                        .FirstOrDefault()?.ImageNormal);
 
                 return m_LoggedInUserCoverImage;
             }
@@ -314,10 +360,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserEmail == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserEmail = LoggedInUser.Email;
-                }
+                getObjectFromFacebookToCacheIfNeeded<string>(
+                    ref m_LoggedInUserEmail, r_LoggedInUserEmailLock, () => LoggedInUser.Email);
 
                 return m_LoggedInUserEmail;
             }
@@ -328,10 +372,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserLocation == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserLocation = LoggedInUser.Location;
-                }
+                getObjectFromFacebookToCacheIfNeeded<City>(
+                    ref m_LoggedInUserLocation, r_LoggedInUserLocationLock, () => LoggedInUser.Location);
 
                 return m_LoggedInUserLocation;
             }
@@ -342,10 +384,9 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserFriends == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserFriends = LoggedInUser.Friends;
-                }
+                getObjectFromFacebookToCacheIfNeeded<FacebookObjectCollection<User>>(
+                    ref m_LoggedInUserFriends, r_LoggedInUserFriendsLock,
+                    () => LoggedInUser.Friends);
 
                 return m_LoggedInUserFriends;
             }
@@ -356,10 +397,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserPosts == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserPosts = LoggedInUser.Posts;
-                }
+                getObjectFromFacebookToCacheIfNeeded<FacebookObjectCollection<Post>>(
+                    ref m_LoggedInUserPosts, r_LoggedInUserPostsLock, () => LoggedInUser.Posts);
 
                 return m_LoggedInUserPosts;
             }
@@ -370,10 +409,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserAlbums == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserAlbums = LoggedInUser.Albums;
-                }
+                getObjectFromFacebookToCacheIfNeeded<FacebookObjectCollection<Album>>(
+                    ref m_LoggedInUserAlbums, r_LoggedInUserAlbumsLock, () => LoggedInUser.Albums);
 
                 return m_LoggedInUserAlbums;
             }
@@ -384,10 +421,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserLikedPages == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserLikedPages = LoggedInUser.LikedPages;
-                }
+                getObjectFromFacebookToCacheIfNeeded<FacebookObjectCollection<Page>>(
+                    ref m_LoggedInUserLikedPages, r_LoggedInUserLikedPagesLock, () => LoggedInUser.LikedPages);
 
                 return m_LoggedInUserLikedPages;
             }
@@ -398,10 +433,8 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserGroups == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserGroups = LoggedInUser.Groups;
-                }
+                getObjectFromFacebookToCacheIfNeeded<FacebookObjectCollection<Group>>(
+                    ref m_LoggedInUserGroups, r_LoggedInUserGroupsLock, () => LoggedInUser.Groups);
 
                 return m_LoggedInUserGroups;
             }
@@ -412,10 +445,9 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserRelationshipStatus == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserRelationshipStatus = LoggedInUser.RelationshipStatus;
-                }
+                getObjectFromFacebookToCacheIfNeeded<User.eRelationshipStatus?>(
+                    ref m_LoggedInUserRelationshipStatus, r_LoggedInUserRelationshipStatusLock,
+                    () => LoggedInUser.RelationshipStatus);
 
                 return m_LoggedInUserRelationshipStatus;
             }
@@ -426,14 +458,13 @@ namespace FacebookAppEngine
         {
             get
             {
-                if (m_LoggedInUserEducations == null && LoggedInUser != null)
-                {
-                    m_LoggedInUserEducations = LoggedInUser.Educations;
-                }
+                getObjectFromFacebookToCacheIfNeeded<Education[]>(
+                    ref m_LoggedInUserEducations, r_LoggedInUserEducationsLock, () => LoggedInUser.Educations);
 
                 return m_LoggedInUserEducations;
             }
             private set => m_LoggedInUserEducations = value;
         }
+
     }
 }
