@@ -205,8 +205,7 @@ namespace FacebookAppEngine
             {
                 if(propertyInfo.PropertyType != typeof(FaceBookUserManager))
                 {
-                    if(propertyInfo.SetMethod.IsPrivate
-                       && Nullable.GetUnderlyingType(propertyInfo.PropertyType) != null)
+                    if(propertyInfo.SetMethod.IsPrivate)
                     {
                         propertyInfo.SetValue(this, null);
                     }
