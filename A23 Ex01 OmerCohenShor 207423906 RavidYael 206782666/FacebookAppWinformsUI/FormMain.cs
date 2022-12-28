@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
@@ -8,6 +9,7 @@ using BasicFacebookFeatures.FormsUtils;
 using BasicFacebookFeatures.SubForms;
 using CefSharp.DevTools.Profiler;
 using FacebookAppEngine;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
