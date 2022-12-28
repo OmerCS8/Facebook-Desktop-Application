@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.FormsUtils;
@@ -18,14 +19,13 @@ namespace BasicFacebookFeatures.SubForms
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         private const int k_GroupPhotoSize = 100;
         private const string k_AccessDeniedMsg = "Access Denied!";
-        private const string k_EmptyFieldMsg = "None";
         private Group m_SelectedGroup = null;
 
         public FormGroups()
         {
             InitializeComponent();
             buttonPostInGroup.BackColor = ColorsUtils.sr_ButtonsChosenColor;
-            setGroups();
+            new Thread(setGroups){IsBackground = true}.Start();
         }
 
         private void setGroups()
@@ -47,7 +47,7 @@ namespace BasicFacebookFeatures.SubForms
 
                 groupPictureBox.PictureName = currentGroup.Name;
                 groupPictureBox.AddOnClickAction(this.groupPictureBox_Clicked);
-                flowLayoutPanelGroups.Controls.Add(groupPictureBox);
+                flowLayoutPanelGroups.Invoke(new Action(()=> flowLayoutPanelGroups.Controls.Add(groupPictureBox)));
             }
         }
 

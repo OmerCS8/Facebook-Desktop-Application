@@ -86,7 +86,6 @@ namespace BasicFacebookFeatures
             m_PictureBoxProfilePicture.Left = (pictureBoxProfileBorder.Width - m_PictureBoxProfilePicture.Width) / 2;
             m_PictureBoxProfilePicture.Top = (pictureBoxProfileBorder.Height - m_PictureBoxProfilePicture.Height) / 2;
             panelProfile.Controls.Add(pictureBoxProfileBorder);
-            LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             LabelName.Top = pictureBoxProfileBorder.Bottom + 5;
             checkBoxRememberMe.Top = LabelName.Bottom + 5;
             checkBoxRememberMe.Left = (panelProfile.Width - checkBoxRememberMe.Width) / 2;
@@ -116,10 +115,8 @@ namespace BasicFacebookFeatures
 
         private void setMainMenuToLoggedInUser()
         {
-            LabelName.Text = r_UserManager.LoggedInUserName;
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;
-            m_PictureBoxProfilePicture.BackgroundImage = r_UserManager.LoggedInUserProfilePictureLarge;
             panelProfile.Enabled = true;
             foreach (Control control in panelMenu.Controls)
             {
@@ -130,6 +127,20 @@ namespace BasicFacebookFeatures
             buttonMemoryGame.Enabled = true;
             buttonLogin.Enabled = false;
             checkBoxRememberMe.Checked = r_UserManager.DoesUserWantToRememberHim;
+            new Thread(viewLoggedInUserDetails) { IsBackground = true }.Start();
+        }
+
+        private void viewLoggedInUserDetails()
+        {
+            string name = r_UserManager.LoggedInUserName;
+            Image profileImage = r_UserManager.LoggedInUserProfilePictureLarge;
+
+            LabelName.Invoke(new Action(() => {
+                    LabelName.Text = name;
+                    LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
+                }));
+            m_PictureBoxProfilePicture.Invoke(
+                new Action((() => m_PictureBoxProfilePicture.BackgroundImage = profileImage)));
         }
 
         private void setPanelsColors()
@@ -174,6 +185,7 @@ namespace BasicFacebookFeatures
             setChosenButtonAsClicked(null);
             setMainMenuToLoggedOutUser();
         }
+
         private void subFormButtonClick(object sender, EventArgs e)
         {
             FormFactory.eFormType requestedFormType;

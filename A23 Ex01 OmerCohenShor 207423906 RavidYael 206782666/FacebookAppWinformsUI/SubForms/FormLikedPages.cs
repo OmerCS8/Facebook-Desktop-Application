@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.FormsUtils;
@@ -18,14 +19,13 @@ namespace BasicFacebookFeatures.SubForms
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         private const int k_PagePhotoSize = 100;
         private const string k_AccessDeniedMsg = "Access Denied!";
-        private const string k_EmptyFieldMsg = "None";
         private Page m_SelectedPage = null;
 
         public FormLikedPages()
         {
             InitializeComponent();
             buttonPostInPage.BackColor = ColorsUtils.sr_ButtonsChosenColor;
-            setPages();
+            new Thread(setPages) { IsBackground = true }.Start();
         }
 
         private void setPages()
@@ -47,7 +47,7 @@ namespace BasicFacebookFeatures.SubForms
 
                 pagePictureBox.PictureName = currentPage.Name;
                 pagePictureBox.AddOnClickAction(this.pagePictureBox_Clicked);
-                flowLayoutPanelPages.Controls.Add(pagePictureBox);
+                flowLayoutPanelPages.Invoke(new Action((() => flowLayoutPanelPages.Controls.Add(pagePictureBox))));
             }
         }
 

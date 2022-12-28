@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.FormsUtils;
@@ -46,36 +47,42 @@ namespace BasicFacebookFeatures.SubForms
         {
             m_TimeLeft = new TimeSpan(0, 2, 0);
             m_PairsLeft = 6;
-            panelTimer.Visible = false;
-            startGame(3, 4 , k_EasyCardSize);
+            prepareScreenForGame();
+            new Thread((() => startGame(3, 4, k_EasyCardSize))) { IsBackground = true }.Start();
         }
 
         private void buttonMedium_Click(object sender, EventArgs e)
         {
             m_TimeLeft = new TimeSpan(0, 1, 30);
             m_PairsLeft = 10;
-            panelTimer.Visible = false;
-            startGame(4, 5, k_MediumCardSize);
+            prepareScreenForGame();
+            new Thread((() => startGame(4, 5, k_MediumCardSize))) { IsBackground = true }.Start();
         }
 
         private void buttonHard_Click(object sender, EventArgs e)
         {
             m_TimeLeft = new TimeSpan(0, 1, 0);
             m_PairsLeft = 15;
-            panelTimer.Visible = false;
-            startGame(5, 6, k_HardCardSize);
+            prepareScreenForGame();
+            new Thread((() => startGame(5, 6, k_HardCardSize))) { IsBackground = true }.Start();
         }
+
+        private void prepareScreenForGame()
+        {
+            panelTimer.Visible = false;
+            panelLevelButtons.Visible = false;
+            panelHeader.Visible = true;
+            labelResult.Visible = false;
+        }
+
         private void startGame(int i_Rows, int i_Cols, int i_CardSize)
         {
             if(r_UserManager.LoggedInUserNumberOfPhotos >= (i_Cols * i_Rows)/2)
             {
-                panelLevelButtons.Visible = false;
-                panelHeader.Visible = true;
-                labelResult.Visible = false;
                 generateCards(i_Rows, i_Cols, i_CardSize);
-                updateTimerLabel();
-                panelTimer.Visible = true;
-                timerTimeLeft.Start();
+                labelTimer.Invoke(new Action(updateTimerLabel));
+                panelTimer.Invoke(new Action(() => panelTimer.Visible = true));
+                panelGame.Invoke(new Action(timerTimeLeft.Start));
             }
             else
             {
@@ -95,8 +102,9 @@ namespace BasicFacebookFeatures.SubForms
                 {
                     cardPictureBox = new PictureBoxCard(i_CardSize, i_CardSize, randomImages[i * i_Cols + j]);
                     cardPictureBox.Click += card_Clicked;
-                    panelGame.Controls.Add(cardPictureBox);
-                    cardPictureBox.Location = new Point(j * (i_CardSize + 10) + 20, i * (i_CardSize + 10));
+                    panelGame.Invoke(new Action(() => panelGame.Controls.Add(cardPictureBox)));
+                    cardPictureBox.Invoke(new Action(
+                        () => cardPictureBox.Location = new Point(j * (i_CardSize + 10) + 20, i * (i_CardSize + 10))));
                 }
             }
         }

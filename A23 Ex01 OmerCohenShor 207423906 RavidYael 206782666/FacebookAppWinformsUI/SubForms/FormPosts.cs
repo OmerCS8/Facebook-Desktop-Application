@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.FormsUtils;
@@ -25,7 +26,7 @@ namespace BasicFacebookFeatures.SubForms
             InitializeComponent();
             buttonAddComment.BackColor = ColorsUtils.sr_ButtonsChosenColor;
             buttonNewStatus.BackColor = ColorsUtils.sr_ButtonsChosenColor;
-            setPosts();
+            new Thread(setPosts){IsBackground = true}.Start();
         }
 
         private void setPosts()
@@ -40,7 +41,7 @@ namespace BasicFacebookFeatures.SubForms
                 listViewItem.SubItems.Add(currentPost.Caption ?? k_EmptyFieldMsg);
                 listViewItem.SubItems.Add(currentPost.Description ?? k_EmptyFieldMsg);
                 listViewItem.SubItems.Add(currentPost.Id);
-                listViewPosts.Items.Add(listViewItem);
+                listViewPosts.Invoke(new Action(() => listViewPosts.Items.Add(listViewItem)));
             }
 
             listViewPosts.Sort();
