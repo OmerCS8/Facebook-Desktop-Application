@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
@@ -18,7 +19,8 @@ namespace BasicFacebookFeatures
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance; 
         private PictureBoxOval m_PictureBoxProfilePicture;
         private Button m_ChosenButton = null;
-        private Form m_SubForm = null;
+        private readonly Dictionary<FormFactory.eFormType, Form> r_CreatedSubForms = new Dictionary<FormFactory.eFormType, Form>();
+        private readonly Dictionary<Button, FormFactory.eFormType> r_ButtonToFormTypeDictionary;
 
         public FormMain()
         {
@@ -28,6 +30,23 @@ namespace BasicFacebookFeatures
             initializeProfilePanel();
             initializeMenuPanel();
             centerHeadlineLocation();
+            r_ButtonToFormTypeDictionary = initializeSubFormsForButtons();
+        }
+            
+        private Dictionary<Button, FormFactory.eFormType> initializeSubFormsForButtons()
+        {
+            Dictionary<Button, FormFactory.eFormType> buttonToFormTypeDictionary = new Dictionary<Button, FormFactory.eFormType>
+                {
+                    {buttonAlbums, FormFactory.eFormType.AlbumsForm},
+                    {buttonGrouper, FormFactory.eFormType.GrouperForm},
+                    {buttonGroups, FormFactory.eFormType.GroupsForm},
+                    {buttonLikedPages, FormFactory.eFormType.LikedPagesForm},
+                    {buttonMemoryGame, FormFactory.eFormType.MemoryGameForm},
+                    {buttonProfile, FormFactory.eFormType.ProfileForm},
+                    {buttonPosts, FormFactory.eFormType.PostsForm}
+                };
+
+            return buttonToFormTypeDictionary;
         }
 
         private void initializeMenuPanel()
@@ -72,12 +91,12 @@ namespace BasicFacebookFeatures
             checkBoxRememberMe.Top = LabelName.Bottom + 5;
             checkBoxRememberMe.Left = (panelProfile.Width - checkBoxRememberMe.Width) / 2;
             panelProfile.Height = checkBoxRememberMe.Bottom + 5;
-            m_PictureBoxProfilePicture.Click += new System.EventHandler(buttonProfile_Click);
+            m_PictureBoxProfilePicture.Click += ((i_Sender, i_Args) => buttonProfile.PerformClick());
         }
 
         private void setMainMenuToLoggedOutUser()
         {
-            m_SubForm?.Close();
+            r_CreatedSubForms.Clear();
             panelMain.Controls.Clear();
             LabelName.Text = @"Please log in";
             m_PictureBoxProfilePicture.Cursor = Cursors.Default;
@@ -137,17 +156,8 @@ namespace BasicFacebookFeatures
 
         private void setSubForm(Form i_ChosenSubForm)
         {
-            m_SubForm?.Close();
             panelMain.Controls.Clear();
-            m_SubForm = i_ChosenSubForm;
-            i_ChosenSubForm.TopLevel = false;
-            i_ChosenSubForm.Dock = DockStyle.Fill;
-            i_ChosenSubForm.FormBorderStyle = FormBorderStyle.None;
             panelMain.Controls.Add(i_ChosenSubForm);
-            i_ChosenSubForm.BringToFront();
-            i_ChosenSubForm.BackColor = ColorsUtils.sr_MainColor;
-            i_ChosenSubForm.Visible = true;
-            i_ChosenSubForm.Show();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -164,47 +174,20 @@ namespace BasicFacebookFeatures
             setChosenButtonAsClicked(null);
             setMainMenuToLoggedOutUser();
         }
-
-        private void buttonProfile_Click(object sender, EventArgs e)
+        private void subFormButtonClick(object sender, EventArgs e)
         {
-            setChosenButtonAsClicked(buttonProfile);
-            setSubForm(new FormProfile());
-        }
+            FormFactory.eFormType requestedFormType;
 
-        private void buttonGroups_Click(object sender, EventArgs e)
-        {
-            setChosenButtonAsClicked(buttonGroups);
-            setSubForm(new FormGroups());
-        }
+            if(sender is Button clickedButton)
+            {
+                requestedFormType = r_ButtonToFormTypeDictionary[clickedButton];
+                if(!r_CreatedSubForms.ContainsKey(requestedFormType))
+                {
+                    r_CreatedSubForms.Add(requestedFormType, FormFactory.CreateForm(requestedFormType));
+                }
 
-        private void buttonAlbums_Click(object sender, EventArgs e)
-        {
-            setChosenButtonAsClicked(buttonAlbums);
-            setSubForm(new FormAlbums());
-        }
-
-        private void buttonLikedPages_Click(object sender, EventArgs e)
-        {
-            setChosenButtonAsClicked(buttonLikedPages);
-            setSubForm(new FormLikedPages());
-        }
-
-        private void buttonPosts_Click(object sender, EventArgs e)
-        {
-            setChosenButtonAsClicked(buttonPosts);
-            setSubForm(new FormPosts());
-        }
-
-        private void buttonMemoryGame_Click(object sender, EventArgs e)
-        {
-            setChosenButtonAsClicked(buttonMemoryGame);
-            setSubForm(new FormMemoryGame());
-        }
-
-        private void buttonGrouper_Click(object sender, EventArgs e)
-        {
-            setChosenButtonAsClicked(buttonGrouper);
-            setSubForm(new FormGrouper());
+                setSubForm(r_CreatedSubForms[requestedFormType]);
+            }
         }
 
         private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)

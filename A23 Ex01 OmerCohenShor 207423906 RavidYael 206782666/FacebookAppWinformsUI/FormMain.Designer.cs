@@ -85,7 +85,7 @@
             this.buttonGrouper.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGrouper.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonGrouper.UseVisualStyleBackColor = false;
-            this.buttonGrouper.Click += new System.EventHandler(this.buttonGrouper_Click);
+            this.buttonGrouper.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // buttonMemoryGame
             // 
@@ -108,7 +108,7 @@
             this.buttonMemoryGame.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonMemoryGame.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonMemoryGame.UseVisualStyleBackColor = false;
-            this.buttonMemoryGame.Click += new System.EventHandler(this.buttonMemoryGame_Click);
+            this.buttonMemoryGame.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // labelHeadline
             // 
@@ -171,7 +171,7 @@
             this.buttonGroups.Text = "  Groups";
             this.buttonGroups.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonGroups.UseVisualStyleBackColor = false;
-            this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
+            this.buttonGroups.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // buttonPosts
             // 
@@ -194,7 +194,7 @@
             this.buttonPosts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonPosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonPosts.UseVisualStyleBackColor = false;
-            this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
+            this.buttonPosts.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // buttonLikedPages
             // 
@@ -217,7 +217,7 @@
             this.buttonLikedPages.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonLikedPages.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonLikedPages.UseVisualStyleBackColor = false;
-            this.buttonLikedPages.Click += new System.EventHandler(this.buttonLikedPages_Click);
+            this.buttonLikedPages.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // buttonAlbums
             // 
@@ -240,7 +240,7 @@
             this.buttonAlbums.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAlbums.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonAlbums.UseVisualStyleBackColor = false;
-            this.buttonAlbums.Click += new System.EventHandler(this.buttonAlbums_Click);
+            this.buttonAlbums.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // buttonProfile
             // 
@@ -263,7 +263,7 @@
             this.buttonProfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonProfile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonProfile.UseVisualStyleBackColor = false;
-            this.buttonProfile.Click += new System.EventHandler(this.buttonProfile_Click);
+            this.buttonProfile.Click += new System.EventHandler(this.subFormButtonClick);
             // 
             // buttonLogout
             // 

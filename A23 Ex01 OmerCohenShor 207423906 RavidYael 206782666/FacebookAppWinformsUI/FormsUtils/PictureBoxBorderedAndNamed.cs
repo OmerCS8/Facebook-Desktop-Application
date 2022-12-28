@@ -29,18 +29,18 @@ namespace BasicFacebookFeatures.FormsUtils
         private void addVisualEffects()
         {
             this.Cursor = Cursors.Hand;
-            this.MouseDown += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseDown);
-            r_NameLabel.MouseDown += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseDown);
-            r_PhotoPictureBox.MouseDown += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseDown);
-            this.MouseUp += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
-            r_NameLabel.MouseUp += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
-            r_PhotoPictureBox.MouseUp += new MouseEventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
-            this.MouseEnter += new EventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
-            r_NameLabel.MouseEnter += new EventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
-            r_PhotoPictureBox.MouseEnter += new EventHandler(this.pictureBoxBorderedAndNamed_MouseEnterAndUp);
-            this.MouseLeave += new EventHandler(this.pictureBoxBorderedAndNamed_MouseLeave);
-            r_NameLabel.MouseLeave += new EventHandler(this.pictureBoxBorderedAndNamed_MouseLeave);
-            r_PhotoPictureBox.MouseLeave += new EventHandler(this.pictureBoxBorderedAndNamed_MouseLeave);
+            this.MouseDown += this.pictureBoxBorderedAndNamed_MouseDown;
+            r_NameLabel.MouseDown += this.pictureBoxBorderedAndNamed_MouseDown;
+            r_PhotoPictureBox.MouseDown += this.pictureBoxBorderedAndNamed_MouseDown;
+            this.MouseUp += this.pictureBoxBorderedAndNamed_MouseEnterAndUp;
+            r_NameLabel.MouseUp += this.pictureBoxBorderedAndNamed_MouseEnterAndUp;
+            r_PhotoPictureBox.MouseUp += this.pictureBoxBorderedAndNamed_MouseEnterAndUp;
+            this.MouseEnter += this.pictureBoxBorderedAndNamed_MouseEnterAndUp;
+            r_NameLabel.MouseEnter += this.pictureBoxBorderedAndNamed_MouseEnterAndUp;
+            r_PhotoPictureBox.MouseEnter += this.pictureBoxBorderedAndNamed_MouseEnterAndUp;
+            this.MouseLeave += this.pictureBoxBorderedAndNamed_MouseLeave;
+            r_NameLabel.MouseLeave += this.pictureBoxBorderedAndNamed_MouseLeave;
+            r_PhotoPictureBox.MouseLeave += this.pictureBoxBorderedAndNamed_MouseLeave;
         }
 
         public string PictureName
@@ -115,13 +115,8 @@ namespace BasicFacebookFeatures.FormsUtils
         public void AddOnClickAction(EventHandler i_EventHandler)
         {
             this.Click += i_EventHandler;
-            r_NameLabel.Click += triggerPictureBoxClick;
-            r_PhotoPictureBox.Click += triggerPictureBoxClick;
-        }
-
-        private void triggerPictureBoxClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            this.OnClick(i_EventArgs);
+            r_NameLabel.Click += ((i_Sender, i_Args) => this.OnClick(i_Args));
+            r_PhotoPictureBox.Click += ((i_Sender, i_Args) => this.OnClick(i_Args));
         }
     }
 }

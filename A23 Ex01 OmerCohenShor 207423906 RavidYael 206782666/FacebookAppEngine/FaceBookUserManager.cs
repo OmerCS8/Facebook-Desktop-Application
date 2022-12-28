@@ -203,9 +203,13 @@ namespace FacebookAppEngine
         {
             foreach (PropertyInfo propertyInfo in this.GetType().GetProperties())
             {
-                if (propertyInfo.SetMethod.IsPrivate && Nullable.GetUnderlyingType(propertyInfo.PropertyType) != null)
+                if(propertyInfo.PropertyType != typeof(FaceBookUserManager))
                 {
-                    propertyInfo.SetValue(this, null);
+                    if(propertyInfo.SetMethod.IsPrivate
+                       && Nullable.GetUnderlyingType(propertyInfo.PropertyType) != null)
+                    {
+                        propertyInfo.SetValue(this, null);
+                    }
                 }
             }
         }
