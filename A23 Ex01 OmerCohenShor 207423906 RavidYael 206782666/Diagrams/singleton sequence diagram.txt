@@ -1,0 +1,28 @@
+title Singleton pattern - FaceBookUserManager - sequence diagram
+
+actor user
+participant "<link: >FormMain" as FormMain
+participant "<link: >FormAlbums" as FormAlbums
+participant "<link: >FormGroups" as FormGroups
+participant "<link: >FaceBookUserManager" as FaceBookUserManager
+
+activate user
+activate FormMain
+user ->FormMain:click on the **'Albums'** side button
+FormMain ->FormAlbums: create Albums sub-form
+activate FormAlbums
+FormAlbums ->FaceBookUserManager: get user-manager Instance
+FaceBookUserManager ->>FaceBookUserManager: create new instance
+activate FaceBookUserManager
+note right of FaceBookUserManager:this is the first call so it's beeing created
+FaceBookUserManager -->> FormAlbums: return instance **(FacebookUserManager)**
+FormAlbums -->>FormMain: return new albums form **(FormAlbums)**
+FormMain -->>user:display **FormAlbums** as sub-form **(void)**
+user ->FormMain:click on the **'Groups'** side button
+FormMain ->FormGroups: create Groups sub-form
+activate FormGroups
+FormGroups ->FaceBookUserManager: get user-manager Instance
+note right of FaceBookUserManager:this is **not** the first call. Old instance returned.
+FaceBookUserManager -->> FormGroups: return instance **(FacebookUserManager)**
+FormGroups -->>FormMain: return new groups form **(FormGroups)**
+FormMain -->>user:display **FormGroups** as sub-form **(void)**
