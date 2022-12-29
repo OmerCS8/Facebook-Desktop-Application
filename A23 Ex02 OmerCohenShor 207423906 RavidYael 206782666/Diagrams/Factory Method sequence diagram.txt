@@ -1,0 +1,25 @@
+title Factory Method pattern - sub-forms - sequence diagram
+
+actor user
+participant "<link: >:FormMain" as FormMain
+participant "<link: ><static>:FormFactory" as FormFactory
+participant "<link: >:FormAlbums" as FormAlbums
+participant "<link: >:FormGroups" as FormGroups
+
+activate user
+activate FormMain
+user ->FormMain:click on the **'Albums'** side button
+FormMain ->FormFactory: createForm(eFormType.FormAlbums)
+FormFactory ->FormAlbums: create new Albums form 
+activate FormAlbums
+FormAlbums -->>FormFactory: return new albums form **(FormAlbums)**
+FormFactory -->>FormMain: return new albums form **(FormAlbums)**
+FormMain -->>user:display **FormAlbums** as sub-form **(void)**
+
+user ->FormMain:click on the **'Groups'** side button
+FormMain ->FormFactory: createForm(eFormType.FormGroups)
+FormFactory ->FormGroups: create new Groups form 
+activate FormGroups
+FormGroups -->>FormFactory: return new Groups form **(FormGroups)**
+FormFactory -->>FormMain: return new Groups form **(FormGroups)**
+FormMain -->>user:display **FormGroups** as sub-form **(void)**
