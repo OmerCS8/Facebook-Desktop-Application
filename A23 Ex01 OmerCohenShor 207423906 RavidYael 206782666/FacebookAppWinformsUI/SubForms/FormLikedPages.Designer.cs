@@ -202,7 +202,8 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // isCommunityPageCheckBox
             // 
-            this.isCommunityPageCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.pageBindingSource, "IsCommunityPage", true, System.Windows.Forms.DataSourceUpdateMode.Never, "unknown"));
+            this.isCommunityPageCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.pageBindingSource, "IsCommunityPage", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.isCommunityPageCheckBox.Enabled = false;
             this.isCommunityPageCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.isCommunityPageCheckBox.Location = new System.Drawing.Point(237, 35);
             this.isCommunityPageCheckBox.Name = "isCommunityPageCheckBox";
@@ -212,7 +213,8 @@ namespace BasicFacebookFeatures.SubForms
             // 
             // isPublishedCheckBox
             // 
-            this.isPublishedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.pageBindingSource, "IsPublished", true, System.Windows.Forms.DataSourceUpdateMode.Never, "Unknown"));
+            this.isPublishedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.pageBindingSource, "IsPublished", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.isPublishedCheckBox.Enabled = false;
             this.isPublishedCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.isPublishedCheckBox.Location = new System.Drawing.Point(162, 59);
             this.isPublishedCheckBox.Name = "isPublishedCheckBox";

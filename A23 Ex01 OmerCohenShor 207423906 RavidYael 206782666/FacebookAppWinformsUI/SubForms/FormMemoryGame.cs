@@ -73,6 +73,7 @@ namespace BasicFacebookFeatures.SubForms
             panelLevelButtons.Visible = false;
             panelHeader.Visible = true;
             labelResult.Visible = false;
+            panelGame.Cursor = Cursors.WaitCursor;
         }
 
         private void startGame(int i_Rows, int i_Cols, int i_CardSize)
@@ -82,6 +83,7 @@ namespace BasicFacebookFeatures.SubForms
                 generateCards(i_Rows, i_Cols, i_CardSize);
                 labelTimer.Invoke(new Action(updateTimerLabel));
                 panelTimer.Invoke(new Action(() => panelTimer.Visible = true));
+                panelGame.Invoke(new Action(() => panelGame.Cursor = Cursors.Default));
                 panelGame.Invoke(new Action(timerTimeLeft.Start));
             }
             else
