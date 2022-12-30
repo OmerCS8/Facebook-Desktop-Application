@@ -1,0 +1,36 @@
+title Cache Proxy pattern - FaceBookUserManager - sequence diagram
+
+actor user
+participant "<link: >FormMain" as FormMain
+participant "<link: >FormAlbums" as FormAlbums
+participant "<link: >FormMemoryGame" as FormMemoryGame
+participant "<link: >FaceBookUserManager" as FaceBookUserManager
+participant "<link: >FacebookWrapper" as FacebookWrapper
+
+activate user
+activate FormMain
+activate FaceBookUserManager
+activate FacebookWrapper
+
+user ->FormMain: Click on **'Albums'** side button
+FormMain ->FormAlbums: create new Albums form
+activate FormAlbums
+FormAlbums ->> FaceBookUserManager: get User Albums **<<Async>>**
+FormAlbums -->>FormMain: new Albums form **(FormAlbums)**
+FormMain -->>user: display **FormAlbums** as sub-form **(Void)**
+note right of FaceBookUserManager:this is the first request
+FaceBookUserManager ->(2) FacebookWrapper:get user's albums
+FacebookWrapper -->>(2) FaceBookUserManager:return user's albums **(Albums Collection)**
+FaceBookUserManager -->>FormAlbums:return user's albums **(Albums Collection)**
+FormAlbums ->FormAlbums: display Albums
+
+
+user ->FormMain: Click on **'Memory Game'** side button
+FormMain ->FormMemoryGame: create new Memory Game form
+activate FormMemoryGame
+FormMemoryGame ->> FaceBookUserManager: get User Albums **<<Async>>**
+FormMemoryGame -->>FormMain: new Memory Game form **(FormMemoryGame)**
+FormMain -->>user: display **FormMemoryGame** as sub-form **(Void)**
+note right of FaceBookUserManager:this **Not** is the first request
+FaceBookUserManager -->>FormAlbums:return user's albums **(Albums Collection)**
+FormMemoryGame ->FormMemoryGame: display Albums
