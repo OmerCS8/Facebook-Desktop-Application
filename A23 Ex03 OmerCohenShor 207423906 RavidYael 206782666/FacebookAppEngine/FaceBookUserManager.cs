@@ -44,9 +44,11 @@ namespace FacebookAppEngine
 
         private User LoggedInUser { get; set; }
 
-        public bool UserLogInAndReturnIfSucceeded()
+        public event Action user_loggedIn;
+        public event Action user_loggedOut;
+
+        public void UserLogIn()
         {
-            bool didLogInSucceed = false;
             LoginResult loginResult = null;
 
             loginResult = FacebookService.Login(
@@ -72,30 +74,33 @@ namespace FacebookAppEngine
 
             if (loginResult.LoggedInUser != null)
             {
-                didLogInSucceed = true;
                 LoggedInUser = loginResult.LoggedInUser;
                 r_UserAppSettings.UserAccessToken = loginResult.AccessToken;
+                onLogin();
             }
-
-            return didLogInSucceed;
+            else
+            {
+                onLogout();
+            }
         }
 
-        public bool TryLogInIfUserIsRememberedAndReturnIfSucceeded()
+        public void TryLogInIfUserIsRemembered()
         {
             LoginResult loginResult = null;
-            bool didLogInSucceed = false;
 
             if (r_UserAppSettings.DoesUserWantToRememberHim && !string.IsNullOrEmpty(r_UserAppSettings.UserAccessToken))
             {
                 loginResult = FacebookService.Connect(r_UserAppSettings.UserAccessToken);
                 if (loginResult.LoggedInUser != null)
                 {
-                    didLogInSucceed = true;
                     LoggedInUser = loginResult.LoggedInUser;
+                    onLogin();
+                }
+                else
+                {
+                    onLogout();
                 }
             }
-
-            return didLogInSucceed;
         }
 
         public void UserLogOut()
@@ -103,6 +108,17 @@ namespace FacebookAppEngine
             FacebookService.Logout();
             r_UserAppSettings.UserAccessToken = null;
             clearCache();
+            onLogout();
+        }
+
+        private void onLogin()
+        {
+            user_loggedIn?.Invoke();
+        }
+
+        private void onLogout()
+        {
+            user_loggedOut?.Invoke();
         }
 
         // ------------------------------------------ App settings ----------------------------------------

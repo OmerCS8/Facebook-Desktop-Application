@@ -6,6 +6,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using BasicFacebookFeatures.FormsUtils;
 using BasicFacebookFeatures.SubForms;
 using CefSharp.DevTools.Profiler;
@@ -31,8 +32,10 @@ namespace BasicFacebookFeatures
             initializeMenuPanel();
             centerHeadlineLocation();
             r_ButtonToFormTypeDictionary = initializeSubFormsForButtons();
+            r_UserManager.user_loggedIn += setMainMenuToLoggedInUser;
+            r_UserManager.user_loggedOut += setMainMenuToLoggedOutUser;
         }
-            
+        
         private Dictionary<Button, FormFactory.eFormType> initializeSubFormsForButtons()
         {
             Dictionary<Button, FormFactory.eFormType> buttonToFormTypeDictionary = new Dictionary<Button, FormFactory.eFormType>
@@ -51,19 +54,20 @@ namespace BasicFacebookFeatures
 
         private void initializeMenuPanel()
         {
-            foreach (Control control in panelMenu.Controls)
-            {
-                control.Height = 40;
-                control.Width = panelMenu.Width;
-            }
+            Button prevButton = buttonLogin;
+            IEnumerable<Button> buttons = panelMenu.Controls.OfType<Button>().OrderBy(i_Button => i_Button.Top);
 
             buttonLogin.Top = 0;
-            buttonProfile.Top = buttonLogin.Bottom;
-            buttonGroups.Top = buttonProfile.Bottom;
-            buttonAlbums.Top = buttonGroups.Bottom;
-            buttonLikedPages.Top = buttonAlbums.Bottom;
-            buttonPosts.Top = buttonLikedPages.Bottom;
-            buttonLogout.Top = buttonPosts.Bottom;
+            foreach (Button button in buttons)
+            {
+                button.Height = 40;
+                button.Width = panelMenu.Width;
+                if(button != buttonLogin)
+                {
+                    button.Top = prevButton.Bottom;
+                    prevButton = button;
+                }
+            }
         }
 
         private void centerHeadlineLocation()
@@ -118,6 +122,7 @@ namespace BasicFacebookFeatures
             buttonMemoryGame.Enabled = false;
             buttonLogin.Enabled = true;
             checkBoxRememberMe.Checked = false;
+            setChosenButtonAsClicked(null);
         }
 
         private void setMainMenuToLoggedInUser()
@@ -180,17 +185,12 @@ namespace BasicFacebookFeatures
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            if(r_UserManager.UserLogInAndReturnIfSucceeded())
-            {
-                setMainMenuToLoggedInUser();
-            }
+            r_UserManager.UserLogIn();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             r_UserManager.UserLogOut();
-            setChosenButtonAsClicked(null);
-            setMainMenuToLoggedOutUser();
         }
 
         private void subFormButtonClick(object sender, EventArgs e)
@@ -221,14 +221,7 @@ namespace BasicFacebookFeatures
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
-            if(r_UserManager.TryLogInIfUserIsRememberedAndReturnIfSucceeded())
-            {
-                setMainMenuToLoggedInUser();
-            }
-            else
-            {
-                setMainMenuToLoggedOutUser();
-            }
+            r_UserManager.TryLogInIfUserIsRemembered();
         }
     }
 }
