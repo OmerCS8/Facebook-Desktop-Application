@@ -32,8 +32,8 @@ namespace BasicFacebookFeatures
             initializeMenuPanel();
             centerHeadlineLocation();
             r_ButtonToFormTypeDictionary = initializeSubFormsForButtons();
-            r_UserManager.user_loggedIn += setMainMenuToLoggedInUser;
-            r_UserManager.user_loggedOut += setMainMenuToLoggedOutUser;
+            r_UserManager.UserLoggedIn += setMainMenuToLoginUser;
+            r_UserManager.UserLoggedOut += setMainMenuToLoggedOutUser;
         }
         
         private Dictionary<Button, FormFactory.eFormType> initializeSubFormsForButtons()
@@ -125,7 +125,7 @@ namespace BasicFacebookFeatures
             setChosenButtonAsClicked(null);
         }
 
-        private void setMainMenuToLoggedInUser()
+        private void setMainMenuToLoginUser()
         {
             LabelName.Left = (panelProfile.Width - LabelName.Width) / 2;
             m_PictureBoxProfilePicture.Cursor = Cursors.Hand;

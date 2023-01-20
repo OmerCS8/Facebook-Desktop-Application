@@ -43,13 +43,12 @@ namespace FacebookAppEngine
         // ----------------------------------------- Logged in user  --------------------------------------
 
         private User LoggedInUser { get; set; }
-
-        public event Action user_loggedIn;
-        public event Action user_loggedOut;
+        public event Action UserLoggedIn;
+        public event Action UserLoggedOut;
 
         public void UserLogIn()
         {
-            LoginResult loginResult = null;
+            LoginResult loginResult;
 
             loginResult = FacebookService.Login(
                 "522656449734305",
@@ -86,7 +85,7 @@ namespace FacebookAppEngine
 
         public void TryLogInIfUserIsRemembered()
         {
-            LoginResult loginResult = null;
+            LoginResult loginResult;
 
             if (r_UserAppSettings.DoesUserWantToRememberHim && !string.IsNullOrEmpty(r_UserAppSettings.UserAccessToken))
             {
@@ -113,12 +112,12 @@ namespace FacebookAppEngine
 
         private void onLogin()
         {
-            user_loggedIn?.Invoke();
+            UserLoggedIn?.Invoke();
         }
 
         private void onLogout()
         {
-            user_loggedOut?.Invoke();
+            UserLoggedOut?.Invoke();
         }
 
         // ------------------------------------------ App settings ----------------------------------------
