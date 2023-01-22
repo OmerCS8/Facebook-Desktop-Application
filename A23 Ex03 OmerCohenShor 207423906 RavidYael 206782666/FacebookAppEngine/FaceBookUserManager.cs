@@ -100,6 +100,10 @@ namespace FacebookAppEngine
                     onLogout();
                 }
             }
+            else
+            {
+                onLogout();
+            }
         }
 
         public void UserLogOut()
