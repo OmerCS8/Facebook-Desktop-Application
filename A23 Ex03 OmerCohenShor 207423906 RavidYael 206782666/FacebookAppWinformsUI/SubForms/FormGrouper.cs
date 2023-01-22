@@ -42,7 +42,7 @@ namespace BasicFacebookFeatures.SubForms
         {
             foreach(PictureBoxBorderedAndNamed groupPictureBox in r_GroupsAndFilterStrategies.Keys)
             {
-                groupPictureBox.Click += pictureBoxGroup_Click;
+                groupPictureBox.AddOnClickAction(pictureBoxGroup_Click);
             }
         }
 
