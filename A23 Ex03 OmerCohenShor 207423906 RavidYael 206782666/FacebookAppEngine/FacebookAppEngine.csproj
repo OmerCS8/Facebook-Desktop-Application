@@ -50,10 +50,19 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="FaceBookUserManager.cs" />
+    <Compile Include="FriendsFilterer.cs" />
+    <Compile Include="FriendsFilterStrategies\CityFilterStrategy.cs" />
+    <Compile Include="FriendsFilterStrategies\TeamFilterStrategy.cs" />
+    <Compile Include="FriendsFilterStrategies\JobFilterStrategy.cs" />
+    <Compile Include="FriendsFilterStrategies\AgeFilterStrategy.cs" />
+    <Compile Include="FriendsFilterStrategies\StatusFilterStrategy.cs" />
+    <Compile Include="FriendsFilterStrategies\StudyFilterStrategy.cs" />
+    <Compile Include="IFriendsFilterStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

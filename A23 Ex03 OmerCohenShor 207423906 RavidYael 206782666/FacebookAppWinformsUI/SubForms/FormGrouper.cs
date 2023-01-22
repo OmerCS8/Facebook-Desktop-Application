@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.FormsUtils;
 using FacebookAppEngine;
+using FacebookAppEngine.FriendsFilterStrategies;
 using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.SubForms
@@ -18,122 +19,48 @@ namespace BasicFacebookFeatures.SubForms
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
         private const int k_PictureBoxGroupSize = 100;
         private const bool k_PictureBoxGroupHasBorder = true;
-        private PictureBoxBorderedAndNamed m_PictureBoxGroupCoworkers;
-        private PictureBoxBorderedAndNamed m_PictureBoxGroupStudyTogether;
-        private PictureBoxBorderedAndNamed m_PictureBoxGroupSameAge;
-        private PictureBoxBorderedAndNamed m_PictureBoxGroupSameTeam;
-        private PictureBoxBorderedAndNamed m_PictureBoxGroupSameCity;
-        private PictureBoxBorderedAndNamed m_PictureBoxGroupSameStatus;
-        private string m_CurrentGroupName = null;
-
+        private readonly Dictionary<PictureBoxBorderedAndNamed, IFriendsFilterStrategy> r_GroupsAndFilterStrategies;
+        private readonly FriendsFilterer r_FriendsFilterer;
+        private string m_CurrentGroupName;
         public FormGrouper()
         {
             InitializeComponent();
+            r_GroupsAndFilterStrategies = new Dictionary<PictureBoxBorderedAndNamed, IFriendsFilterStrategy>();
+            r_FriendsFilterer = new FriendsFilterer();
             initializeControlsLocations();
             initializeGroupsPictureBoxes();
         }
 
         private void initializeGroupsPictureBoxes()
         {
-            createGroupsPictureBoxes();
+            createGroupsPictureBoxesAndFilterStrategies();
             addClickLogicToGroupPictureBoxes();
             addGroupsPictureBoxesToGroupsPanel();
         }
 
         private void addClickLogicToGroupPictureBoxes()
         {
-            m_PictureBoxGroupSameTeam.Click += pictureBoxGroupSameTeam_Click;
-            m_PictureBoxGroupStudyTogether.Click += pictureBoxGroupStudyTogether_Click;
-            m_PictureBoxGroupSameStatus.Click += pictureBoxGroupSameStatus_Click;
-            m_PictureBoxGroupSameCity.Click += pictureBoxGroupSameCity_Click;
-            m_PictureBoxGroupSameAge.Click += pictureBoxGroupSameAge_Click;
-            m_PictureBoxGroupCoworkers.Click += pictureBoxGroupCoworkers_Click;
+            foreach(PictureBoxBorderedAndNamed groupPictureBox in r_GroupsAndFilterStrategies.Keys)
+            {
+                groupPictureBox.Click += pictureBoxGroup_Click;
+            }
         }
 
-        private void pictureBoxGroupCoworkers_Click(object sender, EventArgs e)
+        private void pictureBoxGroup_Click(object sender, EventArgs e)
         {
-            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
-                user => checkIfHaveCommonEmployer(user.WorkExperiences, r_UserManager.LoggedInUserWorkExperiences)).ToList();
+            IEnumerable<User> matchedFriends = new List<User>();
+
+            if(sender is PictureBoxBorderedAndNamed chosenGroupPicture)
+            {
+                r_FriendsFilterer.FilterStrategy = r_GroupsAndFilterStrategies[chosenGroupPicture];
+                matchedFriends = r_FriendsFilterer.GetMatchingFriends(r_UserManager.LoggedInUserFriends);
+            }
 
             setUsersToCheckedListBoxMatchedUsers(matchedFriends);
             m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
         }
 
-        private void pictureBoxGroupSameAge_Click(object sender, EventArgs e)
-        {
-            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
-                user => checkIfInSameAgeGroup(user.Birthday, r_UserManager.LoggedInUserBirthday)).ToList();
-
-            setUsersToCheckedListBoxMatchedUsers(matchedFriends);
-            m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
-        }
-
-        private void pictureBoxGroupSameCity_Click(object sender, EventArgs e)
-        {
-            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
-                user => user.Location == r_UserManager.LoggedInUserLocation).ToList();
-
-            setUsersToCheckedListBoxMatchedUsers(matchedFriends);
-            m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
-        }
-
-        private void pictureBoxGroupSameStatus_Click(object sender, EventArgs e)
-        {
-            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
-                user => user.RelationshipStatus == r_UserManager.LoggedInUserRelationshipStatus).ToList();
-
-            setUsersToCheckedListBoxMatchedUsers(matchedFriends);
-            m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
-        }
-
-        private void pictureBoxGroupStudyTogether_Click(object sender, EventArgs e)
-        {
-            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
-                user => checkIfHaveCommonSchool(user.Educations, r_UserManager.LoggedInUserEducations)).ToList();
-
-            setUsersToCheckedListBoxMatchedUsers(matchedFriends);
-            m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
-        }
-
-        private void pictureBoxGroupSameTeam_Click(object sender, EventArgs e)
-        {
-            List<User> matchedFriends = r_UserManager.LoggedInUserFriends.Where(
-                user => checkIfHaveCommonFavoriteTeam(user.FavofriteTeams, r_UserManager.LoggedInUserFavoritesTeams)).ToList();
-
-            setUsersToCheckedListBoxMatchedUsers(matchedFriends);
-            m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
-        }
-        
-        private bool checkIfHaveCommonSchool(Education[] i_FriendEducations, Education[] i_LoggedInUserEducations)
-        {
-            List<Page> userSchools = i_LoggedInUserEducations.Select(i_UserEducation => i_UserEducation.School).ToList();
-            List<Page> friendSchools = i_FriendEducations.Select(i_UserEducation => i_UserEducation.School).ToList();
-
-            return (userSchools.Intersect(friendSchools)).Count() != 0;
-        }
-       
-        private bool checkIfInSameAgeGroup(string i_FriendBirthday, string i_LoggedInUserBirthday)
-        {
-            int friendBirthYear = DateTime.Parse(i_FriendBirthday).Year;
-            int loggedInUserBirthYear = DateTime.Parse(i_LoggedInUserBirthday).Year;
-
-            return Math.Abs(friendBirthYear - loggedInUserBirthYear) <= 3;
-        }
-
-        private bool checkIfHaveCommonEmployer(WorkExperience[] i_FriendWorkExperiences, WorkExperience[] i_LoggedInUserWorkExperiences)
-        {
-            List<Page> userEmployers = i_LoggedInUserWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer).ToList();
-            List<Page> friendEmployers = i_FriendWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer).ToList();
-
-            return (userEmployers.Intersect(friendEmployers)).Count() != 0;
-        }
-
-        private bool checkIfHaveCommonFavoriteTeam(Page[] i_FriendFavoriteTeams, Page[] i_LoggedInUserFavoritesTeams)
-        {
-            return (i_FriendFavoriteTeams.Intersect(i_LoggedInUserFavoritesTeams)).Count() != 0;
-        }
-
-        private void setUsersToCheckedListBoxMatchedUsers(List<User> i_MatchedFriends)
+        private void setUsersToCheckedListBoxMatchedUsers(IEnumerable<User> i_MatchedFriends)
         {
             checkedListBoxMatchedUsers.Items.Clear();
             foreach (User user in i_MatchedFriends)
@@ -144,46 +71,56 @@ namespace BasicFacebookFeatures.SubForms
 
         private void addGroupsPictureBoxesToGroupsPanel()
         {
-            flowLayoutPanelGroups.Controls.Add(m_PictureBoxGroupSameStatus);
-            flowLayoutPanelGroups.Controls.Add(m_PictureBoxGroupCoworkers);
-            flowLayoutPanelGroups.Controls.Add(m_PictureBoxGroupSameAge);
-            flowLayoutPanelGroups.Controls.Add(m_PictureBoxGroupSameCity);
-            flowLayoutPanelGroups.Controls.Add(m_PictureBoxGroupStudyTogether);
-            flowLayoutPanelGroups.Controls.Add(m_PictureBoxGroupSameTeam);
+            foreach (PictureBoxBorderedAndNamed groupPictureBox in r_GroupsAndFilterStrategies.Keys)
+            {
+                flowLayoutPanelGroups.Controls.Add(groupPictureBox);
+            }
         }
 
-        private void createGroupsPictureBoxes()
+        private void createGroupsPictureBoxesAndFilterStrategies()
         {
-            m_PictureBoxGroupCoworkers = new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
-            {
-                PictureBackgroundImage = Properties.Resources.coworkers_logo,
-                PictureName = "Same work"
-            };
-            m_PictureBoxGroupStudyTogether = new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
-            {
-                PictureBackgroundImage = Properties.Resources.students_logo,
-                PictureName = "Same studies"
-            };
-            m_PictureBoxGroupSameAge = new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
-            {
-                PictureBackgroundImage = Properties.Resources.same_age_logo,
-                PictureName = "Same age-group"
-            };
-            m_PictureBoxGroupSameTeam = new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
-            {
-                PictureBackgroundImage = Properties.Resources.same_team_logo,
-                PictureName = "Same favorite team"
-            };
-            m_PictureBoxGroupSameCity = new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
-            {
-                PictureBackgroundImage = Properties.Resources.same_city_logo,
-                PictureName = "Same city"
-            };
-            m_PictureBoxGroupSameStatus = new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
-            {
-                PictureBackgroundImage = Properties.Resources.Relationship_logo,
-                PictureName = "Same status"
-            };
+            r_GroupsAndFilterStrategies.Add(
+                new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
+                    {
+                        PictureBackgroundImage = Properties.Resources.coworkers_logo,
+                        PictureName = "Same work"
+                    },
+                new JobFilterStrategy());
+            r_GroupsAndFilterStrategies.Add(
+                new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
+                    {
+                        PictureBackgroundImage = Properties.Resources.students_logo,
+                        PictureName = "Same studies"
+                    },
+                new StudyFilterStrategy());
+            r_GroupsAndFilterStrategies.Add(
+                new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
+                    {
+                        PictureBackgroundImage = Properties.Resources.same_age_logo,
+                        PictureName = "Same age-group"
+                    },
+                new AgeFilterStrategy());
+            r_GroupsAndFilterStrategies.Add(
+                new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
+                    {
+                        PictureBackgroundImage = Properties.Resources.same_team_logo,
+                        PictureName = "Same favorite team"
+                    },
+                new TeamFilterStrategy());
+            r_GroupsAndFilterStrategies.Add(
+                new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
+                    {
+                        PictureBackgroundImage = Properties.Resources.same_city_logo,
+                        PictureName = "Same city"
+                    },
+                new CityFilterStrategy());
+            r_GroupsAndFilterStrategies.Add(
+                new PictureBoxBorderedAndNamed(k_PictureBoxGroupSize, k_PictureBoxGroupHasBorder)
+                    {
+                        PictureBackgroundImage = Properties.Resources.Relationship_logo,
+                        PictureName = "Same status"
+                    },
+                new StatusFilterStrategy());
         }
 
         private void initializeControlsLocations()
