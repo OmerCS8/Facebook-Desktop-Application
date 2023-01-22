@@ -17,10 +17,18 @@ namespace FacebookAppEngine.FriendsFilterStrategies
 
         private bool checkIfHaveCommonEmployer(WorkExperience[] i_FriendWorkExperiences, WorkExperience[] i_LoggedInUserWorkExperiences)
         {
-            List<Page> userEmployers = i_LoggedInUserWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer).ToList();
-            List<Page> friendEmployers = i_FriendWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer).ToList();
+            bool isSameJob = false;
 
-            return (userEmployers.Intersect(friendEmployers)).Count() != 0;
+            if(i_FriendWorkExperiences != null && i_LoggedInUserWorkExperiences != null)
+            {
+                IEnumerable<Page> userEmployers =
+                    i_LoggedInUserWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer);
+                IEnumerable<Page> friendEmployers =
+                    i_FriendWorkExperiences.Select(i_UserExperience => i_UserExperience.Employer);
+                isSameJob = (userEmployers.Intersect(friendEmployers)).Count() != 0;
+            }
+
+            return isSameJob;
         }
     }
 }

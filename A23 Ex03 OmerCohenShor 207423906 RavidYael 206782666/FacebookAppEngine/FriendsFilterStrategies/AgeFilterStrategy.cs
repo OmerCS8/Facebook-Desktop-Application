@@ -18,10 +18,16 @@ namespace FacebookAppEngine.FriendsFilterStrategies
 
         private bool checkIfInSameAgeGroup(string i_FriendBirthday, string i_LoggedInUserBirthday)
         {
-            int friendBirthYear = DateTime.Parse(i_FriendBirthday).Year;
-            int loggedInUserBirthYear = DateTime.Parse(i_LoggedInUserBirthday).Year;
+            bool isSameAge = false;
 
-            return Math.Abs(friendBirthYear - loggedInUserBirthYear) <= 3;
+            if(i_FriendBirthday != null && i_LoggedInUserBirthday != null)
+            {
+                int friendBirthYear = DateTime.Parse(i_FriendBirthday).Year;
+                int loggedInUserBirthYear = DateTime.Parse(i_LoggedInUserBirthday).Year;
+                isSameAge = Math.Abs(friendBirthYear - loggedInUserBirthYear) <= 3;
+            }
+
+            return isSameAge;
         }
     }
 

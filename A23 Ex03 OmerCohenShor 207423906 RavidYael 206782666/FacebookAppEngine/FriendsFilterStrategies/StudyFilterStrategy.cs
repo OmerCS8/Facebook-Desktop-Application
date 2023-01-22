@@ -17,10 +17,17 @@ namespace FacebookAppEngine.FriendsFilterStrategies
 
         private bool checkIfHaveCommonSchool(Education[] i_FriendEducations, Education[] i_LoggedInUserEducations)
         {
-            List<Page> userSchools = i_LoggedInUserEducations.Select(i_UserEducation => i_UserEducation.School).ToList();
-            List<Page> friendSchools = i_FriendEducations.Select(i_UserEducation => i_UserEducation.School).ToList();
+            bool isSameSchool = false;
 
-            return (userSchools.Intersect(friendSchools)).Count() != 0;
+            if(i_FriendEducations != null && i_LoggedInUserEducations != null)
+            {
+                IEnumerable<Page> userSchools =
+                    i_LoggedInUserEducations.Select(i_UserEducation => i_UserEducation.School);
+                IEnumerable<Page> friendSchools = i_FriendEducations.Select(i_UserEducation => i_UserEducation.School);
+                isSameSchool = (userSchools.Intersect(friendSchools)).Count() != 0;
+            }
+
+            return isSameSchool;
         }
 
     }

@@ -13,7 +13,14 @@ namespace FacebookAppEngine.FriendsFilterStrategies
 
         public bool DoesFriendMatchFilter(User i_Friend)
         {
-            return i_Friend.RelationshipStatus == r_UserManager.LoggedInUserRelationshipStatus;
+            bool isSameStatus = false;
+
+            if(i_Friend.RelationshipStatus != null && r_UserManager.LoggedInUserRelationshipStatus != null)
+            {
+                isSameStatus = i_Friend.RelationshipStatus == r_UserManager.LoggedInUserRelationshipStatus;
+            }
+
+            return isSameStatus;
         }
     }
 }

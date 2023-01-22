@@ -13,7 +13,14 @@ namespace FacebookAppEngine.FriendsFilterStrategies
 
         public bool DoesFriendMatchFilter(User i_Friend)
         {
-            return i_Friend.Location.Location.City == r_UserManager.LoggedInUserLocation.Location.City;
+            bool isSameCity = false;
+
+            if(i_Friend.Location != null && r_UserManager.LoggedInUserLocation != null)
+            {
+                isSameCity = i_Friend.Location == r_UserManager.LoggedInUserLocation;
+            }
+
+            return isSameCity;
         }
     }
 }

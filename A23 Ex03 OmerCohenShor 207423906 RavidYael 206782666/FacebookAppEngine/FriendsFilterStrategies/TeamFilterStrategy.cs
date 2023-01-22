@@ -17,7 +17,14 @@ namespace FacebookAppEngine.FriendsFilterStrategies
 
         private bool checkIfHaveCommonFavoriteTeam(Page[] i_FriendFavoriteTeams, Page[] i_LoggedInUserFavoritesTeams)
         {
-            return (i_FriendFavoriteTeams.Intersect(i_LoggedInUserFavoritesTeams)).Count() != 0;
+            bool isSameTeam = false;
+
+            if(i_FriendFavoriteTeams != null && i_LoggedInUserFavoritesTeams != null)
+            {
+                isSameTeam = (i_FriendFavoriteTeams.Intersect(i_LoggedInUserFavoritesTeams)).Count() != 0;
+            }
+
+            return isSameTeam;
         }
 
     }

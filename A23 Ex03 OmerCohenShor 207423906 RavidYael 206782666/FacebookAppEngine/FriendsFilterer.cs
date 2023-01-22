@@ -13,7 +13,7 @@ namespace FacebookAppEngine
 
         public IEnumerable<User> GetMatchingFriends(IEnumerable<User> i_Friends)
         {
-            return i_Friends.Where(FilterStrategy.DoesFriendMatchFilter);
+            return i_Friends.Where(i_User => FilterStrategy.DoesFriendMatchFilter(i_User));
         }
     }
 }

@@ -27,37 +27,32 @@ namespace BasicFacebookFeatures.SubForms
             InitializeComponent();
             r_GroupsAndFilterStrategies = new Dictionary<PictureBoxBorderedAndNamed, IFriendsFilterStrategy>();
             r_FriendsFilterer = new FriendsFilterer();
-            initializeControlsLocations();
+            pictureBoxHeadline.Left = (panelHeader.Width - pictureBoxHeadline.Width) / 2;
+            pictureBoxHeadline.Top = (panelHeader.Height - pictureBoxHeadline.Height) / 2;
             initializeGroupsPictureBoxes();
         }
 
         private void initializeGroupsPictureBoxes()
         {
             createGroupsPictureBoxesAndFilterStrategies();
-            addClickLogicToGroupPictureBoxes();
-            addGroupsPictureBoxesToGroupsPanel();
-        }
-
-        private void addClickLogicToGroupPictureBoxes()
-        {
-            foreach(PictureBoxBorderedAndNamed groupPictureBox in r_GroupsAndFilterStrategies.Keys)
+            foreach (PictureBoxBorderedAndNamed groupPictureBox in r_GroupsAndFilterStrategies.Keys)
             {
                 groupPictureBox.AddOnClickAction(pictureBoxGroup_Click);
+                flowLayoutPanelGroups.Controls.Add(groupPictureBox);
             }
         }
 
         private void pictureBoxGroup_Click(object sender, EventArgs e)
         {
-            IEnumerable<User> matchedFriends = new List<User>();
+            IEnumerable<User> matchedFriends;
 
-            if(sender is PictureBoxBorderedAndNamed chosenGroupPicture)
+            if (sender is PictureBoxBorderedAndNamed chosenGroupPicture)
             {
                 r_FriendsFilterer.FilterStrategy = r_GroupsAndFilterStrategies[chosenGroupPicture];
                 matchedFriends = r_FriendsFilterer.GetMatchingFriends(r_UserManager.LoggedInUserFriends);
+                setUsersToCheckedListBoxMatchedUsers(matchedFriends);
+                m_CurrentGroupName = chosenGroupPicture.PictureName;
             }
-
-            setUsersToCheckedListBoxMatchedUsers(matchedFriends);
-            m_CurrentGroupName = (sender as PictureBoxBorderedAndNamed)?.PictureName;
         }
 
         private void setUsersToCheckedListBoxMatchedUsers(IEnumerable<User> i_MatchedFriends)
@@ -66,14 +61,6 @@ namespace BasicFacebookFeatures.SubForms
             foreach (User user in i_MatchedFriends)
             {
                 checkedListBoxMatchedUsers.Items.Add(user);
-            }
-        }
-
-        private void addGroupsPictureBoxesToGroupsPanel()
-        {
-            foreach (PictureBoxBorderedAndNamed groupPictureBox in r_GroupsAndFilterStrategies.Keys)
-            {
-                flowLayoutPanelGroups.Controls.Add(groupPictureBox);
             }
         }
 
@@ -123,20 +110,22 @@ namespace BasicFacebookFeatures.SubForms
                 new StatusFilterStrategy());
         }
 
-        private void initializeControlsLocations()
-        {
-            pictureBoxHeadline.Left = (panelHeader.Width - pictureBoxHeadline.Width) / 2;
-            pictureBoxHeadline.Top = (panelHeader.Height - pictureBoxHeadline.Height) / 2;
-        }
-
         private void buttonCrateGroup_Click(object sender, EventArgs e)
         {
-            List<User> chosenUsersToFriendlist = checkedListBoxMatchedUsers.CheckedItems.OfType<User>().ToList();
+            List<User> chosenUsersToFriendList = checkedListBoxMatchedUsers.CheckedItems.OfType<User>().ToList();
 
-            if (chosenUsersToFriendlist.Count() != 0)
+            if (chosenUsersToFriendList.Any())
             {
-                FriendList friendList = r_UserManager.CreateFriendList(m_CurrentGroupName);
-                friendList.AddMemeber(chosenUsersToFriendlist);
+                try
+                {
+                    FriendList friendList = r_UserManager.CreateFriendList(m_CurrentGroupName);
+                    friendList.AddMemeber(chosenUsersToFriendList);
+                }
+                catch(Exception exception)
+                {
+                    MessageBox.Show("Could not create the friend list!", "permissions Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
