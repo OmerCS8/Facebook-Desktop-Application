@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.FormsUtils
         protected PictureBoxDecorator(PictureBox i_InnerPictureBox)
         {
             this.ControlAdded += this.pictureBox_ControlAdded;
-            this.Size = new Size(100, 100);
+            this.Size = i_InnerPictureBox.Size;
             InnerPictureBox = i_InnerPictureBox;
             addVisualEffects();
         }
@@ -42,22 +42,39 @@ namespace BasicFacebookFeatures.FormsUtils
         public PictureBox InnerPictureBox
         {
             get => m_InnerPictureBox;
-            set
+            private set
             {
-                if(m_InnerPictureBox != null)
-                {
-                    this.Controls.Remove(m_InnerPictureBox);
-                }
-
-                m_InnerPictureBox = value;
                 if(value != null)
                 {
+                    if (m_InnerPictureBox != null)
+                    {
+                        value.Size = m_InnerPictureBox.Size;
+                        this.Controls.Remove(m_InnerPictureBox);
+                    }
+
+                    m_InnerPictureBox = value;
                     this.Controls.Add(m_InnerPictureBox);
-                    m_InnerPictureBox.Location = this.Location;
-                    m_InnerPictureBox.Size = this.Size;
+                    m_InnerPictureBox.Location = new Point(0,0);
                     m_InnerPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
                 }
             }
+        }
+
+        public Image InnerBackgroundImage
+        {
+            get => getMostInnerPictureBoxDecorator().BackgroundImage;
+            set => getMostInnerPictureBoxDecorator().BackgroundImage = value;
+        }
+
+        private PictureBoxDecorator getMostInnerPictureBoxDecorator()
+        {
+            PictureBoxDecorator currentPictureBoxDecorator = this;
+            while(currentPictureBoxDecorator.InnerPictureBox is PictureBoxDecorator innerPictureBox)
+            {
+                currentPictureBoxDecorator = innerPictureBox;
+            }
+
+            return currentPictureBoxDecorator;
         }
 
         private void pictureBox_ControlAdded(object i_Sender, ControlEventArgs i_E)

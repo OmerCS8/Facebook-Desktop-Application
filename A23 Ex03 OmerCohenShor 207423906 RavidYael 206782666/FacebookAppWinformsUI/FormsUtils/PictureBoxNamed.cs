@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.FormsUtils
 
         public PictureBoxNamed(PictureBox i_InnerPicture ,string i_PictureName = k_DefaultPictureName): base(i_InnerPicture)
         {
-            (this as PictureBox).Size = new Size(this.Size.Width, this.Size.Height + 15);
+            (this as PictureBox).Size = new Size(i_InnerPicture.Width, i_InnerPicture.Height + 15);
             this.m_InnerPictureBox.Top = 15;
             r_PictureNameLabel = new Label() { AutoEllipsis = true, Visible = true, Text = i_PictureName};
             this.Controls.Add(r_PictureNameLabel);

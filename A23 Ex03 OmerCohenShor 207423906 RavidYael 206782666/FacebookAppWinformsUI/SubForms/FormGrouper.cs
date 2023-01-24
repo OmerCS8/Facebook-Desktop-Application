@@ -17,8 +17,7 @@ namespace BasicFacebookFeatures.SubForms
     public partial class FormGrouper : Form
     {
         private readonly FaceBookUserManager r_UserManager = FaceBookUserManager.Instance;
-        private const int k_PictureBoxGroupSize = 100;
-        private const bool k_PictureBoxGroupHasBorder = true;
+        private readonly Size r_PictureBoxGroupSize = new Size(100, 100);
         private readonly Dictionary<PictureBoxBordered, IFriendsFilterStrategy> r_GroupsAndFilterStrategies;
         private readonly FriendsFilterer r_FriendsFilterer;
         private string m_CurrentGroupName;
@@ -69,41 +68,47 @@ namespace BasicFacebookFeatures.SubForms
 
         private void createGroupsPictureBoxesAndFilterStrategies()
         {
+            PictureBox jobPictureBox = new PictureBox() {
+                BackgroundImage = Properties.Resources.coworkers_logo,
+                Size = r_PictureBoxGroupSize
+            };
+            PictureBox studiesPictureBox = new PictureBox() {
+                BackgroundImage = Properties.Resources.students_logo,
+                Size = r_PictureBoxGroupSize
+            };
+            PictureBox cityPictureBox = new PictureBox() {
+                BackgroundImage = Properties.Resources.same_city_logo,
+                Size = r_PictureBoxGroupSize
+            };
+            PictureBox statusPictureBox = new PictureBox() {
+                BackgroundImage = Properties.Resources.Relationship_logo,
+                Size = r_PictureBoxGroupSize
+            };
+            PictureBox agePictureBox = new PictureBox() {
+                BackgroundImage = Properties.Resources.same_age_logo,
+                Size = r_PictureBoxGroupSize
+            };
+            PictureBox teamPictureBox = new PictureBox() {
+                BackgroundImage = Properties.Resources.same_team_logo,
+                Size = r_PictureBoxGroupSize
+            };
             r_GroupsAndFilterStrategies.Add(
-                new PictureBoxBordered(
-                    new PictureBoxNamed(
-                        new PictureBox() { BackgroundImage = Properties.Resources.coworkers_logo },
-                        "Same job")),
+                new PictureBoxBordered(new PictureBoxNamed(jobPictureBox, "Same job")),
                 new JobFilterStrategy());
             r_GroupsAndFilterStrategies.Add(
-                new PictureBoxBordered(
-                    new PictureBoxNamed(
-                        new PictureBox() { BackgroundImage = Properties.Resources.students_logo },
-                        "Same studies")),
+                new PictureBoxBordered(new PictureBoxNamed(studiesPictureBox, "Same studies")),
                 new StudyFilterStrategy());
             r_GroupsAndFilterStrategies.Add(
-                new PictureBoxBordered(
-                    new PictureBoxNamed(
-                        new PictureBox() { BackgroundImage = Properties.Resources.same_age_logo },
-                        "Same age-group")),
+                new PictureBoxBordered(new PictureBoxNamed(agePictureBox, "Same age-group")),
                 new AgeFilterStrategy());
             r_GroupsAndFilterStrategies.Add(
-                new PictureBoxBordered(
-                    new PictureBoxNamed(
-                        new PictureBox() { BackgroundImage = Properties.Resources.same_team_logo },
-                        "Same favorite team")),
+                new PictureBoxBordered(new PictureBoxNamed(teamPictureBox, "Same favorite team")),
                 new TeamFilterStrategy());
             r_GroupsAndFilterStrategies.Add(
-                new PictureBoxBordered(
-                    new PictureBoxNamed(
-                        new PictureBox() { BackgroundImage = Properties.Resources.same_city_logo },
-                        "Same city")),
+                new PictureBoxBordered(new PictureBoxNamed(cityPictureBox, "Same city")),
                 new CityFilterStrategy());
             r_GroupsAndFilterStrategies.Add(
-                new PictureBoxBordered(
-                    new PictureBoxNamed(
-                        new PictureBox() { BackgroundImage = Properties.Resources.Relationship_logo },
-                        "Same status")),
+                new PictureBoxBordered(new PictureBoxNamed(statusPictureBox, "Same status")),
                 new StatusFilterStrategy());
         }
 

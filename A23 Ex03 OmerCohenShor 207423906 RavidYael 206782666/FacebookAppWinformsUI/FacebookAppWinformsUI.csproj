@@ -93,7 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormFactory.cs" />
-    <Compile Include="FormsUtils\PictureBoxBordered.cs" />
+    <Compile Include="FormsUtils\PictureBoxBordered.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormsUtils\PictureBoxBorderedAndNamed.cs">
       <SubType>Component</SubType>
     </Compile>
