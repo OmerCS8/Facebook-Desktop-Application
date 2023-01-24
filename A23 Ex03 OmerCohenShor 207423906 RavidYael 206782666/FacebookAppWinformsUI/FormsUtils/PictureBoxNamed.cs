@@ -20,12 +20,24 @@ namespace BasicFacebookFeatures.FormsUtils
             r_PictureNameLabel = new Label() { AutoEllipsis = true, Visible = true, Text = i_PictureName};
             this.Controls.Add(r_PictureNameLabel);
             r_PictureNameLabel.Location = new Point(0,0);
+            this.MouseEnter += pictureBoxNamed_MouseEnter;
+            this.MouseLeave += pictureBoxNamed_MouseLeave;
         }
 
         public string PictureName
         {
             get => r_PictureNameLabel.Text;
             set => r_PictureNameLabel.Text = value;
+        }
+
+        private void pictureBoxNamed_MouseLeave(object i_Sender, EventArgs i_E)
+        {
+            r_PictureNameLabel.Font = new Font(r_PictureNameLabel.Font, FontStyle.Regular);
+        }
+
+        private void pictureBoxNamed_MouseEnter(object i_Sender, EventArgs i_E)
+        {
+            r_PictureNameLabel.Font = new Font(r_PictureNameLabel.Font, FontStyle.Bold);
         }
     }
 }
