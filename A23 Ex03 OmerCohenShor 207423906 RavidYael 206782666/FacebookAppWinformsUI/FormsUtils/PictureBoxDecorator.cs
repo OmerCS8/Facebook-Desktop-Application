@@ -69,6 +69,13 @@ namespace BasicFacebookFeatures.FormsUtils
                 addedControl.MouseEnter += (i_NewSender, i_Args) => this.OnMouseEnter(i_Args);
                 addedControl.MouseLeave += (i_NewSender, i_Args) => this.OnMouseLeave(i_Args);
                 addedControl.Click += (i_NewSender, i_Args) => this.OnClick(i_Args);
+                if(addedControl is PictureBoxDecorator addedPictureBoxDecorator)
+                {
+                    this.MouseDown += addedPictureBoxDecorator.pictureBox_MouseDown;
+                    this.MouseUp += addedPictureBoxDecorator.pictureBox_MouseEnterAndUp;
+                    this.MouseEnter += addedPictureBoxDecorator.pictureBox_MouseEnterAndUp;
+                    this.MouseLeave += addedPictureBoxDecorator.pictureBox_MouseLeave;
+                }
             }
         }
 
