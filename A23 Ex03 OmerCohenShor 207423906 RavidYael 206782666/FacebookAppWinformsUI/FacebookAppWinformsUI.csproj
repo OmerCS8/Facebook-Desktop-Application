@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormFactory.cs" />
-    <Compile Include="FormsUtils\PictureBoxBorderedAndNamed.cs">
+    <Compile Include="FormsUtils\PictureBoxBordered.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormsUtils\ColorsUtils.cs" />
@@ -104,6 +104,12 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FormsUtils\PictureBoxCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormsUtils\PictureBoxDecorator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormsUtils\PictureBoxNamed.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormsUtils\PictureBoxOval.cs">

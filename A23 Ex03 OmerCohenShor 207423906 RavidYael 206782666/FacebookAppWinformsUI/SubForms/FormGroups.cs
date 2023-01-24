@@ -34,34 +34,38 @@ namespace BasicFacebookFeatures.SubForms
 
             foreach (Group currentGroup in userGroups)
             {
-                PictureBoxBorderedAndNamed groupPictureBox = new PictureBoxBorderedAndNamed(k_GroupPhotoSize, true);
+                PictureBox groupPictureBox = new PictureBox() { Size = new Size(k_GroupPhotoSize, k_GroupPhotoSize) };
+                PictureBoxBordered groupCoverPictureBox;
 
                 try
                 {
-                    groupPictureBox.PictureBackgroundImage = currentGroup.ImageNormal;
+                    groupPictureBox.BackgroundImage = currentGroup.ImageNormal;
                 }
                 catch (Exception)
                 {
-                    groupPictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
+                    groupPictureBox.BackgroundImage = Properties.Resources.default_Album_Image;
                 }
 
-                groupPictureBox.PictureName = currentGroup.Name;
-                groupPictureBox.AddOnClickAction(this.groupPictureBox_Clicked);
-                flowLayoutPanelGroups.Invoke(new Action(()=> flowLayoutPanelGroups.Controls.Add(groupPictureBox)));
+                groupCoverPictureBox = new PictureBoxBordered(new PictureBoxNamed(groupPictureBox, currentGroup.Name));
+                groupCoverPictureBox.Click += groupPictureBox_Clicked;
+                flowLayoutPanelGroups.Invoke(new Action(()=> flowLayoutPanelGroups.Controls.Add(groupCoverPictureBox)));
             }
         }
 
         private void groupPictureBox_Clicked(object i_Sender, EventArgs i_E)
         {
-            if (i_Sender is PictureBoxBorderedAndNamed clickedGroupPictureBox)
+            if (i_Sender is PictureBoxBordered clickedGroupPictureBox)
             {
-                m_SelectedGroup = r_UserManager.LoggedInUserGroups.Find(
-                    i_Group => i_Group.Name == clickedGroupPictureBox.PictureName);
-                if (m_SelectedGroup != null)
+                if (clickedGroupPictureBox.InnerPictureBox is PictureBoxNamed clickedInnerPictureBox)
                 {
-                    buttonPostInGroup.Enabled = true;
-                    richTextBoxPost.Enabled = true;
-                    groupBindingSource.DataSource = m_SelectedGroup;
+                    m_SelectedGroup = r_UserManager.LoggedInUserGroups.Find(
+                        i_Group => i_Group.Name == clickedInnerPictureBox.PictureName);
+                    if(m_SelectedGroup != null)
+                    {
+                        buttonPostInGroup.Enabled = true;
+                        richTextBoxPost.Enabled = true;
+                        groupBindingSource.DataSource = m_SelectedGroup;
+                    }
                 }
             }
         }

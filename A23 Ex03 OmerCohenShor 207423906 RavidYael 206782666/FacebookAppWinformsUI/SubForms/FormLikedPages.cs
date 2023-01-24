@@ -34,38 +34,41 @@ namespace BasicFacebookFeatures.SubForms
 
             foreach (Page currentPage in userPages)
             {
-                PictureBoxBorderedAndNamed pagePictureBox = new PictureBoxBorderedAndNamed(k_PagePhotoSize, true);
+                PictureBox pagePictureBox = new PictureBox() { Size = new Size(k_PagePhotoSize, k_PagePhotoSize) };
+                PictureBoxBordered pageCoverPictureBox;
 
                 try
                 {
-                    pagePictureBox.PictureBackgroundImage = currentPage.ImageNormal;
+                    pagePictureBox.BackgroundImage = currentPage.ImageNormal;
                 }
                 catch (Exception)
                 {
-                    pagePictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
+                    pagePictureBox.BackgroundImage = Properties.Resources.default_Album_Image;
                 }
 
-                pagePictureBox.PictureName = currentPage.Name;
-                pagePictureBox.AddOnClickAction(this.pagePictureBox_Clicked);
-                flowLayoutPanelPages.Invoke(new Action((() => flowLayoutPanelPages.Controls.Add(pagePictureBox))));
+                pageCoverPictureBox = new PictureBoxBordered(new PictureBoxNamed(pagePictureBox, currentPage.Name));
+                pageCoverPictureBox.Click += pagePictureBox_Clicked;
+                flowLayoutPanelPages.Invoke(new Action(() => flowLayoutPanelPages.Controls.Add(pageCoverPictureBox)));
             }
         }
 
         private void pagePictureBox_Clicked(object i_Sender, EventArgs i_E)
         {
-            if (i_Sender is PictureBoxBorderedAndNamed clickedPagePictureBox)
+            if (i_Sender is PictureBoxBordered clickedGroupPictureBox)
             {
-                m_SelectedPage = r_UserManager.LoggedInUserLikedPages.Find(
-                    i_Page => i_Page.Name == clickedPagePictureBox.PictureName);
-                if (m_SelectedPage != null)
+                if (clickedGroupPictureBox.InnerPictureBox is PictureBoxNamed clickedInnerPictureBox)
                 {
-                    buttonPostInPage.Enabled = true;
-                    richTextBoxPage.Enabled = true;
-                    pageBindingSource.DataSource = m_SelectedPage;
+                    m_SelectedPage = r_UserManager.LoggedInUserLikedPages.Find(
+                        i_Page => i_Page.Name == clickedInnerPictureBox.PictureName);
+                    if (m_SelectedPage != null)
+                    {
+                        buttonPostInPage.Enabled = true;
+                        richTextBoxPage.Enabled = true;
+                        pageBindingSource.DataSource = m_SelectedPage;
+                    }
                 }
             }
         }
-
 
         private void buttonPostInPage_Click(object sender, EventArgs e)
         {
