@@ -43,19 +43,20 @@ namespace BasicFacebookFeatures.SubForms
 
             foreach(Album currentAlbum in userAlbums)
             {
-                PictureBoxBorderedAndNamed albumCoverPictureBox = new PictureBoxBorderedAndNamed(k_AlbumCoverSize, true);
+                PictureBox albumPictureBox = new PictureBox() { Size = new Size(k_AlbumCoverSize, k_AlbumCoverSize) };
+                PictureBoxBordered albumCoverPictureBox;
 
                 try
                 {
-                    albumCoverPictureBox.PictureBackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
+                    albumPictureBox.BackgroundImage = currentAlbum.CoverPhoto.ImageNormal;
                 }
                 catch (Exception)
                 {
-                    albumCoverPictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
+                    albumPictureBox.BackgroundImage = Properties.Resources.default_Album_Image;
                 }
 
-                albumCoverPictureBox.PictureName = currentAlbum.Name;
-                albumCoverPictureBox.AddOnClickAction(this.albumCoverPictureBox_Clicked);
+                albumCoverPictureBox = new PictureBoxBordered(new PictureBoxNamed(albumPictureBox, currentAlbum.Name));
+                albumCoverPictureBox.Click += albumCoverPictureBox_Clicked;
                 if(!flowLayoutPanelAlbums.IsDisposed)
                 {
                     flowLayoutPanelAlbums.Invoke(new Action(() => flowLayoutPanelAlbums.Controls.Add(albumCoverPictureBox)));
@@ -79,19 +80,21 @@ namespace BasicFacebookFeatures.SubForms
             {
                 foreach(Photo currentPhoto in i_SelectedAlbum.Photos)
                 {
-                    PictureBoxBorderedAndNamed albumPhotoPictureBox =
-                        new PictureBoxBorderedAndNamed(k_PhotoSize, false);
+                    PictureBox photoPictureBox = new PictureBox(){Size = new Size(k_PhotoSize, k_PhotoSize)};
+                    PictureBoxNamed albumPhotoPictureBox;
+
                     try
                     {
-                        albumPhotoPictureBox.PictureBackgroundImage = currentPhoto.ImageNormal;
+                        photoPictureBox.BackgroundImage = currentPhoto.ImageNormal;
                     }
                     catch(Exception)
                     {
-                        albumPhotoPictureBox.PictureBackgroundImage = Properties.Resources.default_Album_Image;
+                        photoPictureBox.BackgroundImage = Properties.Resources.default_Album_Image;
                     }
 
-                    albumPhotoPictureBox.PictureName = currentPhoto.PictureNormalURL;
-                    albumPhotoPictureBox.AddOnClickAction(this.albumPhotoPictureBox_Clicked);
+                    albumPhotoPictureBox = new PictureBoxNamed(photoPictureBox, currentPhoto.PictureNormalURL);
+                    albumPhotoPictureBox.Click += this.albumPhotoPictureBox_Clicked;
+                    
                     if(!imagesPanel.IsDisposed)
                     {
                         imagesPanel.Invoke(new Action(() => imagesPanel.Controls.Add(albumPhotoPictureBox)));
@@ -112,11 +115,11 @@ namespace BasicFacebookFeatures.SubForms
 
         private void albumPhotoPictureBox_Clicked(object i_Sender, EventArgs i_E)
         {
-            if(i_Sender is PictureBoxBorderedAndNamed clickedPhotoPictureBox)
+            if(i_Sender is PictureBoxNamed clickedInnerPictureBox)
             {
-                linkLabelPhotoLink.Text = clickedPhotoPictureBox.PictureName;
+                linkLabelPhotoLink.Text = clickedInnerPictureBox.PictureName;
                 linkLabelPhotoLink.Visible = true;
-                m_ChosenPhoto = clickedPhotoPictureBox.PictureBackgroundImage;
+                m_ChosenPhoto = clickedInnerPictureBox.InnerBackgroundImage;
             }
         }
 
@@ -125,14 +128,17 @@ namespace BasicFacebookFeatures.SubForms
             string albumName;
             Album selectedAlbum;
 
-            if(i_Sender is PictureBoxBorderedAndNamed clickedAlbumPictureBox)
+            if(i_Sender is PictureBoxBordered clickedAlbumPictureBox)
             {
-                albumName = clickedAlbumPictureBox.PictureName;
-                labelChosenAlbumName.Text = $"Selected album: {albumName}";
-                selectedAlbum = r_UserManager.LoggedInUserAlbums.Find(i_Album => i_Album.Name == albumName);
-                if(selectedAlbum != null)
+                if(clickedAlbumPictureBox.InnerPictureBox is PictureBoxNamed clickedInnerPictureBox)
                 {
-                    new Thread(() => setAlbumPhotos(selectedAlbum)){ IsBackground = true }.Start();
+                    albumName = clickedInnerPictureBox.PictureName;
+                    labelChosenAlbumName.Text = $"Selected album: {albumName}";
+                    selectedAlbum = r_UserManager.LoggedInUserAlbums.Find(i_Album => i_Album.Name == albumName);
+                    if(selectedAlbum != null)
+                    {
+                        new Thread(() => setAlbumPhotos(selectedAlbum)){ IsBackground = true }.Start();
+                    }
                 }
             }
         }

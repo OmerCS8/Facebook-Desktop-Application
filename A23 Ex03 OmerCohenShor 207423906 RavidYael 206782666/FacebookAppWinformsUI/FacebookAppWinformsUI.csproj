@@ -96,9 +96,6 @@
     <Compile Include="FormsUtils\PictureBoxBordered.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormsUtils\PictureBoxBorderedAndNamed.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FormsUtils\ColorsUtils.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
