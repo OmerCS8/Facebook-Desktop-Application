@@ -27,13 +27,14 @@ namespace BasicFacebookFeatures.FormsUtils
             get => base.Size;
             set
             {
-                Size oldSize = this.Size;
+                int deltaWidth = value.Width - this.Size.Width;
+                int deltaHeight = value.Height - this.Size.Height;
 
                 base.Size = value;
                 if(m_InnerPictureBox != null)
                 {
-                    int newInnerWidth = Math.Max(m_InnerPictureBox.Size.Width + (value.Width - oldSize.Width), 0);
-                    int newInnerHeight = Math.Max(m_InnerPictureBox.Size.Height + (value.Width - oldSize.Height), 0);
+                    int newInnerWidth = Math.Max(m_InnerPictureBox.Size.Width + (deltaWidth), 0);
+                    int newInnerHeight = Math.Max(m_InnerPictureBox.Size.Height + (deltaHeight), 0);
                     m_InnerPictureBox.Size = new Size(newInnerWidth, newInnerHeight);
                 }
             }
@@ -62,8 +63,8 @@ namespace BasicFacebookFeatures.FormsUtils
 
         public Image InnerBackgroundImage
         {
-            get => getMostInnerPictureBoxDecorator().BackgroundImage;
-            set => getMostInnerPictureBoxDecorator().BackgroundImage = value;
+            get => getMostInnerPictureBoxDecorator().InnerPictureBox.BackgroundImage;
+            set => getMostInnerPictureBoxDecorator().InnerPictureBox.BackgroundImage = value;
         }
 
         private PictureBoxDecorator getMostInnerPictureBoxDecorator()
