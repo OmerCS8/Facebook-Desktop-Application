@@ -12,26 +12,30 @@ namespace BasicFacebookFeatures.FormsUtils
     {
         protected PictureBox m_InnerPictureBox;
 
-        protected PictureBoxDecorator(PictureBox i_InnerPictureBox): this()
-        {
-            InnerPictureBox = i_InnerPictureBox;
-        }
-
-        protected PictureBoxDecorator()
+        protected PictureBoxDecorator(PictureBox i_InnerPictureBox)
         {
             this.ControlAdded += this.pictureBox_ControlAdded;
+            this.Size = new Size(100, 100);
+            InnerPictureBox = i_InnerPictureBox;
             addVisualEffects();
         }
+
+        protected PictureBoxDecorator() : this(new PictureBox()) {}
 
         public new Size Size
         {
             get => base.Size;
             set
             {
-                int newInnerWidth = Math.Max(m_InnerPictureBox.Size.Width + (value.Width - this.Size.Width), 0);
-                int newInnerHeight = Math.Max(m_InnerPictureBox.Size.Height + (value.Width - this.Size.Height), 0);
+                Size oldSize = this.Size;
+
                 base.Size = value;
-                m_InnerPictureBox.Size = new Size(newInnerWidth, newInnerHeight);
+                if(m_InnerPictureBox != null)
+                {
+                    int newInnerWidth = Math.Max(m_InnerPictureBox.Size.Width + (value.Width - oldSize.Width), 0);
+                    int newInnerHeight = Math.Max(m_InnerPictureBox.Size.Height + (value.Width - oldSize.Height), 0);
+                    m_InnerPictureBox.Size = new Size(newInnerWidth, newInnerHeight);
+                }
             }
         }
         
@@ -51,13 +55,14 @@ namespace BasicFacebookFeatures.FormsUtils
                     this.Controls.Add(m_InnerPictureBox);
                     m_InnerPictureBox.Location = this.Location;
                     m_InnerPictureBox.Size = this.Size;
+                    m_InnerPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
                 }
             }
         }
 
         private void pictureBox_ControlAdded(object i_Sender, ControlEventArgs i_E)
         {
-            if(i_Sender is Control addedControl)
+            if(i_E.Control is Control addedControl)
             {
                 addedControl.MouseDown += (i_NewSender, i_Args) => this.OnMouseDown(i_Args);
                 addedControl.MouseUp += (i_NewSender, i_Args) => this.OnMouseUp(i_Args);
