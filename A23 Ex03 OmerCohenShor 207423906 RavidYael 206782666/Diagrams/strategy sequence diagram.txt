@@ -1,0 +1,41 @@
+title Pattern Strategy - FormGrouper
+
+actor user
+
+participant "<link:facebook.com>:FormMain </link>" as FormMain
+participant "<link:facebook.com>:FormGrouper </link>" as FormGrouper
+participant "<link:facebook.com>:FriendFilterer </link>" as FriendFilterer
+participant "<link:facebook.com>:ageFilterStrategy </link>" as ageFilterStrategy
+participant "<link:facebook.com>:FacebookUserManager </link>" as FacebookUserManager
+activate FormMain
+activate FacebookUserManager
+activate user
+user->FormMain:click on the "Grouper" button
+FormMain ->FormGrouper: create FormGrouper
+activate FormGrouper
+FormGrouper ->FriendFilterer: create new FriendFilterer
+activate FriendFilterer
+FriendFilterer -->>FormGrouper:return new **FriendFilterer**
+note left of ageFilterStrategy:in this way the Form create\nall of the strategies
+FormGrouper ->ageFilterStrategy: create new AgeFilterStrategy
+activate ageFilterStrategy
+ageFilterStrategy -->>FormGrouper:return new **AgeFilterStrategy**
+FormGrouper -->>FormMain: return new **FormGrouper**
+
+FormMain -->> user: display FormGrouper as sub-form
+user->FormGrouper:Choose **same age** friend list category
+FormGrouper ->FacebookUserManager:get users friends list
+note right of FacebookUserManager: assuming this info is cached
+FacebookUserManager-->>FormGrouper:return user's friend list **(FacbookUserCollection<User>)**
+FormGrouper ->FriendFilterer:inject the **ageFilterSrategy** as the strategy of FriendFilterer
+FriendFilterer -->>FormGrouper: **(void)**
+FormGrouper->FriendFilterer: getMatchingFriends(userFriends)
+loop foreach user's friend
+FriendFilterer->ageFilterStrategy: DoesFriendMatchFilter(Friend)
+FriendFilterer<<--ageFilterStrategy:return if Friend matchs
+opt friend matches filter
+FriendFilterer ->FriendFilterer: add friend to mached friends
+end
+end
+FriendFilterer -->>FormGrouper:return matching friends **(Ienumerable)**
+FormGrouper-->>user: print list of matched friends
