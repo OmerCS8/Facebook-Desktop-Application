@@ -1,0 +1,43 @@
+title Pattern Strategy - FormGrouper
+
+actor user
+
+participant "<link:facebook.com>:FormMain </link>" as FormMain
+participant "<link:facebook.com>:FormAlbum </link>" as FormAlbum
+participant "<link:facebook.com>:PictureBoxBordered </link>" as PictureBoxBordered
+participant "<link:facebook.com>:PictureBoxNamed</link>" as PictureBoxNamed
+participant "<link:facebook.com>:PictureBoxDecorator </link>" as PictureBoxDecorator
+participant "<link:facebook.com>:PictureBox </link>" as PictureBox
+activate FormMain
+activate FormAlbum
+activate user
+user->FormMain:click on Albums side button
+FormMain->FormAlbum:open Form Albums
+
+loop foreach album in user's albums
+note over FormAlbum:new PictureBoxBordered(new PictureBoxNamed(new PictureBox(){image = album.image}))
+
+FormAlbum->PictureBox:new PictureBox
+activate PictureBox
+FormAlbum<<--PictureBox:return new pictureBox
+FormAlbum->PictureBoxNamed:new NamedPictureBox(pictureBox)
+activate PictureBoxNamed
+PictureBoxNamed->PictureBoxDecorator:base(PictureBox)
+activate PictureBoxDecorator
+PictureBoxDecorator->PictureBox:Base()
+activate PictureBox
+PictureBoxDecorator<<--PictureBox:void
+PictureBoxNamed<<--PictureBoxDecorator:void
+FormAlbum<<--PictureBoxNamed:return new NamedPictureBox
+FormAlbum->PictureBoxBordered:new BorderedPictureBox(pictureBox)
+activate PictureBoxBordered
+PictureBoxBordered->PictureBoxDecorator:base(PictureBox)
+activate PictureBoxDecorator
+PictureBoxDecorator->PictureBox:Base()
+activate PictureBox
+PictureBoxDecorator<<--PictureBox:void
+PictureBoxBordered<<--PictureBoxDecorator:void
+FormAlbum<<--PictureBoxBordered:return new BorderedPictureBox
+end
+FormMain<<--FormAlbum:return albums pictureboxes
+user<<--FormMain:print albums to screen
